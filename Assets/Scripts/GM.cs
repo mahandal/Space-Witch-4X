@@ -11,6 +11,12 @@ public class GM : MonoBehaviour
     // The grid of all tiles for our current adventure.
     public Tile[,] grid;
 
+    // How many tiles wide our grid is.
+    public int gridWidth = 15;
+
+    // How many tiles high our grid is.
+    public int gridHeight = 10;
+
     // The currently selected tile.
     public Tile selectedTile;
 

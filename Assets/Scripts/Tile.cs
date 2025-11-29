@@ -7,6 +7,7 @@ public class Tile : MonoBehaviour
     public int x = 0;
     public int y = 0;
 
+    [Header("Manual Machinery")]
     // The background color on top of this tile's sprite.
     // Completely clear by default.
     // Highlights differently to show:
@@ -17,16 +18,46 @@ public class Tile : MonoBehaviour
     // (so blue is actually rare, only used for pacifists and ships with minimum range)
     public SpriteRenderer bg;
 
+
+    // Clear ALL highlighting for ALL tiles.
+    public static void ClearAllHighlights()
+    {
+        // Loop through columns.
+        for (int x = 0; x < GM.I.gridWidth; x++)
+        {
+            // Loop through rows.
+            for (int y = 0; y < GM.I.gridHeight; y++)
+            {
+                // Clear!
+                GM.I.grid[x,y].ClearHighlight();
+            }
+        }
+    }
+
+
+    // Select this tile!
+    public void Select()
+    {
+        // Clear old highlighting.
+        ClearAllHighlights();
+
+        // Highlight!
+        HighlightSelected();
+
+        // Set as currently selected tile.
+        GM.I.selectedTile = this;
+    }
+
     // - Colorize background.
 
     // Clear background color.
-    public void ClearBackground()
+    public void ClearHighlight()
     {
         bg.color = new Color(0f, 0f, 0f, 0f);
     }
 
     // Set background color to pink to show the currently selected tile.
-    public void BackgroundPink()
+    public void HighlightSelected()
     {
         bg.color = new Color(1f, 0.154f, 0.7932f, 0.7843f);
     }

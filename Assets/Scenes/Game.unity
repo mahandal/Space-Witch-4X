@@ -933,7 +933,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 10
   m_Sprite: {fileID: 4138050939122739134, guid: a19153c7a09e91a4a844fcd2272e4059, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.48235294}
+  m_Color: {r: 0.78616345, g: 0.22002682, b: 0.22562028, a: 0}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -2261,7 +2261,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &439786956
 Transform:
   m_ObjectHideFlags: 0
@@ -5815,7 +5815,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 10
   m_Sprite: {fileID: 4138050939122739134, guid: a19153c7a09e91a4a844fcd2272e4059, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.48235294}
+  m_Color: {r: 0.78616345, g: 0.22002682, b: 0.22562028, a: 0}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -7775,7 +7775,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 10
   m_Sprite: {fileID: 4138050939122739134, guid: a19153c7a09e91a4a844fcd2272e4059, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.48235294}
+  m_Color: {r: 0.78616345, g: 0.22002682, b: 0.22562028, a: 0}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -7955,7 +7955,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 10
   m_Sprite: {fileID: 4138050939122739134, guid: a19153c7a09e91a4a844fcd2272e4059, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.48235294}
+  m_Color: {r: 0.78616345, g: 0.22002682, b: 0.22562028, a: 0}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -9596,6 +9596,7 @@ GameObject:
   - component: {fileID: 1422601898}
   - component: {fileID: 1422601900}
   - component: {fileID: 1422601899}
+  - component: {fileID: 1422601901}
   m_Layer: 0
   m_Name: GM
   m_TagString: Untagged
@@ -9652,8 +9653,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GM
   gameState: 0
+  gridWidth: 15
+  gridHeight: 10
   selectedTile: {fileID: 0}
   universe: {fileID: 1601793761}
+--- !u!114 &1422601901
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1422601897}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7fe97fefc1e227b41833ee6d912a30b5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::InputManager
 --- !u!1 &1427534975
 GameObject:
   m_ObjectHideFlags: 0
@@ -9671,7 +9686,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1427534976
 Transform:
   m_ObjectHideFlags: 0
@@ -10179,7 +10194,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1487250963
 Transform:
   m_ObjectHideFlags: 0
@@ -12935,7 +12950,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 10
   m_Sprite: {fileID: 4138050939122739134, guid: a19153c7a09e91a4a844fcd2272e4059, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.48235294}
+  m_Color: {r: 0.78616345, g: 0.22002682, b: 0.22562028, a: 0}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -13762,7 +13777,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1933718194
 Transform:
   m_ObjectHideFlags: 0
@@ -14090,7 +14105,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1985196041
 Transform:
   m_ObjectHideFlags: 0

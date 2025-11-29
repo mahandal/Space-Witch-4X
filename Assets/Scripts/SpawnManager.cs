@@ -13,6 +13,7 @@ public class SpawnManager : MonoBehaviour
     // Start your engines!
     void Start()
     {
+        // Spawn a new map 15 tiles wide and 10 tiles tall.
         GenerateNewMap(15, 10);
     }
 
@@ -25,6 +26,10 @@ public class SpawnManager : MonoBehaviour
         // Create new grid.
         GM.I.grid = new Tile[width, height];
 
+        // Remember grid dimensions.
+        GM.I.gridWidth = width;
+        GM.I.gridHeight = height;
+
         // Loop through each column.
         for (int x = 0; x < width; x++)
         {
@@ -35,6 +40,9 @@ public class SpawnManager : MonoBehaviour
                 Tile newTile = SpawnRandomTile(x, y);
             }
         }
+
+        // Clear highlighting!
+        Tile.ClearAllHighlights();
     }
 
     // Spawn a random tile at the given coordinates.
