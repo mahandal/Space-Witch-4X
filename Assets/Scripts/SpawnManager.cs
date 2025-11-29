@@ -44,11 +44,23 @@ public class SpawnManager : MonoBehaviour
         // Clear highlighting!
         Tile.ClearAllHighlights();
 
-        // TBD: Spawn in heroes...
 
+        // - Spawn in heroes
+
+        // Swarm
+        int swarmX = Random.Range(0, GM.I.gridWidth);
+        int swarmY = Random.Range(0, GM.I.gridHeight);
+        GM.I.swarmHero.Move(swarmX, swarmY);
+
+        // Coven
         int covenX = Random.Range(0, GM.I.gridWidth);
         int covenY = Random.Range(0, GM.I.gridHeight);
         GM.I.covenHero.Move(covenX, covenY);
+
+        // Syndicate
+        int syndicateX = Random.Range(0, GM.I.gridWidth);
+        int syndicateY = Random.Range(0, GM.I.gridHeight);
+        GM.I.syndicateHero.Move(syndicateX, syndicateY);
     }
 
     // Spawn a random tile at the given coordinates.
@@ -63,27 +75,27 @@ public class SpawnManager : MonoBehaviour
         // 50% - Air
         if (roll < 50)
         {
-            newTile = Object.Instantiate(p_Air, GM.I.universe);
+            newTile = Object.Instantiate(p_Air, GM.I.tileParent);
         }
         // 20% - Water
         else if (roll < 70)
         {
-            newTile = Object.Instantiate(p_Water, GM.I.universe);
+            newTile = Object.Instantiate(p_Water, GM.I.tileParent);
         }
         // 15% - Asteroids
         else if (roll < 85)
         {
-            newTile = Object.Instantiate(p_Asteroids, GM.I.universe);
+            newTile = Object.Instantiate(p_Asteroids, GM.I.tileParent);
         }
         // 10% - Fire
         else if (roll < 95)
         {
-            newTile = Object.Instantiate(p_Fire, GM.I.universe);
+            newTile = Object.Instantiate(p_Fire, GM.I.tileParent);
         }
         // 5% - Planet
         else
         {
-            newTile = Object.Instantiate(p_Planet, GM.I.universe);
+            newTile = Object.Instantiate(p_Planet, GM.I.tileParent);
         }
 
         // Assign in grid.
@@ -94,7 +106,7 @@ public class SpawnManager : MonoBehaviour
         newTile.y = y;
 
         // Place in space.
-        newTile.transform.position = Constance.GridToWorld(x, y);
+        newTile.transform.position = Utility.GridToWorld(x, y);
 
         // Activate!
         newTile.gameObject.SetActive(true);

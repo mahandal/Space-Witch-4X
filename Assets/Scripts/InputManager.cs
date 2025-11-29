@@ -13,7 +13,7 @@ public class InputManager : MonoBehaviour
             mouseWorldPos.z = 0;
 
             // Convert to grid coordinates and get the tile
-            Tile clickedTile = Constance.WorldToGrid(mouseWorldPos);
+            Tile clickedTile = Utility.WorldToGrid(mouseWorldPos);
             
             // Make sure the tile exists (bounds checking)
             if (clickedTile != null)

@@ -38,6 +38,12 @@ public class GM : MonoBehaviour
     // A parent object of all tiles and ships for this map.
     public Transform universe;
 
+    // A parent object of all tiles for this map.
+    public Transform tileParent;
+
+    // A parent object for all ships for this map.
+    public Transform shipParent;
+
     // Singleton
     public static GM I;
 

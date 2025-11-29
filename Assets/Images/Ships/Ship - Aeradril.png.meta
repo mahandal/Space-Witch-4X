@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: e9caeabb971a2b442b822df0a341684b
+guid: 1eb0ab0d702eaa14bbab86d9424946b5
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 3147098729801301825
-    second: Ship - Agatha_0
+      213: 7606764973765886018
+    second: Ship - Aeradril_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Ship - Agatha_0
+      name: Ship - Aeradril_0
       rect:
         serializedVersion: 2
-        x: 97
-        y: 207
-        width: 1804
-        height: 1735
+        x: 0
+        y: 0
+        width: 4096
+        height: 4096
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 14fb3e6ee9dbcab20800000000000000
-      internalID: 3147098729801301825
+      spriteID: 2400337f078a09960800000000000000
+      internalID: 7606764973765886018
       vertices: []
       indices: 
       edges: []
@@ -135,7 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Ship - Agatha_0: 3147098729801301825
+      Ship - Aeradril_0: 7606764973765886018
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

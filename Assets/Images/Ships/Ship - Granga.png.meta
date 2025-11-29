@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 789193f18dff4124a96e2c52b62de123
+guid: 09ad34b4b6d5ced4d963532fd69717bc
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -7693925876010908418
-    second: Ship - Thousand Flowers_0
+      213: -5905193727361105277
+    second: Ship - Granga_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,7 +100,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Ship - Thousand Flowers_0
+      name: Ship - Granga_0
       rect:
         serializedVersion: 2
         x: 0
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: ef40f201e2fa93590800000000000000
-      internalID: -7693925876010908418
+      spriteID: 382c6ce87998c0ea0800000000000000
+      internalID: -5905193727361105277
       vertices: []
       indices: 
       edges: []
@@ -135,7 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Ship - Thousand Flowers_0: -7693925876010908418
+      Ship - Granga_0: -5905193727361105277
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

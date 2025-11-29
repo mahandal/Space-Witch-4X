@@ -24,7 +24,7 @@ public class Tile : MonoBehaviour
     {
         // Clear selection.
         GM.I.selectedTile = null;
-        
+
         // Clear highlights.
         ClearAllHighlights();
     }
@@ -51,11 +51,31 @@ public class Tile : MonoBehaviour
         // Clear old highlighting.
         ClearAllHighlights();
 
-        // Highlight!
+        // Highlight the current tile!
         HighlightSelected();
+
+        // Highlight movement and attack ranges.
+        if (ship != null)
+            HighlightRanges();
 
         // Set as currently selected tile.
         GM.I.selectedTile = this;
+    }
+
+    // Highlight nearby tiles to show the selected ship's movement and attack ranges.
+    // TBD!
+    public void HighlightRanges()
+    {
+        // Loop through columns.
+        for (int x = 0; x < GM.I.gridWidth; x++)
+        {
+            // Loop through rows.
+            for (int y = 0; y < GM.I.gridHeight; y++)
+            {
+                // Get tile.
+                Tile otherTile = GM.I.grid[x, y];
+            }
+        }
     }
 
     // - Colorize background.
