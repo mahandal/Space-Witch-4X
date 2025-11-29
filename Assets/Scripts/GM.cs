@@ -8,6 +8,19 @@ public class GM : MonoBehaviour
     // Track the current state of the game.
     public int gameState = 0;
 
+    
+    [Header("Heroes")]
+    // The hero leading the Swarm in this adventure.
+    public Ship swarmHero;
+
+    // The hero leading the Coven in this adventure.
+    public Ship covenHero;
+
+    // The hero leading the Syndicate in this adventure.
+    public Ship syndicateHero;
+
+
+    [Header("Grid")]
     // The grid of all tiles for our current adventure.
     public Tile[,] grid;
 
@@ -20,6 +33,8 @@ public class GM : MonoBehaviour
     // The currently selected tile.
     public Tile selectedTile;
 
+
+    [Header("Machinery")]
     // A parent object of all tiles and ships for this map.
     public Transform universe;
 

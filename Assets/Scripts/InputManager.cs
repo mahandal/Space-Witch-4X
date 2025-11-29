@@ -20,6 +20,9 @@ public class InputManager : MonoBehaviour
             {
                 // Select tile!
                 clickedTile.Select();
+            } else {
+                // Clear selection!
+                Tile.ClearSelection();
             }
         }
     }

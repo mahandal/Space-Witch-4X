@@ -25,6 +25,24 @@ public static class Constance
         // Get y.
         int y = Mathf.RoundToInt(worldPos.y / tileSize);
 
+        // - Boundary checking.
+
+        // Min x.
+        if (x < 0)
+            return null;
+
+        // Max x.
+        if (x >= GM.I.gridWidth)
+            return null;
+
+        // Min y
+        if (y < 0)
+            return null;
+
+        // Max y.
+        if (y >= GM.I.gridHeight)
+            return null;
+
         // Return tile!
         return GM.I.grid[x, y];
     }

@@ -6,6 +6,7 @@ public class Tile : MonoBehaviour
     public string myType = "Air";
     public int x = 0;
     public int y = 0;
+    public Ship ship;
 
     [Header("Manual Machinery")]
     // The background color on top of this tile's sprite.
@@ -18,6 +19,15 @@ public class Tile : MonoBehaviour
     // (so blue is actually rare, only used for pacifists and ships with minimum range)
     public SpriteRenderer bg;
 
+    // Clear our selection so no tiles are highlighted.
+    public static void ClearSelection()
+    {
+        // Clear selection.
+        GM.I.selectedTile = null;
+        
+        // Clear highlights.
+        ClearAllHighlights();
+    }
 
     // Clear ALL highlighting for ALL tiles.
     public static void ClearAllHighlights()

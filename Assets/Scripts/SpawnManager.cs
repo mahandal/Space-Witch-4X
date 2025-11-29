@@ -43,6 +43,12 @@ public class SpawnManager : MonoBehaviour
 
         // Clear highlighting!
         Tile.ClearAllHighlights();
+
+        // TBD: Spawn in heroes...
+
+        int covenX = Random.Range(0, GM.I.gridWidth);
+        int covenY = Random.Range(0, GM.I.gridHeight);
+        GM.I.covenHero.Move(covenX, covenY);
     }
 
     // Spawn a random tile at the given coordinates.
@@ -82,6 +88,10 @@ public class SpawnManager : MonoBehaviour
 
         // Assign in grid.
         GM.I.grid[x, y] = newTile;
+
+        // Remember coordinates.
+        newTile.x = x;
+        newTile.y = y;
 
         // Place in space.
         newTile.transform.position = Constance.GridToWorld(x, y);
