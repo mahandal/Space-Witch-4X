@@ -1,0 +1,37 @@
+using UnityEngine;
+using UnityEngine.SceneManagement;
+using System.Collections.Generic;
+
+public class GM : MonoBehaviour
+{
+    [Header("GM")]
+    // Track the current state of the game.
+    public int gameState = 0;
+
+    // The grid of all tiles for our current adventure.
+    public Tile[,] grid;
+
+    // The currently selected tile.
+    public Tile selectedTile;
+
+    // A parent object of all tiles and ships for this map.
+    public Transform universe;
+
+    // Singleton
+    public static GM I;
+
+    void Awake()
+    {
+        // Enforce singleton pattern.
+        if (I == null)
+            I = this;
+        else
+            Destroy(this);
+    }
+
+    // Reload the game scene.
+    public void ReloadGame()
+    {
+        SceneManager.LoadScene("Game");
+    }
+}
