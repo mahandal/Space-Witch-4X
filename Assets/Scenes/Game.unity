@@ -14406,7 +14406,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de4ab1d67c32f1f4d9a8ed5cc035b185, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Ship
-  speed: 3
+  speed: 4
+  range: 2
 --- !u!1 &2022717090
 GameObject:
   m_ObjectHideFlags: 0

@@ -4,4 +4,5 @@ public class Ship : MonoBehaviour
 {
     [Header("Ship")]
     public int speed;
+    public int range;
 }
