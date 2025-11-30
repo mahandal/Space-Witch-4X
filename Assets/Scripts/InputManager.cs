@@ -55,7 +55,7 @@ public class InputManager : MonoBehaviour
                 if (GM.I.hoveredTile != null)
                 {
                     // Try to move the ship to the target tile.
-                    GM.I.selectedTile.ship.Move(GM.I.hoveredTile.x, GM.I.hoveredTile.y);
+                    GM.I.selectedTile.ship.AttemptMove(GM.I.hoveredTile.x, GM.I.hoveredTile.y);
                 }
             }
 

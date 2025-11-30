@@ -139,7 +139,7 @@ public class Tile : MonoBehaviour
     }
 
     // Get a set of all tiles the ship on this tile can move to.
-    private HashSet<Tile> GetTilesInMovementRange()
+    public HashSet<Tile> GetTilesInMovementRange()
     {
         // Make sure we have a ship!
         if (ship == null) return null;
