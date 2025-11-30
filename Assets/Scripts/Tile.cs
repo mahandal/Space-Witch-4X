@@ -87,9 +87,6 @@ public class Tile : MonoBehaviour
                 // Get tile.
                 Tile otherTile = GM.I.grid[i, j];
 
-                // Calculate distance.
-                // TBD: Replace 'this' with finding the closest tile within moveableTiles.
-
                 // Calculate distance for determining attack range.
                 Tile closestMoveableTile = otherTile.GetClosestTile(moveableTiles);
                 int distance = Utility.Distance(closestMoveableTile, otherTile);
