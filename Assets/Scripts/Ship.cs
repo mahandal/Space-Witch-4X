@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 using System.Collections.Generic;
 
 public class Ship : MonoBehaviour
@@ -10,12 +11,16 @@ public class Ship : MonoBehaviour
     public int y;
     public Tile currentTile;
 
-    [Header("Ship")]
-    public int health;
+    [Header("Core")]
+    public float currentHealth;
+    public int maxHealth;
     public int damage;
     public int armor;
     public int speed;
     public int range;
+
+    [Header("Machinery")]
+    public Image healthBar;
 
     // Attempt to move into range and attack the target ship.
     public bool AttemptAttackMove(Ship target)
@@ -147,13 +152,16 @@ public class Ship : MonoBehaviour
         incomingDamage -= armor;
 
         // Lose health
-        health -= incomingDamage;
+        currentHealth -= incomingDamage;
 
         // Check death?
-        if (health <= 0)
+        if (currentHealth <= 0)
         {
             Destroy(gameObject);
         }
+
+        // Update health bar.
+        healthBar.fillAmount = currentHealth / maxHealth;
     }
 
     // Move the ship to new coordinates.
