@@ -346,6 +346,10 @@ public class Tile : MonoBehaviour
         Color c = bg.color;
         c.a = 1f;
         bg.color = c;
+
+        // Check if we should show a preview of a path to this tile.
+        if (GM.I.selectedTile != null && GM.I.selectedTile.ship != null)
+            ShowPathPreview();
     }
 
     // Unhovering returns background opacity as it was.
@@ -354,9 +358,13 @@ public class Tile : MonoBehaviour
         // Avoid unhovering the selected tile.
         if (this == GM.I.selectedTile) return;
         
+        // Reset normal opacity.
         Color c = bg.color;
         c.a = unhoveredOpacity;
         bg.color = c;
+
+        // Clear the preview of a path to this tile, if there was one.
+        ClearPathPreview();
     }
 
 
@@ -390,5 +398,57 @@ public class Tile : MonoBehaviour
             previousTileInPath.Claim(newFaction);
     }
 
-        
+    
+
+    // - Path previews
+    private LineRenderer pathLine;
+
+    public void ShowPathPreview()
+    {
+        // Create line renderer if needed.
+        if (pathLine == null)
+        {
+            pathLine = gameObject.AddComponent<LineRenderer>();
+            pathLine.startWidth = 0.1f;
+            pathLine.endWidth = 0.1f;
+            pathLine.material = new Material(Shader.Find("Sprites/Default"));
+            pathLine.startColor = Color.white;
+            pathLine.endColor = Color.white;
+            pathLine.sortingOrder = 1000;
+        }
+
+        // Make sure we can actually move here.
+        if (moveCostFromSelectedTile < 0 || moveCostFromSelectedTile > GM.I.selectedTile.ship.speed || ship != null)
+        {
+            ClearPathPreview();
+            return;
+        }
+
+        // Build the path by walking backwards from this tile.
+        List<Vector3> pathPositions = new List<Vector3>();
+        Tile currentTile = this;
+
+        while (currentTile != null)
+        {
+            Vector3 pos = currentTile.transform.position;
+            pos.z = -0.5f;
+            pathPositions.Add(pos);
+            currentTile = currentTile.previousTileInPath;
+        }
+
+        pathPositions.Reverse();
+
+        pathLine.positionCount = pathPositions.Count;
+        pathLine.SetPositions(pathPositions.ToArray());
+        pathLine.enabled = true;
+    }
+
+    public void ClearPathPreview()
+    {
+        if (pathLine != null)
+        {
+            Destroy(pathLine);
+            // pathLine.enabled = false;
+        }
+    }
 }

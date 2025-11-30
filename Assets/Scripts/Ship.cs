@@ -59,6 +59,9 @@ public class Ship : MonoBehaviour
         // Claim for your faction!
         newTile.Claim(faction);
 
+        // Hide path preview.
+        newTile.ClearPathPreview();
+
         // Return!
         return true;
     }
