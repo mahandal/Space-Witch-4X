@@ -46,10 +46,10 @@ public class Utility : MonoBehaviour
     public static int Distance(Tile start, Tile end)
     {
         // Calculate horizontal difference.
-        int horizontalDifference = start.x - end.x;
+        int horizontalDifference = Mathf.Abs(start.x - end.x);
 
         // Calculate vertical difference.
-        int verticalDifference = start.y - end.y;
+        int verticalDifference = Mathf.Abs(start.y - end.y);
 
         // Add together and return!
         return horizontalDifference + verticalDifference;

@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections.Generic;
 
 public class Tile : MonoBehaviour
 {
@@ -7,6 +8,9 @@ public class Tile : MonoBehaviour
     public int x = 0;
     public int y = 0;
     public Ship ship;
+
+    [Header("Automated Machinery")]
+    public int moveCostFromSelectedTile = -1;
 
     [Header("Manual Machinery")]
     // The background color on top of this tile's sprite.
@@ -33,13 +37,13 @@ public class Tile : MonoBehaviour
     public static void ClearAllHighlights()
     {
         // Loop through columns.
-        for (int x = 0; x < GM.I.gridWidth; x++)
+        for (int i = 0; i < GM.I.gridWidth; i++)
         {
             // Loop through rows.
-            for (int y = 0; y < GM.I.gridHeight; y++)
+            for (int j = 0; j < GM.I.gridHeight; j++)
             {
                 // Clear!
-                GM.I.grid[x,y].ClearHighlight();
+                GM.I.grid[i, j].ClearHighlight();
             }
         }
     }
@@ -66,17 +70,176 @@ public class Tile : MonoBehaviour
     // TBD!
     public void HighlightRanges()
     {
+        // Make sure we have a ship!
+        if (ship == null) return;
+
+        // Get all tiles within movement range.
+        HashSet<Tile> moveableTiles = GetTilesInMovementRange();
+
+        // - Loop through all tiles again now that we know where we can go.
+
         // Loop through columns.
-        for (int x = 0; x < GM.I.gridWidth; x++)
+        for (int i = 0; i < GM.I.gridWidth; i++)
         {
             // Loop through rows.
-            for (int y = 0; y < GM.I.gridHeight; y++)
+            for (int j = 0; j < GM.I.gridHeight; j++)
             {
                 // Get tile.
-                Tile otherTile = GM.I.grid[x, y];
+                Tile otherTile = GM.I.grid[i, j];
+
+                // Calculate distance.
+                int distance = Utility.Distance(this, otherTile);
+
+                // Assign booleans.
+                bool canMove = moveableTiles.Contains(otherTile) && otherTile.ship == null;
+                bool canAttack = distance <= ship.range;
+
+                // - Highlight!
+
+                // Selected tile
+                if (distance == 0)
+                {
+                    otherTile.HighlightSelected();
+                }
+                else if (canMove && canAttack)
+                {
+                    otherTile.HighlightMoveAndAttack();
+                }
+                else if (canMove)
+                {
+                    otherTile.HighlightMove();
+                }
+                else if (canAttack)
+                {
+                    otherTile.HighlightAttack();
+                }
             }
         }
     }
+
+    // Get a set of all tiles the ship on this tile can move to.
+    private HashSet<Tile> GetTilesInMovementRange()
+    {
+        // Make sure we have a ship!
+        if (ship == null) return null;
+
+        // Remember all tiles that are reachable, to be returned at the end.
+        HashSet<Tile> reachable = new HashSet<Tile>();
+
+        // Remember the cost to reach each tile.
+        Dictionary<Tile, int> costToReach = new Dictionary<Tile, int>();
+
+        // Queue of tiles to be examined.
+        Queue<Tile> frontier = new Queue<Tile>();
+
+        // Start from current tile.
+        frontier.Enqueue(this);
+        costToReach[this] = 0;
+
+        // Loop until we've explored the frontier!
+        while (frontier.Count > 0)
+        {
+            // Get the next tile up.
+            Tile current = frontier.Dequeue();
+
+            // Get its neighbors.
+            List<Tile> neighbors = new List<Tile>();
+            Tile leftNeighbor;
+            Tile rightNeighbor;
+            Tile downNeighbor;
+            Tile upNeighbor;
+
+            // Left neighbor needs you to be away from the left border.
+            if (current.x > 0)
+            {
+                leftNeighbor = GM.I.grid[current.x - 1, current.y];
+                neighbors.Add(leftNeighbor);
+            }
+
+            // Right neighbor needs you to be away from the right border.
+            if (current.x < GM.I.gridWidth - 1)
+            {
+                rightNeighbor = GM.I.grid[current.x + 1, current.y];
+                neighbors.Add(rightNeighbor);
+            }
+
+            // Down neighbor needs you to be away from the bottom border.
+            if (current.y > 0)
+            {
+                downNeighbor = GM.I.grid[current.x, current.y - 1];
+                neighbors.Add(downNeighbor);
+            }
+
+            // Up neighbor needs you to be away from the top border.
+            if (current.y < GM.I.gridHeight - 1)
+            {
+                upNeighbor = GM.I.grid[current.x, current.y + 1];
+                neighbors.Add(upNeighbor);
+            }
+
+            // Check if we can move to each neighbor.
+            foreach (Tile neighbor in neighbors)
+            {
+                // Get total move cost for this neighbor.
+                int moveCost = costToReach[current] + neighbor.GetMovementCost();
+
+                // Check if neighbor is within movement range.
+                if (moveCost <= ship.speed)
+                {
+                    // Check if we already have a path to this tile.
+                    if (costToReach.ContainsKey(neighbor))
+                    {
+                        // Check if we've found a better path!
+                        if (moveCost < costToReach[neighbor])
+                        {
+                            // Set new cost to reach.
+                            costToReach[neighbor] = moveCost;
+
+                            // Add back to the frontier!
+                            frontier.Enqueue(neighbor);
+                        }
+                    } else {
+                        // First path here!
+                        // So it has to be the best!
+                        // (The worst too, but we don't track those!)
+
+                        // Add to reachable tiles!
+                        reachable.Add(neighbor);
+
+                        // Set new cost to reach.
+                        costToReach[neighbor] = moveCost;
+
+                        // Add to the frontier!
+                        frontier.Enqueue(neighbor);
+                    }
+                }
+            }
+        }
+
+        // Return all reachable tiles!
+        return reachable;
+    }
+
+    // Get the movement cost for a tile.
+    public int GetMovementCost()
+    {
+        // Default to 1.
+        int moveCost = 1;
+
+        // Go through each special case!
+        if (myType == "Water")
+        {
+            moveCost = 2;
+        }
+        else if (myType == "Asteroids")
+        {
+            moveCost = 2;
+        }
+
+        // Return!
+        return moveCost;
+    }
+
 
     // - Colorize background.
 

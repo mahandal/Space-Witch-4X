@@ -2438,6 +2438,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d5b031382fee5340a8e94d0f603fa69, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Tile
+  distanceFromSelectedTile: -1
   myType: Asteroids
   x: 0
   y: 0
@@ -4033,7 +4034,7 @@ GameObject:
   m_Component:
   - component: {fileID: 662211613}
   - component: {fileID: 662211614}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: BG (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10606,6 +10607,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d5b031382fee5340a8e94d0f603fa69, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Tile
+  distanceFromSelectedTile: -1
   myType: Water
   x: 0
   y: 0
@@ -11115,6 +11117,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d5b031382fee5340a8e94d0f603fa69, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Tile
+  distanceFromSelectedTile: -1
   myType: Planet
   x: 0
   y: 0
@@ -14868,6 +14871,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d5b031382fee5340a8e94d0f603fa69, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Tile
+  distanceFromSelectedTile: -1
   myType: Fire
   x: 0
   y: 0
@@ -15197,6 +15201,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d5b031382fee5340a8e94d0f603fa69, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Tile
+  distanceFromSelectedTile: -1
   myType: Air
   x: 0
   y: 0

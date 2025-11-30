@@ -35,6 +35,7 @@ public class Ship : MonoBehaviour
 
         // Set new tile
         currentTile = newTile;
+        currentTile.ship = this;
 
         // Move physically.
         transform.position = newTile.transform.position;
