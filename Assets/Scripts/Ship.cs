@@ -6,7 +6,7 @@ public class Ship : MonoBehaviour
 {
     [Header("Meta")]
     public string myName;
-    public string faction;
+    public Faction faction;
     public int x;
     public int y;
     public Tile currentTile;

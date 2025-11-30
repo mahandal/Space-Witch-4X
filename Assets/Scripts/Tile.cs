@@ -5,7 +5,7 @@ public class Tile : MonoBehaviour
 {
     [Header("Tile")]
     public string myType = "Air";
-    public string faction = "Neutral";
+    public Faction faction = Faction.Neutral;
     public int x = 0;
     public int y = 0;
     public Ship ship;
@@ -370,7 +370,7 @@ public class Tile : MonoBehaviour
 
 
     // Set this tile's faction.
-    public void Claim(string newFaction)
+    public void Claim(Faction newFaction)
     {
         // Set faction.
         faction = newFaction;
@@ -378,19 +378,19 @@ public class Tile : MonoBehaviour
         // - Set faction color.
 
         // Neutral
-        if (faction == "Neutral")
+        if (faction == Faction.Neutral)
             factionBG.color = new Color(0.5f, 0.5f, 0.5f, 0.5f);
 
         // The Swarm
-        else if (faction == "Swarm")
+        else if (faction == Faction.Swarm)
             factionBG.color = new Color(0f, 1f, 0.0429f, 0.5f);
 
         // The Coven
-        else if (faction == "Coven")
+        else if (faction == Faction.Coven)
             factionBG.color = new Color(0f, 0.9889f, 1f, 0.5f);
 
         // The Syndicate
-        else if (faction == "Syndicate")
+        else if (faction == Faction.Syndicate)
             factionBG.color = new Color(1f, 0.8535f, 0f, 0.5f);
 
         // Claim other tiles in path!

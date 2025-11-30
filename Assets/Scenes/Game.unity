@@ -2632,7 +2632,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Tile
   myType: Asteroids
-  faction: Neutral
+  faction: 0
   x: 0
   y: 0
   ship: {fileID: 0}
@@ -4125,7 +4125,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Ship
   myName: Thousand Flowers
-  faction: Swarm
+  faction: 1
   x: 0
   y: 0
   currentTile: {fileID: 0}
@@ -4133,7 +4133,7 @@ MonoBehaviour:
   maxHealth: 50
   damage: 10
   armor: 1
-  speed: 4
+  speed: 3
   range: 1
   healthBar: {fileID: 1204778209}
 --- !u!1 &659105256
@@ -9827,7 +9827,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Ship
   myName: Aeradril
-  faction: Syndicate
+  faction: 3
   x: 0
   y: 0
   currentTile: {fileID: 0}
@@ -9835,8 +9835,8 @@ MonoBehaviour:
   maxHealth: 50
   damage: 10
   armor: 1
-  speed: 2
-  range: 4
+  speed: 1
+  range: 3
   healthBar: {fileID: 729532211}
 --- !u!1 &1279724638
 GameObject:
@@ -11415,7 +11415,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Tile
   myType: Water
-  faction: Neutral
+  faction: 0
   x: 0
   y: 0
   ship: {fileID: 0}
@@ -11929,7 +11929,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Tile
   myType: Planet
-  faction: Neutral
+  faction: 0
   x: 0
   y: 0
   ship: {fileID: 0}
@@ -15777,7 +15777,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Tile
   myType: Fire
-  faction: Neutral
+  faction: 0
   x: 0
   y: 0
   ship: {fileID: 0}
@@ -16111,7 +16111,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Tile
   myType: Air
-  faction: Neutral
+  faction: 0
   x: 0
   y: 0
   ship: {fileID: 0}
@@ -16332,7 +16332,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Ship
   myName: Granga
-  faction: Coven
+  faction: 2
   x: 0
   y: 0
   currentTile: {fileID: 0}
@@ -16340,7 +16340,7 @@ MonoBehaviour:
   maxHealth: 50
   damage: 10
   armor: 1
-  speed: 3
+  speed: 2
   range: 2
   healthBar: {fileID: 820917528}
 --- !u!1 &2022717090

@@ -8,3 +8,12 @@ public static class Constance
     // How big our tiles are.
     public static int tileSize = 1;
 }
+
+// Factions.
+public enum Faction
+{
+    Neutral,
+    Swarm,
+    Coven,
+    Syndicate
+}
