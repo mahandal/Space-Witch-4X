@@ -47,8 +47,15 @@ public class Tile : MonoBehaviour
             // Loop through rows.
             for (int j = 0; j < GM.I.gridHeight; j++)
             {
-                // Clear!
-                GM.I.grid[i, j].ClearHighlight();
+                // Get tile.
+                Tile tile = GM.I.grid[i, j];
+
+                // Clear highlight.
+                tile.ClearHighlight();
+
+                // Clear path trace.
+                tile.moveCostFromSelectedTile = -1;
+                tile.previousTileInPath = null;
             }
         }
     }
