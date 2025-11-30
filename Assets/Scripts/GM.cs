@@ -8,6 +8,21 @@ public class GM : MonoBehaviour
     // Track the current state of the game.
     public int gameState = 0;
 
+    [Header("Turns")]
+    // Which faction's turn is it?
+    public Faction activeFaction = Faction.Swarm;
+
+    // What round are we on?
+    // A round is complete when each faction takes their turn.
+    public int round = 1;
+
+    // The order factions take turns in.
+    // TBD: Add neutrals!
+    public Faction[] turnOrder = new Faction[] { Faction.Swarm, Faction.Coven, Faction.Syndicate };
+
+    // Index in the turn order array.
+    private int turnIndex = 0;
+
     
     [Header("Heroes")]
     // The hero leading the Swarm in this adventure.
@@ -60,9 +75,26 @@ public class GM : MonoBehaviour
             Destroy(this);
     }
 
-    // Reload the game scene.
-    public void ReloadGame()
+    // End the current turn and go to the next one.
+    public void EndTurn()
     {
-        SceneManager.LoadScene("Game");
+        // Increment turn index.
+        turnIndex++;
+
+        // Check if each faction has had a turn.
+        if (turnIndex >= turnOrder.Length)
+        {
+            // Reset to beginning.
+            turnIndex = 0;
+
+            // Start a new round!
+            round++;
+        }
+
+        // Set new active faction.
+        activeFaction = turnOrder[turnIndex];
+
+        // Display new faction.
+        UI.I.activeFaction.text = activeFaction.ToString();
     }
 }

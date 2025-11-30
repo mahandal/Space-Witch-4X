@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Utility : MonoBehaviour
 {
@@ -63,5 +64,11 @@ public class Utility : MonoBehaviour
     public static void ExitGame()
     {
         Application.Quit();
+    }
+
+    // Reload the game scene.
+    public void ReloadGame()
+    {
+        SceneManager.LoadScene("Game");
     }
 }

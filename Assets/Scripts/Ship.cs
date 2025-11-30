@@ -25,6 +25,10 @@ public class Ship : MonoBehaviour
     // Attempt to move into range and attack the target ship.
     public bool AttemptAttackMove(Ship target)
     {
+        // Check if it's our turn.
+        if (GM.I.activeFaction != faction)
+            return false;
+            
         // Make sure target exists.
         if (target == null) return false;
 
@@ -113,10 +117,15 @@ public class Ship : MonoBehaviour
 
     // Attempt to move the ship to the new coordinates.
     // Fails if
+    // - it's not our turn.
     // - the tile is too far away.
     // - there is already a ship there.
     public bool AttemptMove(int newX, int newY)
     {
+        // Check if it's our turn.
+        if (GM.I.activeFaction != faction)
+            return false;
+
         // Get new tile.
         Tile newTile = GM.I.grid[newX, newY];
 
