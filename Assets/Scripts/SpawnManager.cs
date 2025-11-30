@@ -3,21 +3,37 @@ using System.Collections.Generic;
 
 public class SpawnManager : MonoBehaviour
 {
-    [Header("Progenitors")]
+    [Header("Progenitors - Tiles")]
     public Tile p_Air;
     public Tile p_Planet;
     public Tile p_Water;
     public Tile p_Fire;
     public Tile p_Asteroids;
 
+    [Header("Progenitors - Swarm Ships")]
+    public Ship p_Tarodactyl;
+
+    [Header("Progenitors - Coven Ships")]
+    public Ship p_SpaceWitch;
+
+    [Header("Progenitors - Syndicate Ships")]
+    public Ship p_Flybot;
+
     void Awake()
     {
-        // Make sure progenitors are hidden!
+        // - Make sure progenitors are hidden!
+
+        // Tiles
         p_Air.gameObject.SetActive(false);
         p_Planet.gameObject.SetActive(false);
         p_Water.gameObject.SetActive(false);
         p_Fire.gameObject.SetActive(false);
         p_Asteroids.gameObject.SetActive(false);
+
+        // Ships
+        p_SpaceWitch.gameObject.SetActive(false);
+        p_Tarodactyl.gameObject.SetActive(false);
+        p_Flybot.gameObject.SetActive(false);
     }
 
     // Start your engines!
@@ -30,9 +46,6 @@ public class SpawnManager : MonoBehaviour
     // Procedurally generate a new map.
     public void GenerateNewMap(int width, int height)
     {
-        // TBD: Clear old map first!
-        ClearMap();
-
         // Create new grid.
         GM.I.grid = new Tile[width, height];
 
@@ -71,6 +84,15 @@ public class SpawnManager : MonoBehaviour
         int syndicateX = Random.Range(0, GM.I.gridWidth);
         int syndicateY = Random.Range(0, GM.I.gridHeight);
         GM.I.syndicateHero.Move(syndicateX, syndicateY);
+
+
+        // - Spawn in starting units(?)
+        // (temporary prolly but using it to test!)
+        SpawnShip("Tarodactyl", swarmX + 1, swarmY);
+
+        SpawnShip("Space Witch", covenX + 1, covenY);
+
+        SpawnShip("Flybot", syndicateX + 1, syndicateY);
     }
 
     // Spawn a random tile at the given coordinates.
@@ -125,9 +147,44 @@ public class SpawnManager : MonoBehaviour
         return newTile;
     }
 
-    // Clear the old map of all tiles and ships!
-    public void ClearMap()
+    // Spawn a new ship.
+    public Ship SpawnShip(string shipType, int x, int y)
     {
+        // Respect boundaries.
+        if (x < 0) return null;
+        if (y < 0) return null;
+        if (x >= GM.I.gridWidth) return null;
+        if (y >= GM.I.gridHeight) return null;
 
+        // Init new ship.
+        Ship newShip = null;
+
+        // Check ship type to instantiate new ship.
+        if (shipType == "Space Witch")
+        {
+            newShip = Object.Instantiate(p_SpaceWitch);
+        }
+        else if (shipType == "Tarodactyl")
+        {
+            newShip = Object.Instantiate(p_Tarodactyl);
+        }
+        else if (shipType == "Flybot")
+        {
+            newShip = Object.Instantiate(p_Flybot);
+        }
+        else
+        {
+            Debug.LogError("ERROR! Failed to spawn new ship of unknown type: " + shipType);
+            return null;
+        }
+
+        // Set new position.
+        newShip.Move(x, y);
+
+        // Activate!
+        newShip.gameObject.SetActive(true);
+
+        // Return!
+        return newShip;
     }
 }
