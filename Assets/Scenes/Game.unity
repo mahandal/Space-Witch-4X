@@ -4570,6 +4570,9 @@ MonoBehaviour:
   armor: 1
   speed: 4
   range: 1
+  attacks: 1
+  movementRemaining: 0
+  attacksRemaining: 0
   healthBar: {fileID: 1204778209}
 --- !u!1 &659105256
 GameObject:
@@ -5121,7 +5124,7 @@ GameObject:
   m_Component:
   - component: {fileID: 673435625}
   m_Layer: 0
-  m_Name: Tiles Parent
+  m_Name: Tile Parent
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10812,6 +10815,9 @@ MonoBehaviour:
   armor: 1
   speed: 2
   range: 3
+  attacks: 1
+  movementRemaining: 0
+  attacksRemaining: 0
   healthBar: {fileID: 729532211}
 --- !u!1 &1279724638
 GameObject:
@@ -12376,6 +12382,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 563b1e1b58a63d6429ae98cd08d06fde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SpawnManager
+  tileParent: {fileID: 673435625}
+  swarmShipParent: {fileID: 1179755319}
+  covenShipParent: {fileID: 2054717619}
+  syndicateShipParent: {fileID: 20375830}
+  neutralShipParent: {fileID: 0}
   p_Air: {fileID: 1985196043}
   p_Planet: {fileID: 1487250965}
   p_Water: {fileID: 1427534978}
@@ -12403,15 +12414,14 @@ MonoBehaviour:
   swarmHero: {fileID: 653616652}
   covenHero: {fileID: 2021684152}
   syndicateHero: {fileID: 1273853952}
+  swarmShips: []
+  covenShips: []
+  syndicateShips: []
+  neutralShips: []
   gridWidth: 15
   gridHeight: 10
   selectedTile: {fileID: 0}
   hoveredTile: {fileID: 0}
-  universe: {fileID: 1601793761}
-  tileParent: {fileID: 673435625}
-  swarmShipParent: {fileID: 1179755319}
-  covenShipParent: {fileID: 2054717619}
-  syndicateShipParent: {fileID: 20375830}
 --- !u!114 &1422601901
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13246,6 +13256,9 @@ MonoBehaviour:
   armor: 0
   speed: 3
   range: 1
+  attacks: 1
+  movementRemaining: 0
+  attacksRemaining: 0
   healthBar: {fileID: 1777358929}
 --- !u!1 &1487250962
 GameObject:
@@ -14978,6 +14991,9 @@ MonoBehaviour:
   armor: 1
   speed: 3
   range: 2
+  attacks: 1
+  movementRemaining: 0
+  attacksRemaining: 0
   healthBar: {fileID: 1377438404}
 --- !u!1 &1651798012
 GameObject:
@@ -16647,6 +16663,9 @@ MonoBehaviour:
   armor: 0
   speed: 5
   range: 1
+  attacks: 1
+  movementRemaining: 0
+  attacksRemaining: 0
   healthBar: {fileID: 884697448}
 --- !u!1 &1824592130
 GameObject:
@@ -18252,6 +18271,9 @@ MonoBehaviour:
   armor: 1
   speed: 3
   range: 2
+  attacks: 1
+  movementRemaining: 0
+  attacksRemaining: 0
   healthBar: {fileID: 820917528}
 --- !u!1 &2022717090
 GameObject:

@@ -34,6 +34,11 @@ public class GM : MonoBehaviour
     // The hero leading the Syndicate in this adventure.
     public Ship syndicateHero;
 
+    [Header("Ships")]
+    public List<Ship> swarmShips = new List<Ship>();
+    public List<Ship> covenShips = new List<Ship>();
+    public List<Ship> syndicateShips = new List<Ship>();
+    public List<Ship> neutralShips = new List<Ship>();
 
     [Header("Grid")]
     // The grid of all tiles for our current adventure.
@@ -54,24 +59,10 @@ public class GM : MonoBehaviour
 
 
     [Header("Machinery")]
-    // A parent object of all tiles and ships for this map.
-    public Transform universe;
-
-    // A parent object of all tiles for this map.
-    public Transform tileParent;
-
-    // A parent object for all Swarm ships on this map.
-    public Transform swarmShipParent;
-
-    // A parent object for all Coven ships on this map.
-    public Transform covenShipParent;
-
-    // A parent object for all Syndicate ships on this map.
-    public Transform syndicateShipParent;
-
     // Singleton
     public static GM I;
 
+    // Awaken!
     void Awake()
     {
         // Enforce singleton pattern.
@@ -79,11 +70,30 @@ public class GM : MonoBehaviour
             I = this;
         else
             Destroy(this);
+
+        // - Initialize ship lists.
+
+        // Swarm
+        swarmShips = new List<Ship>();
+        swarmShips.Add(swarmHero);
+
+        // Coven
+        covenShips = new List<Ship>();
+        covenShips.Add(covenHero);
+
+        // Syndicate
+        syndicateShips = new List<Ship>();
+        syndicateShips.Add(syndicateHero);
+
+        // Neutral
+        neutralShips = new List<Ship>();
     }
 
     // End the current turn and go to the next one.
     public void EndTurn()
     {
+        Debug.Log("Ending the turn for faction: " + activeFaction);
+
         // Increment turn index.
         turnIndex++;
 
@@ -97,10 +107,47 @@ public class GM : MonoBehaviour
             round++;
         }
 
+        // Start a new turn for the next faction.
+        Faction nextFaction = turnOrder[turnIndex];
+        NewTurn(nextFaction);        
+    }
+
+    // Start a new turn for the given faction.
+    private void NewTurn(Faction faction)
+    {
+        Debug.Log("Starting a new turn for faction: " + faction);
+        
         // Set new active faction.
-        activeFaction = turnOrder[turnIndex];
+        activeFaction = faction;
 
         // Display new faction.
-        UI.I.activeFaction.text = activeFaction.ToString();
+        UI.I.activeFaction.text = faction.ToString();
+
+        // Peform upkeep for each of that faction's ships & tiles.
+        Upkeep(faction);
+    }
+
+    // Handle upkeep for each of a faction's ships & tiles:
+    // - Refresh each ship's movement and attacks.
+    // - TBD: Gain 1 mana per tile.
+    private void Upkeep(Faction faction)
+    {
+        Debug.Log("Performing upkeep for faction: " + faction);
+        
+        // Initialize a list of all ships for this faction.
+        List<Ship> ships = null;
+
+        // Assign list
+        if (faction == Faction.Swarm) ships = swarmShips;
+        if (faction == Faction.Coven) ships = covenShips;
+        if (faction == Faction.Syndicate) ships = syndicateShips;
+        if (faction == Faction.Neutral) ships = neutralShips;
+
+        // Iterate through each ship.
+        foreach (Ship ship in ships)
+        {
+            // Refresh ship.
+            ship.Refresh();
+        }
     }
 }

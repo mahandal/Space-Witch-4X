@@ -3,6 +3,22 @@ using System.Collections.Generic;
 
 public class SpawnManager : MonoBehaviour
 {
+    [Header("Parents")]
+    // A parent object of all tiles for this map.
+    public Transform tileParent;
+
+    // A parent object for all Swarm ships on this map.
+    public Transform swarmShipParent;
+
+    // A parent object for all Coven ships on this map.
+    public Transform covenShipParent;
+
+    // A parent object for all Syndicate ships on this map.
+    public Transform syndicateShipParent;
+
+    // A parent object for all Neutral ships on this map.
+    public Transform neutralShipParent;
+
     [Header("Progenitors - Tiles")]
     public Tile p_Air;
     public Tile p_Planet;
@@ -107,27 +123,27 @@ public class SpawnManager : MonoBehaviour
         // 50% - Air
         if (roll < 50)
         {
-            newTile = Object.Instantiate(p_Air, GM.I.tileParent);
+            newTile = Object.Instantiate(p_Air, tileParent);
         }
         // 20% - Water
         else if (roll < 70)
         {
-            newTile = Object.Instantiate(p_Water, GM.I.tileParent);
+            newTile = Object.Instantiate(p_Water, tileParent);
         }
         // 15% - Asteroids
         else if (roll < 85)
         {
-            newTile = Object.Instantiate(p_Asteroids, GM.I.tileParent);
+            newTile = Object.Instantiate(p_Asteroids, tileParent);
         }
         // 10% - Fire
         else if (roll < 95)
         {
-            newTile = Object.Instantiate(p_Fire, GM.I.tileParent);
+            newTile = Object.Instantiate(p_Fire, tileParent);
         }
         // 5% - Planet
         else
         {
-            newTile = Object.Instantiate(p_Planet, GM.I.tileParent);
+            newTile = Object.Instantiate(p_Planet, tileParent);
         }
 
         // Assign in grid.
@@ -156,6 +172,10 @@ public class SpawnManager : MonoBehaviour
         if (x >= GM.I.gridWidth) return null;
         if (y >= GM.I.gridHeight) return null;
 
+        // Avoid spawning a ship in a tile with a ship already in it.
+        Tile tile = GM.I.grid[x, y];
+        if (tile.ship != null) return null;
+
         // Init new ship.
         Ship newShip = null;
 
@@ -176,6 +196,49 @@ public class SpawnManager : MonoBehaviour
         {
             Debug.LogError("ERROR! Failed to spawn new ship of unknown type: " + shipType);
             return null;
+        }
+
+        // - Add to faction's list of ships.
+        Debug.Log("Spawning " + newShip.myName + " for faction: " + newShip.faction);
+
+        // Neutral
+        if (newShip.faction == Faction.Neutral)
+        {
+            // Set parent.
+            newShip.transform.SetParent(neutralShipParent);
+
+            // Add to GM's list.
+            GM.I.neutralShips.Add(newShip);
+        }
+
+        // Swarm
+        if (newShip.faction == Faction.Swarm)
+        {
+            // Set parent.
+            newShip.transform.SetParent(swarmShipParent);
+
+            // Add to GM's list.
+            GM.I.swarmShips.Add(newShip);
+        }
+
+        // Coven
+        if (newShip.faction == Faction.Coven)
+        {
+            // Set parent.
+            newShip.transform.SetParent(covenShipParent);
+
+            // Add to GM's list.
+            GM.I.covenShips.Add(newShip);
+        }
+
+        // Syndicate
+        if (newShip.faction == Faction.Syndicate)
+        {
+            // Set parent.
+            newShip.transform.SetParent(syndicateShipParent);
+
+            // Add to GM's list.
+            GM.I.syndicateShips.Add(newShip);
         }
 
         // Set new position.

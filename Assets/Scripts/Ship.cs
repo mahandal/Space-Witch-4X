@@ -18,17 +18,32 @@ public class Ship : MonoBehaviour
     public int armor;
     public int speed;
     public int range;
+    public int attacks = 1;
+
+    [Header("Per turn")]
+    public int movementRemaining;
+    public int attacksRemaining;
 
     [Header("Machinery")]
     public Image healthBar;
 
     // Attempt to move into range and attack the target ship.
+    // Fails if:
+    // - We don't have any attacks remaining.
+    // - It's not our turn.
+    // - The target doesn't exist.
+    // - The target is not an enemy.
+    // - We can't get close enough.
     public bool AttemptAttackMove(Ship target)
     {
+        // Check if we have attacks remaining.
+        if (attacksRemaining <= 0)
+            return false;
+
         // Check if it's our turn.
         if (GM.I.activeFaction != faction)
             return false;
-            
+
         // Make sure target exists.
         if (target == null) return false;
 
@@ -144,11 +159,15 @@ public class Ship : MonoBehaviour
         return true;
     }
 
-    // Attack the target ship with this ship's primary weapons.
+    // Consume one of this ship's attacks to deal damage to a target ship.
     // Note: Does NOT error check!
     public void Attack(Ship target)
     {
+        // Log it!
         Debug.Log(myName + " is attacking " + target.myName + " for " + damage + " damage!");
+
+        // Consume attack.
+        attacksRemaining--;
 
         // Deal damage.
         target.ReceiveDamage(damage);
@@ -200,5 +219,18 @@ public class Ship : MonoBehaviour
 
         // Hide path preview.
         newTile.ClearPathPreview();
+    }
+
+    // Refreshes this ship's movement and attacks.
+    // Should be called once at the beginning of each turn.
+    public void Refresh()
+    {
+        Debug.Log(myName + " is refreshing itself!");
+        
+        // Refresh movement.
+        movementRemaining = speed;
+
+        // Refresh attacks.
+        attacksRemaining = attacks;
     }
 }
