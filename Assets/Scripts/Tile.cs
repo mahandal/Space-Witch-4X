@@ -5,15 +5,20 @@ public class Tile : MonoBehaviour
 {
     [Header("Tile")]
     public string myType = "Air";
+    public string faction = "Neutral";
     public int x = 0;
     public int y = 0;
     public Ship ship;
 
     [Header("Automated Machinery")]
     public int moveCostFromSelectedTile = -1;
+    public Tile previousTileInPath;
 
     [Header("Manual Machinery")]
-    // The background color on top of this tile's sprite.
+    // The faction color for this tile.
+    public SpriteRenderer factionBG;
+
+    // The contextual background color on top of this tile's sprite.
     // Completely clear by default.
     // Highlights differently to show:
     // - Selected tile is highlighted pink!
@@ -155,8 +160,11 @@ public class Tile : MonoBehaviour
 
         // Start from current tile.
         frontier.Enqueue(this);
+
+        // Reset current tile.
         costToReach[this] = 0;
         moveCostFromSelectedTile = 0;
+        previousTileInPath = null;
 
         // Loop until we've explored the frontier!
         while (frontier.Count > 0)
@@ -217,6 +225,10 @@ public class Tile : MonoBehaviour
                             // Set new cost to reach.
                             costToReach[neighbor] = moveCost;
 
+                            // Remember how we got here.
+                            neighbor.moveCostFromSelectedTile = moveCost;
+                            neighbor.previousTileInPath = current;
+
                             // Add back to the frontier!
                             frontier.Enqueue(neighbor);
                         }
@@ -230,7 +242,10 @@ public class Tile : MonoBehaviour
 
                         // Set new cost to reach.
                         costToReach[neighbor] = moveCost;
+
+                        // Remember how we got here.
                         neighbor.moveCostFromSelectedTile = moveCost;
+                        neighbor.previousTileInPath = current;
 
                         // Add to the frontier!
                         frontier.Enqueue(neighbor);
@@ -324,4 +339,37 @@ public class Tile : MonoBehaviour
         c.a = unhoveredOpacity;
         bg.color = c;
     }
+
+
+
+    // Set this tile's faction.
+    public void Claim(string newFaction)
+    {
+        // Set faction.
+        faction = newFaction;
+
+        // - Set faction color.
+
+        // Neutral
+        if (faction == "Neutral")
+            factionBG.color = new Color(0.5f, 0.5f, 0.5f, 0.5f);
+
+        // The Swarm
+        else if (faction == "Swarm")
+            factionBG.color = new Color(0f, 1f, 0.0429f, 0.5f);
+
+        // The Coven
+        else if (faction == "Coven")
+            factionBG.color = new Color(0f, 0.9889f, 1f, 0.5f);
+
+        // The Syndicate
+        else if (faction == "Syndicate")
+            factionBG.color = new Color(1f, 0.8535f, 0f, 0.5f);
+
+        // Claim other tiles in path!
+        if (previousTileInPath != null)
+            previousTileInPath.Claim(newFaction);
+    }
+
+        
 }

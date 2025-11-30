@@ -56,6 +56,9 @@ public class Ship : MonoBehaviour
         // Move physically.
         transform.position = newTile.transform.position;
 
+        // Claim for your faction!
+        newTile.Claim(faction);
+
         // Return!
         return true;
     }
