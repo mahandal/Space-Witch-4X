@@ -156,6 +156,7 @@ public class Tile : MonoBehaviour
         // Start from current tile.
         frontier.Enqueue(this);
         costToReach[this] = 0;
+        moveCostFromSelectedTile = 0;
 
         // Loop until we've explored the frontier!
         while (frontier.Count > 0)
@@ -229,6 +230,7 @@ public class Tile : MonoBehaviour
 
                         // Set new cost to reach.
                         costToReach[neighbor] = moveCost;
+                        neighbor.moveCostFromSelectedTile = moveCost;
 
                         // Add to the frontier!
                         frontier.Enqueue(neighbor);

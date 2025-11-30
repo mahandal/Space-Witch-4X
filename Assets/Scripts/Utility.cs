@@ -45,6 +45,10 @@ public class Utility : MonoBehaviour
     // Note: Distance is rounded to a whole number in this game!
     public static int Distance(Tile start, Tile end)
     {
+        // Return arbitrarily massive value for null distances.
+        if (start == null || end == null)
+            return int.MaxValue;
+
         // Calculate horizontal difference.
         int horizontalDifference = Mathf.Abs(start.x - end.x);
 
