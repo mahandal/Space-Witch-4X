@@ -55,12 +55,12 @@ public class Tile : MonoBehaviour
         // Clear old highlighting.
         ClearAllHighlights();
 
-        // Highlight the current tile!
-        HighlightSelected();
-
         // Highlight movement and attack ranges.
         if (ship != null)
             HighlightRanges();
+
+        // Highlight the current tile!
+        HighlightSelected();
 
         // Set as currently selected tile.
         GM.I.selectedTile = this;
@@ -88,20 +88,18 @@ public class Tile : MonoBehaviour
                 Tile otherTile = GM.I.grid[i, j];
 
                 // Calculate distance.
-                int distance = Utility.Distance(this, otherTile);
+                // TBD: Replace 'this' with finding the closest tile within moveableTiles.
+
+                // Calculate distance for determining attack range.
+                Tile closestMoveableTile = otherTile.GetClosestTile(moveableTiles);
+                int distance = Utility.Distance(closestMoveableTile, otherTile);
 
                 // Assign booleans.
                 bool canMove = moveableTiles.Contains(otherTile) && otherTile.ship == null;
                 bool canAttack = distance <= ship.range;
 
                 // - Highlight!
-
-                // Selected tile
-                if (distance == 0)
-                {
-                    otherTile.HighlightSelected();
-                }
-                else if (canMove && canAttack)
+                if (canMove && canAttack)
                 {
                     otherTile.HighlightMoveAndAttack();
                 }
@@ -115,6 +113,32 @@ public class Tile : MonoBehaviour
                 }
             }
         }
+    }
+
+    // Search through the given hash set to find the closest tile to the tile that calls this function.
+    // Note: Closest is defined as the bird flies here. Used for attack ranges!
+    public Tile GetClosestTile(HashSet<Tile> validTiles)
+    {
+        // Remember the best tile we've found so far.
+        Tile bestTileYet = null;
+
+        // Initialize shortest distance to max value.
+        int shortestDistance = int.MaxValue;
+
+        // Go through each potential tile.
+        foreach (Tile potentialTile in validTiles)
+        {
+            // Get the distance between this tile and the potential tile.
+            int distance = Utility.Distance(this, potentialTile);
+            if (distance < shortestDistance)
+            {
+                shortestDistance = distance;
+                bestTileYet = potentialTile;
+            }
+        } 
+
+        // Return the best tile we found in total!
+        return bestTileYet;
     }
 
     // Get a set of all tiles the ship on this tile can move to.
