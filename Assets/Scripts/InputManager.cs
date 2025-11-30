@@ -44,5 +44,23 @@ public class InputManager : MonoBehaviour
                 Tile.ClearSelection();
             }
         }
+
+        // Check for right click.
+        if (Mouse.current.rightButton.wasPressedThisFrame)
+        {
+            // Check if we are trying to control a ship.
+            if (GM.I.selectedTile != null && GM.I.selectedTile.ship != null)
+            {
+                // Make sure the target tile exists.
+                if (GM.I.hoveredTile != null)
+                {
+                    // Try to move the ship to the target tile.
+                    GM.I.selectedTile.ship.Move(GM.I.hoveredTile.x, GM.I.hoveredTile.y);
+                }
+            }
+
+            // Clear selection.
+            Tile.ClearSelection();
+        }
     }
 }
