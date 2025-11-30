@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections.Generic;
 
 public class Ship : MonoBehaviour
 {
@@ -29,7 +30,7 @@ public class Ship : MonoBehaviour
         Tile targetTile = target.currentTile;
 
         // Measure distance apart.
-        int distance = Utility.Distance(currentTile, target.currentTile);
+        int distance = Utility.Distance(currentTile, targetTile);
 
         // Check if we're in range to attack them already.
         if (distance <= range)
@@ -41,7 +42,68 @@ public class Ship : MonoBehaviour
             return true;
         }
 
+        // We need to move closer. Find the best tile to move to.
+        Tile bestTile = FindVantagePoint(targetTile);
+
+        // Check if we found a tile.
+        if (bestTile == null)
+        {
+            // Can't get close enough.
+            return false;
+        }
+
+        // Move to our vantage point.
+        Move(bestTile.x, bestTile.y);
+
+        // Attack!
+        Attack(target);
+
+        // Return successful.
         return true;
+    }
+
+    // Find the best position to attack from,
+    // meaning the closest valid tile (for now!)
+    public Tile FindVantagePoint(Tile targetTile)
+    {
+        // Get all tiles we can move to.
+        HashSet<Tile> moveableTiles = currentTile.GetTilesInMovementRange();
+
+        // Remember our best tile.
+        Tile bestTile = null;
+
+        // Remember the shortest travel distance.
+        int shortestTravelDistance = int.MaxValue;
+
+        // Look through all moveable tiles.
+        foreach (Tile potentialTile in moveableTiles)
+        {
+            // Ignore tiles with ships already on them.
+            if (potentialTile.ship != null)
+                continue;
+
+            // Calculate distance from this ship.
+            int travelDistance = Utility.Distance(currentTile, potentialTile);
+
+            // Calculate distance to our target.
+            int attackDistance = Utility.Distance(potentialTile, targetTile);
+
+            // Check if we're in range.
+            if (attackDistance <= range)
+            {
+                // Check if it's a new best.
+                if (travelDistance < shortestTravelDistance)
+                {
+                    // Remember this as our new best tile.
+                    bestTile = potentialTile;
+
+                    // Remember this as our new shortest distance.
+                    shortestTravelDistance = travelDistance;
+                }
+            }
+        }
+
+        return bestTile;
     }
 
     // Attempt to move the ship to the new coordinates.
