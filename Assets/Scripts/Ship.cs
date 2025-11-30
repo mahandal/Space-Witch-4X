@@ -10,8 +10,39 @@ public class Ship : MonoBehaviour
     public Tile currentTile;
 
     [Header("Ship")]
+    public int health;
+    public int damage;
+    public int armor;
     public int speed;
     public int range;
+
+    // Attempt to move into range and attack the target ship.
+    public bool AttemptAttackMove(Ship target)
+    {
+        // Make sure target exists.
+        if (target == null) return false;
+
+        // Make sure target is an enemy.
+        if (target.faction == faction) return false;
+
+        // Get the target's tile.
+        Tile targetTile = target.currentTile;
+
+        // Measure distance apart.
+        int distance = Utility.Distance(currentTile, target.currentTile);
+
+        // Check if we're in range to attack them already.
+        if (distance <= range)
+        {
+            // Attack them!
+            Attack(target);
+
+            // Done!
+            return true;
+        }
+
+        return true;
+    }
 
     // Attempt to move the ship to the new coordinates.
     // Fails if
@@ -31,12 +62,41 @@ public class Ship : MonoBehaviour
             return false;
 
         // Delegate to Move!
-        return Move(newX, newY);
+        Move(newX, newY);
+
+        // Return true!
+        return true;
+    }
+
+    // Attack the target ship with this ship's primary weapons.
+    // Note: Does NOT error check!
+    public void Attack(Ship target)
+    {
+        Debug.Log(myName + " is attacking " + target.myName + " for " + damage + " damage!");
+
+        // Deal damage.
+        target.ReceiveDamage(damage);
+    }
+
+    // Receive damage.
+    public void ReceiveDamage(int incomingDamage)
+    {
+        // Minus armor.
+        incomingDamage -= armor;
+
+        // Lose health
+        health -= incomingDamage;
+
+        // Check death?
+        if (health <= 0)
+        {
+            Destroy(gameObject);
+        }
     }
 
     // Move the ship to new coordinates.
     // Note: Does NOT error check!
-    public bool Move(int newX, int newY)
+    public void Move(int newX, int newY)
     {
         // Get new tile.
         Tile newTile = GM.I.grid[newX, newY];
@@ -61,8 +121,5 @@ public class Ship : MonoBehaviour
 
         // Hide path preview.
         newTile.ClearPathPreview();
-
-        // Return!
-        return true;
     }
 }

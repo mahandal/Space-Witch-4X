@@ -54,8 +54,17 @@ public class InputManager : MonoBehaviour
                 // Make sure the target tile exists.
                 if (GM.I.hoveredTile != null)
                 {
-                    // Try to move the ship to the target tile.
-                    GM.I.selectedTile.ship.AttemptMove(GM.I.hoveredTile.x, GM.I.hoveredTile.y);
+                    // Check if there's an enemy ship there.
+                    if (GM.I.hoveredTile.ship != null &&
+                        GM.I.hoveredTile.ship.faction != GM.I.selectedTile.ship.faction)
+                    {
+                        // Try moving toward the enemy ship and attacking them.
+                        GM.I.selectedTile.ship.AttemptAttackMove(GM.I.hoveredTile.ship);
+                    } else {
+                        // Try to move the ship to the target tile.
+                        GM.I.selectedTile.ship.AttemptMove(GM.I.hoveredTile.x, GM.I.hoveredTile.y);
+                    }
+                        
                 }
             }
 

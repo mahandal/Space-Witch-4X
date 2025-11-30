@@ -4026,6 +4026,9 @@ MonoBehaviour:
   x: 0
   y: 0
   currentTile: {fileID: 0}
+  health: 100
+  damage: 10
+  armor: 1
   speed: 4
   range: 1
 --- !u!1 &659105256
@@ -4578,7 +4581,7 @@ GameObject:
   m_Component:
   - component: {fileID: 673435625}
   m_Layer: 0
-  m_Name: Tile Parent
+  m_Name: Tiles Parent
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9497,6 +9500,9 @@ MonoBehaviour:
   x: 0
   y: 0
   currentTile: {fileID: 0}
+  health: 100
+  damage: 10
+  armor: 1
   speed: 2
   range: 4
 --- !u!1 &1279724638
@@ -13553,7 +13559,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1721482652}
   m_Layer: 0
-  m_Name: Ship Parent
+  m_Name: Ships Parent
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -15894,6 +15900,9 @@ MonoBehaviour:
   x: 0
   y: 0
   currentTile: {fileID: 0}
+  health: 100
+  damage: 10
+  armor: 1
   speed: 3
   range: 2
 --- !u!1 &2022717090
