@@ -211,7 +211,7 @@ public class Tile : MonoBehaviour
             foreach (Tile neighbor in neighbors)
             {
                 // Get total move cost for this neighbor.
-                int moveCost = costToReach[current] + neighbor.GetMovementCost();
+                int moveCost = costToReach[current] + neighbor.GetMovementCost(ship);
 
                 // Check if neighbor is within movement range.
                 if (moveCost <= ship.speed)
@@ -259,12 +259,12 @@ public class Tile : MonoBehaviour
     }
 
     // Get the movement cost for a tile.
-    public int GetMovementCost()
+    public int GetMovementCost(Ship incomingShip)
     {
         // Default to 1.
         int moveCost = 1;
 
-        // Go through each special case!
+        // - Geography
         if (myType == "Water")
         {
             moveCost = 2;
@@ -272,6 +272,14 @@ public class Tile : MonoBehaviour
         else if (myType == "Asteroids")
         {
             moveCost = 2;
+        }
+
+        // - Ships
+
+        // Block enemy ships
+        if (ship != null && ship.faction != incomingShip.faction)
+        {
+            moveCost = 100;
         }
 
         // Return!
@@ -290,28 +298,32 @@ public class Tile : MonoBehaviour
     // Set background color to pink to show the currently selected tile.
     public void HighlightSelected()
     {
-        bg.color = new Color(1f, 0.154f, 0.7932f, 0.7843f);
+        // bg.color = new Color(1f, 0.154f, 0.7932f, 0.7843f);
+        bg.color = new Color(1f, 0.154f, 0.7932f, 1f);
     }
 
     // Set background color to purple to show a tile can be both moved to and attacked,
     // by the currently selected ship.
     public void HighlightMoveAndAttack()
     {
-        bg.color = new Color(0.6978f, 0.2402f, 0.9433f, 0.4823f);
+        // bg.color = new Color(0.6978f, 0.2402f, 0.9433f, 0.4823f);
+        bg.color = new Color(0.6978f, 0.2402f, 0.9433f, 1f);
     }
 
     // Set background color to blue to show a tile can be moved to (but not attacked!),
     // by the currently selected ship.
     public void HighlightMove()
     {
-        bg.color = new Color(0.2932f, 0.2638f, 0.7295f, 0.6431f);
+        // bg.color = new Color(0.2932f, 0.2638f, 0.7295f, 0.6431f);
+        bg.color = new Color(0.2932f, 0.2638f, 0.7295f, 1f);
     }
 
     // Set background color to red to show a tile can be attacked (but not moved to!),
     // by the currently selected ship.
     public void HighlightAttack()
     {
-        bg.color = new Color(0.7861f, 0.22f, 0.2256f, 0.6431f);
+        // bg.color = new Color(0.7861f, 0.22f, 0.2256f, 0.6431f);
+        bg.color = new Color(0.7861f, 0.22f, 0.2256f, 1f);
     }
 
     // - Hovering

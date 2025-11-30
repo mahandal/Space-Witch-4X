@@ -10,6 +10,16 @@ public class SpawnManager : MonoBehaviour
     public Tile p_Fire;
     public Tile p_Asteroids;
 
+    void Awake()
+    {
+        // Make sure progenitors are hidden!
+        p_Air.gameObject.SetActive(false);
+        p_Planet.gameObject.SetActive(false);
+        p_Water.gameObject.SetActive(false);
+        p_Fire.gameObject.SetActive(false);
+        p_Asteroids.gameObject.SetActive(false);
+    }
+
     // Start your engines!
     void Start()
     {
