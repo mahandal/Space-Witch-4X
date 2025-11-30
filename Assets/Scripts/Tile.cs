@@ -267,7 +267,7 @@ public class Tile : MonoBehaviour
     // Clear background color.
     public void ClearHighlight()
     {
-        bg.color = new Color(0f, 0f, 0f, 0f);
+        bg.color = new Color(0.5f, 0.5f, 0.5f, 0f);
     }
 
     // Set background color to pink to show the currently selected tile.
@@ -295,5 +295,31 @@ public class Tile : MonoBehaviour
     public void HighlightAttack()
     {
         bg.color = new Color(0.7861f, 0.22f, 0.2256f, 0.6431f);
+    }
+
+    // - Hovering
+    private float unhoveredOpacity;
+
+    // Hovering increases background opacity.
+    public void Hover()
+    {
+        // Remember opacity
+        unhoveredOpacity = bg.color.a;
+
+        // Set new opacity.
+        Color c = bg.color;
+        c.a = 1f;
+        bg.color = c;
+    }
+
+    // Unhovering returns background opacity as it was.
+    public void Unhover()
+    {
+        // Avoid unhovering the selected tile.
+        if (this == GM.I.selectedTile) return;
+        
+        Color c = bg.color;
+        c.a = unhoveredOpacity;
+        bg.color = c;
     }
 }

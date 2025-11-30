@@ -33,6 +33,10 @@ public class GM : MonoBehaviour
     // The currently selected tile.
     public Tile selectedTile;
 
+    // The tile we are currently hovering over.
+    // (set in InputManager)
+    public Tile hoveredTile;
+
 
     [Header("Machinery")]
     // A parent object of all tiles and ships for this map.

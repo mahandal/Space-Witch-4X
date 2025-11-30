@@ -1023,7 +1023,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 10
   m_Sprite: {fileID: 4138050939122739134, guid: a19153c7a09e91a4a844fcd2272e4059, type: 3}
-  m_Color: {r: 0.78616345, g: 0.22002682, b: 0.22562028, a: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -2414,7 +2414,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 10
+  m_SortingOrder: 11
   m_Sprite: {fileID: -1401486740417615856, guid: 87268bbce826cb241b502fc193a1ae33, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 0.48235294}
   m_FlipX: 0
@@ -2438,11 +2438,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d5b031382fee5340a8e94d0f603fa69, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Tile
-  distanceFromSelectedTile: -1
   myType: Asteroids
   x: 0
   y: 0
   ship: {fileID: 0}
+  moveCostFromSelectedTile: -1
   bg: {fileID: 175386179}
 --- !u!1 &515748769
 GameObject:
@@ -4484,7 +4484,7 @@ GameObject:
   m_Component:
   - component: {fileID: 673435625}
   m_Layer: 0
-  m_Name: Tiles
+  m_Name: Tile Parent
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6262,7 +6262,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 10
   m_Sprite: {fileID: 4138050939122739134, guid: a19153c7a09e91a4a844fcd2272e4059, type: 3}
-  m_Color: {r: 0.78616345, g: 0.22002682, b: 0.22562028, a: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -8402,7 +8402,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 10
   m_Sprite: {fileID: 4138050939122739134, guid: a19153c7a09e91a4a844fcd2272e4059, type: 3}
-  m_Color: {r: 0.78616345, g: 0.22002682, b: 0.22562028, a: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -8582,7 +8582,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 10
   m_Sprite: {fileID: 4138050939122739134, guid: a19153c7a09e91a4a844fcd2272e4059, type: 3}
-  m_Color: {r: 0.78616345, g: 0.22002682, b: 0.22562028, a: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -10476,6 +10476,7 @@ MonoBehaviour:
   gridWidth: 15
   gridHeight: 10
   selectedTile: {fileID: 0}
+  hoveredTile: {fileID: 0}
   universe: {fileID: 1601793761}
   tileParent: {fileID: 673435625}
   shipParent: {fileID: 1721482652}
@@ -10583,7 +10584,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 10
+  m_SortingOrder: 11
   m_Sprite: {fileID: 5619153403249526146, guid: 0a9d40a8158ed19468503f58770a8d74, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 0.48235294}
   m_FlipX: 0
@@ -10607,11 +10608,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d5b031382fee5340a8e94d0f603fa69, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Tile
-  distanceFromSelectedTile: -1
   myType: Water
   x: 0
   y: 0
   ship: {fileID: 0}
+  moveCostFromSelectedTile: -1
   bg: {fileID: 1189676131}
 --- !u!1 &1438557452
 GameObject:
@@ -11093,7 +11094,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 10
+  m_SortingOrder: 11
   m_Sprite: {fileID: -6510775964570694204, guid: 7289d8b0b3af2b8438b678ce95444d56, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 0.48235294}
   m_FlipX: 0
@@ -11117,11 +11118,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d5b031382fee5340a8e94d0f603fa69, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Tile
-  distanceFromSelectedTile: -1
   myType: Planet
   x: 0
   y: 0
   ship: {fileID: 0}
+  moveCostFromSelectedTile: -1
   bg: {fileID: 1204787611}
 --- !u!1 &1491703924
 GameObject:
@@ -13090,7 +13091,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1721482652}
   m_Layer: 0
-  m_Name: Ships
+  m_Name: Ship Parent
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -13824,7 +13825,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 10
   m_Sprite: {fileID: 4138050939122739134, guid: a19153c7a09e91a4a844fcd2272e4059, type: 3}
-  m_Color: {r: 0.78616345, g: 0.22002682, b: 0.22562028, a: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -14847,7 +14848,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 10
+  m_SortingOrder: 11
   m_Sprite: {fileID: 8435470185087510270, guid: 62f6a36b6bb384944ab2e3009e03143a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 0.48235294}
   m_FlipX: 0
@@ -14871,11 +14872,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d5b031382fee5340a8e94d0f603fa69, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Tile
-  distanceFromSelectedTile: -1
   myType: Fire
   x: 0
   y: 0
   ship: {fileID: 0}
+  moveCostFromSelectedTile: -1
   bg: {fileID: 876010255}
 --- !u!1 &1933968447
 GameObject:
@@ -15177,7 +15178,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 10
+  m_SortingOrder: 11
   m_Sprite: {fileID: -6933307522397945916, guid: 6a10d3589a1178048a8019af373337f7, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 0.48235294}
   m_FlipX: 0
@@ -15201,11 +15202,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d5b031382fee5340a8e94d0f603fa69, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Tile
-  distanceFromSelectedTile: -1
   myType: Air
   x: 0
   y: 0
   ship: {fileID: 0}
+  moveCostFromSelectedTile: -1
   bg: {fileID: 1818405150}
 --- !u!1 &1989912682
 GameObject:
