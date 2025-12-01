@@ -149,7 +149,7 @@ public class Ship : MonoBehaviour
             return false;
 
         // Check if tile is too far away.
-        if (newTile.moveCostFromSelectedTile > speed || newTile.moveCostFromSelectedTile < 0)
+        if (newTile.moveCostFromSelectedTile > movementRemaining || newTile.moveCostFromSelectedTile < 0)
             return false;
 
         // Delegate to Move!
@@ -219,6 +219,9 @@ public class Ship : MonoBehaviour
 
         // Hide path preview.
         newTile.ClearPathPreview();
+
+        // Spend movement.
+        movementRemaining -= newTile.moveCostFromSelectedTile;
     }
 
     // Refreshes this ship's movement and attacks.

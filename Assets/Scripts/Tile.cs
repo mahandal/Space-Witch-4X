@@ -221,7 +221,7 @@ public class Tile : MonoBehaviour
                 int moveCost = costToReach[current] + neighbor.GetMovementCost(ship);
 
                 // Check if neighbor is within movement range.
-                if (moveCost <= ship.speed)
+                if (moveCost <= ship.movementRemaining)
                 {
                     // Check if we already have a path to this tile.
                     if (costToReach.ContainsKey(neighbor))
