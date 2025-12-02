@@ -169,8 +169,8 @@ public class Ship : MonoBehaviour
         // Log it!
         Debug.Log(myName + " is attacking " + target.myName + " for " + damage + " damage!");
 
-        // Consume attack.
-        attacksRemaining--;
+        // Spend attack.
+        SpendAttack();
 
         // Deal damage.
         target.ReceiveDamage(damage);
@@ -224,9 +224,6 @@ public class Ship : MonoBehaviour
         newTile.ClearPathPreview();
 
         // Spend movement.
-        // movementRemaining -= newTile.moveCostFromSelectedTile;
-
-        // Spend movement.
         if (costMovement)
             SpendMovement(newTile.moveCostFromSelectedTile);
     }
@@ -241,7 +238,7 @@ public class Ship : MonoBehaviour
         SetMovementRemaining(speed);
 
         // Refresh attacks.
-        attacksRemaining = attacks;
+        SetAttacksRemaining(attacks);
     }
 
     // Spend the given amount of movement.
@@ -251,6 +248,7 @@ public class Ship : MonoBehaviour
         movementRemaining -= movementSpent;
 
         // Minimum of 0.
+        // (dunno if this is necessary?)
         if (movementRemaining < 0)
             movementRemaining = 0;
 
@@ -266,5 +264,25 @@ public class Ship : MonoBehaviour
 
         // Set text.
         movementRemainingText.text = movementRemaining.ToString();
+    }
+
+    // Spend an attack.
+    public void SpendAttack()
+    {
+        // Decrease attacks remaining.
+        attacksRemaining--;
+
+        // Set text.
+        attacksRemainingText.text = attacksRemaining.ToString();
+    }
+
+    // Set attacks remaining.
+    public void SetAttacksRemaining(int _attacksRemaining)
+    {
+        // Set new attacks remaining.
+        attacksRemaining = _attacksRemaining;
+
+        // Set text.
+        attacksRemainingText.text = attacksRemaining.ToString();
     }
 }
