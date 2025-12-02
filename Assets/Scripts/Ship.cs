@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections.Generic;
+using TMPro;
 
 public class Ship : MonoBehaviour
 {
@@ -24,8 +25,10 @@ public class Ship : MonoBehaviour
     public int movementRemaining;
     public int attacksRemaining;
 
-    [Header("Machinery")]
+    [Header("Manual Machinery")]
     public Image healthBar;
+    public TMP_Text movementRemainingText;
+    public TMP_Text attacksRemainingText;
 
     // Attempt to move into range and attack the target ship.
     // Fails if:
@@ -194,7 +197,7 @@ public class Ship : MonoBehaviour
 
     // Move the ship to new coordinates.
     // Note: Does NOT error check!
-    public void Move(int newX, int newY)
+    public void Move(int newX, int newY, bool costMovement = true)
     {
         // Get new tile.
         Tile newTile = GM.I.grid[newX, newY];
@@ -221,7 +224,11 @@ public class Ship : MonoBehaviour
         newTile.ClearPathPreview();
 
         // Spend movement.
-        movementRemaining -= newTile.moveCostFromSelectedTile;
+        // movementRemaining -= newTile.moveCostFromSelectedTile;
+
+        // Spend movement.
+        if (costMovement)
+            SpendMovement(newTile.moveCostFromSelectedTile);
     }
 
     // Refreshes this ship's movement and attacks.
@@ -231,9 +238,33 @@ public class Ship : MonoBehaviour
         Debug.Log(myName + " is refreshing itself!");
         
         // Refresh movement.
-        movementRemaining = speed;
+        SetMovementRemaining(speed);
 
         // Refresh attacks.
         attacksRemaining = attacks;
+    }
+
+    // Spend the given amount of movement.
+    public void SpendMovement(int movementSpent)
+    {
+        // Decrease moves remaining.
+        movementRemaining -= movementSpent;
+
+        // Minimum of 0.
+        if (movementRemaining < 0)
+            movementRemaining = 0;
+
+        // Set text.
+        movementRemainingText.text = movementRemaining.ToString();
+    }
+
+    // Set remaining movement to the given value.
+    public void SetMovementRemaining(int _movementRemaining)
+    {
+        // Set new movement remaining.
+        movementRemaining = _movementRemaining;
+
+        // Set text.
+        movementRemainingText.text = movementRemaining.ToString();
     }
 }
