@@ -79,7 +79,6 @@ public class Tile : MonoBehaviour
     }
 
     // Highlight nearby tiles to show the selected ship's movement and attack ranges.
-    // TBD!
     public void HighlightRanges()
     {
         // Make sure we have a ship!
@@ -167,6 +166,7 @@ public class Tile : MonoBehaviour
 
         // Start from current tile.
         frontier.Enqueue(this);
+        reachable.Add(this);
 
         // Reset current tile.
         costToReach[this] = 0;
