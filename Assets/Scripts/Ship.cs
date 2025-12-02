@@ -72,20 +72,7 @@ public class Ship : MonoBehaviour
         // Get the target's tile.
         Tile targetTile = target.currentTile;
 
-        // Measure distance apart.
-        int distance = Utility.Distance(currentTile, targetTile);
-
-        // Check if we're in range to attack them already.
-        if (distance <= range)
-        {
-            // Attack them!
-            Attack(target);
-
-            // Done!
-            return true;
-        }
-
-        // We need to move closer. Find the best tile to move to.
+        // Find the closest tile to us that we can attack our target from.
         Tile bestTile = FindVantagePoint(targetTile);
 
         // Check if we found a tile.
@@ -105,10 +92,21 @@ public class Ship : MonoBehaviour
         return true;
     }
 
-    // Find the best position to attack from,
-    // meaning the closest valid tile (for now!)
+    // Find the closest tile to us that we can attack our target from.
     public Tile FindVantagePoint(Tile targetTile)
     {
+        // Measure distance apart.
+        int distance = Utility.Distance(currentTile, targetTile);
+
+        // Check if we're in range to attack them already.
+        if (distance <= range)
+        {
+            // Done!
+            return currentTile;
+        }
+
+        // - Not in range, have to move closer.
+
         // Get all tiles we can move to.
         HashSet<Tile> moveableTiles = currentTile.GetTilesInMovementRange();
 

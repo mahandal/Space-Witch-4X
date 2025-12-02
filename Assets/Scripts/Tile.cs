@@ -336,7 +336,23 @@ public class Tile : MonoBehaviour
     // - Hovering
     private float unhoveredOpacity;
 
-    // Hovering increases background opacity.
+    // Hovering increases background opacity,
+    // and previews a path to the hovered tile if you are selecting a ship.
+    // public void Hover()
+    // {
+    //     // Remember opacity
+    //     unhoveredOpacity = bg.color.a;
+
+    //     // Set new opacity.
+    //     Color c = bg.color;
+    //     c.a = 1f;
+    //     bg.color = c;
+
+    //     // Check if we should show a preview of a path to this tile.
+    //     if (GM.I.selectedTile != null && GM.I.selectedTile.ship != null)
+    //         ShowPathPreview();
+    // }
+
     public void Hover()
     {
         // Remember opacity
@@ -347,9 +363,36 @@ public class Tile : MonoBehaviour
         c.a = 1f;
         bg.color = c;
 
-        // Check if we should show a preview of a path to this tile.
+        // Check if we are selecting a ship and should show a preview of a path to this tile.
         if (GM.I.selectedTile != null && GM.I.selectedTile.ship != null)
-            ShowPathPreview();
+        {
+            // Check if this tile has an enemy ship we could attack
+            if (ship != null && ship.faction != GM.I.selectedTile.ship.faction)
+            {
+                // Check if we have attacks remaining
+                if (GM.I.selectedTile.ship.attacksRemaining > 0)
+                {
+                    // Find the vantage point to attack from
+                    Tile vantagePoint = GM.I.selectedTile.ship.FindVantagePoint(this);
+                    
+                    if (vantagePoint != null)
+                    {
+                        // Check if we're already in range (vantage point is our current tile)
+                        if (vantagePoint != GM.I.selectedTile)
+                        {
+                            // Show the path to the vantage point
+                            vantagePoint.ShowPathPreview();
+                            attackPathTile = vantagePoint;
+                        }
+                    }
+                }
+            }
+            else
+            {
+                // Normal movement preview
+                ShowPathPreview();
+            }
+        }
     }
 
     // Unhovering returns background opacity as it was.
@@ -365,6 +408,13 @@ public class Tile : MonoBehaviour
 
         // Clear the preview of a path to this tile, if there was one.
         ClearPathPreview();
+
+        // Clear attack path preview if one exists
+        if (attackPathTile != null)
+        {
+            attackPathTile.ClearPathPreview();
+            attackPathTile = null;
+        }
     }
 
 
@@ -385,7 +435,9 @@ public class Tile : MonoBehaviour
 
     
 
-    // - Path previews
+    // ---  Path previews
+
+    // - Movement paths
     private LineRenderer pathLine;
 
     public void ShowPathPreview()
@@ -436,4 +488,7 @@ public class Tile : MonoBehaviour
             // pathLine.enabled = false;
         }
     }
+
+    // - Attack paths
+    private static Tile attackPathTile;
 }
