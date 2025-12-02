@@ -488,11 +488,16 @@ public class Tile : MonoBehaviour
         pathLine.enabled = true;
     }
 
+    // Clear the movement path preview, if extant.
     public void ClearPathPreview()
     {
         if (pathLine != null)
         {
-            Destroy(pathLine);
+            // Destroy the path immediately!
+            DestroyImmediate(pathLine);
+
+            // Note: This is more obvious but does not work!
+            // Because Unity bravely does not allow such nonsense.
             // pathLine.enabled = false;
         }
     }
@@ -532,11 +537,14 @@ public class Tile : MonoBehaviour
         attackLine.enabled = true;
     }
 
+    // Clear the attack preview, if extant.
     public void ClearAttackPreview()
     {
         if (attackLine != null)
         {
-            Destroy(attackLine);
+            // Destroy the preview immediately!
+            DestroyImmediate(attackLine);
+            // attackLine.enabled = false;
         }
     }
 }
