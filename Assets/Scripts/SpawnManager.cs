@@ -85,30 +85,13 @@ public class SpawnManager : MonoBehaviour
 
 
         // - Spawn in heroes
+        foreach (Leader leader in GM.I.leaders.Values)
+        {
+            leader.Init();
+        }
 
-        // Swarm
-        int swarmX = Random.Range(0, GM.I.gridWidth);
-        int swarmY = Random.Range(0, GM.I.gridHeight);
-        GM.I.swarmHero.Move(swarmX, swarmY);
-
-        // Coven
-        int covenX = Random.Range(0, GM.I.gridWidth);
-        int covenY = Random.Range(0, GM.I.gridHeight);
-        GM.I.covenHero.Move(covenX, covenY);
-
-        // Syndicate
-        int syndicateX = Random.Range(0, GM.I.gridWidth);
-        int syndicateY = Random.Range(0, GM.I.gridHeight);
-        GM.I.syndicateHero.Move(syndicateX, syndicateY);
-
-
-        // - Spawn in starting units(?)
-        // (temporary prolly but using it to test!)
-        SpawnShip("Tarodactyl", swarmX + 1, swarmY);
-
-        SpawnShip("Space Witch", covenX + 1, covenY);
-
-        SpawnShip("Flybot", syndicateX + 1, syndicateY);
+        // - Begin the game by starting a new turn for the swarm!
+        GM.I.NewTurn(Faction.Swarm);
     }
 
     // Spawn a random tile at the given coordinates.
@@ -198,48 +181,29 @@ public class SpawnManager : MonoBehaviour
             return null;
         }
 
-        // - Add to faction's list of ships.
         Debug.Log("Spawning " + newShip.myName + " for faction: " + newShip.faction);
+        
+        // Add to leader's fleet.
+        GM.I.leaders[newShip.faction].fleet.Add(newShip);
+
+        // - Assign parent.
+        // (Doesn't really do anything, just for organizational purposes)
 
         // Neutral
         if (newShip.faction == Faction.Neutral)
-        {
-            // Set parent.
             newShip.transform.SetParent(neutralShipParent);
 
-            // Add to GM's list.
-            GM.I.neutralShips.Add(newShip);
-        }
-
         // Swarm
-        if (newShip.faction == Faction.Swarm)
-        {
-            // Set parent.
+        else if (newShip.faction == Faction.Swarm)
             newShip.transform.SetParent(swarmShipParent);
 
-            // Add to GM's list.
-            GM.I.swarmShips.Add(newShip);
-        }
-
         // Coven
-        if (newShip.faction == Faction.Coven)
-        {
-            // Set parent.
+        else if (newShip.faction == Faction.Coven)
             newShip.transform.SetParent(covenShipParent);
 
-            // Add to GM's list.
-            GM.I.covenShips.Add(newShip);
-        }
-
         // Syndicate
-        if (newShip.faction == Faction.Syndicate)
-        {
-            // Set parent.
+        else if (newShip.faction == Faction.Syndicate)
             newShip.transform.SetParent(syndicateShipParent);
-
-            // Add to GM's list.
-            GM.I.syndicateShips.Add(newShip);
-        }
 
         // Set new position.
         newShip.Move(x, y);

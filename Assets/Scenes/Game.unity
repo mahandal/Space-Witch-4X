@@ -4556,9 +4556,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 653616650}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: de4ab1d67c32f1f4d9a8ed5cc035b185, type: 3}
+  m_Script: {fileID: 11500000, guid: f93498f3940d28546915f8b2b31d433b, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Ship
+  m_EditorClassIdentifier: Assembly-CSharp::Leader
   myName: Thousand Flowers
   faction: 1
   x: 0
@@ -4574,6 +4574,8 @@ MonoBehaviour:
   movementRemaining: 0
   attacksRemaining: 0
   healthBar: {fileID: 1204778209}
+  mana: 0
+  fleet: []
 --- !u!1 &659105256
 GameObject:
   m_ObjectHideFlags: 0
@@ -10766,7 +10768,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1273853951}
-  - component: {fileID: 1273853952}
+  - component: {fileID: 1273853953}
   m_Layer: 20
   m_Name: Aeradril
   m_TagString: Untagged
@@ -10792,7 +10794,7 @@ Transform:
   - {fileID: 1427316921}
   m_Father: {fileID: 20375830}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1273853952
+--- !u!114 &1273853953
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -10801,9 +10803,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1273853950}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: de4ab1d67c32f1f4d9a8ed5cc035b185, type: 3}
+  m_Script: {fileID: 11500000, guid: f93498f3940d28546915f8b2b31d433b, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Ship
+  m_EditorClassIdentifier: Assembly-CSharp::Leader
   myName: Aeradril
   faction: 3
   x: 0
@@ -10819,6 +10821,8 @@ MonoBehaviour:
   movementRemaining: 0
   attacksRemaining: 0
   healthBar: {fileID: 729532211}
+  mana: 0
+  fleet: []
 --- !u!1 &1279724638
 GameObject:
   m_ObjectHideFlags: 0
@@ -12411,13 +12415,13 @@ MonoBehaviour:
   activeFaction: 1
   round: 1
   turnOrder: 010000000200000003000000
-  swarmHero: {fileID: 653616652}
-  covenHero: {fileID: 2021684152}
-  syndicateHero: {fileID: 1273853952}
-  swarmShips: []
-  covenShips: []
-  syndicateShips: []
-  neutralShips: []
+  swarmHero: {fileID: 0}
+  swarmLeader: {fileID: 653616652}
+  covenHero: {fileID: 0}
+  covenLeader: {fileID: 2021684153}
+  syndicateHero: {fileID: 0}
+  syndicateLeader: {fileID: 1273853953}
+  neutralLeader: {fileID: 0}
   gridWidth: 15
   gridHeight: 10
   selectedTile: {fileID: 0}
@@ -18222,7 +18226,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2021684151}
-  - component: {fileID: 2021684152}
+  - component: {fileID: 2021684153}
   m_Layer: 20
   m_Name: Granga
   m_TagString: Untagged
@@ -18248,7 +18252,7 @@ Transform:
   - {fileID: 2123565881}
   m_Father: {fileID: 2054717619}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2021684152
+--- !u!114 &2021684153
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -18257,9 +18261,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 2021684150}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: de4ab1d67c32f1f4d9a8ed5cc035b185, type: 3}
+  m_Script: {fileID: 11500000, guid: f93498f3940d28546915f8b2b31d433b, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Ship
+  m_EditorClassIdentifier: Assembly-CSharp::Leader
   myName: Granga
   faction: 2
   x: 0
@@ -18275,6 +18279,8 @@ MonoBehaviour:
   movementRemaining: 0
   attacksRemaining: 0
   healthBar: {fileID: 820917528}
+  mana: 0
+  fleet: []
 --- !u!1 &2022717090
 GameObject:
   m_ObjectHideFlags: 0

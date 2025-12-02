@@ -24,24 +24,24 @@ public class GM : MonoBehaviour
     private int turnIndex = 0;
 
     
-    [Header("Heroes")]
-    // The hero leading the Swarm in this adventure.
-    public Ship swarmHero;
+    [Header("Leaders")]
+    // A dictionary mapping each faction to their leader.
+    public Dictionary<Faction, Leader> leaders = new Dictionary<Faction, Leader>();
 
-    // The hero leading the Coven in this adventure.
-    public Ship covenHero;
+    // The hero leading the Swarm in this skirmish.
+    public Leader swarmLeader;
 
-    // The hero leading the Syndicate in this adventure.
-    public Ship syndicateHero;
+    // The hero leading the Coven in this skirmish.
+    public Leader covenLeader;
 
-    [Header("Ships")]
-    public List<Ship> swarmShips = new List<Ship>();
-    public List<Ship> covenShips = new List<Ship>();
-    public List<Ship> syndicateShips = new List<Ship>();
-    public List<Ship> neutralShips = new List<Ship>();
+    // The hero leading the Syndicate in this skirmish.
+    public Leader syndicateLeader;
+
+    // The god worshipped by Neutral ships in this skirmish.
+    public Leader neutralLeader;
 
     [Header("Grid")]
-    // The grid of all tiles for our current adventure.
+    // The grid of all tiles for our current skirmish.
     public Tile[,] grid;
 
     // How many tiles wide our grid is.
@@ -71,22 +71,11 @@ public class GM : MonoBehaviour
         else
             Destroy(this);
 
-        // - Initialize ship lists.
-
-        // Swarm
-        swarmShips = new List<Ship>();
-        swarmShips.Add(swarmHero);
-
-        // Coven
-        covenShips = new List<Ship>();
-        covenShips.Add(covenHero);
-
-        // Syndicate
-        syndicateShips = new List<Ship>();
-        syndicateShips.Add(syndicateHero);
-
-        // Neutral
-        neutralShips = new List<Ship>();
+        // Initialize dictionary of leaders.
+        if (swarmLeader != null) leaders[Faction.Swarm] = swarmLeader;
+        if (covenLeader != null) leaders[Faction.Coven] = covenLeader;
+        if (syndicateLeader != null) leaders[Faction.Syndicate] = syndicateLeader;
+        if (neutralLeader != null) leaders[Faction.Neutral] = neutralLeader;
     }
 
     // End the current turn and go to the next one.
@@ -113,7 +102,7 @@ public class GM : MonoBehaviour
     }
 
     // Start a new turn for the given faction.
-    private void NewTurn(Faction faction)
+    public void NewTurn(Faction faction)
     {
         Debug.Log("Starting a new turn for faction: " + faction);
         
@@ -123,31 +112,10 @@ public class GM : MonoBehaviour
         // Display new faction.
         UI.I.activeFaction.text = faction.ToString();
 
+        // Get the faction's leader.
+        Leader leader = leaders[faction];
+
         // Peform upkeep for each of that faction's ships & tiles.
-        Upkeep(faction);
-    }
-
-    // Handle upkeep for each of a faction's ships & tiles:
-    // - Refresh each ship's movement and attacks.
-    // - TBD: Gain 1 mana per tile.
-    private void Upkeep(Faction faction)
-    {
-        Debug.Log("Performing upkeep for faction: " + faction);
-        
-        // Initialize a list of all ships for this faction.
-        List<Ship> ships = null;
-
-        // Assign list
-        if (faction == Faction.Swarm) ships = swarmShips;
-        if (faction == Faction.Coven) ships = covenShips;
-        if (faction == Faction.Syndicate) ships = syndicateShips;
-        if (faction == Faction.Neutral) ships = neutralShips;
-
-        // Iterate through each ship.
-        foreach (Ship ship in ships)
-        {
-            // Refresh ship.
-            ship.Refresh();
-        }
+        leader.Upkeep();
     }
 }
