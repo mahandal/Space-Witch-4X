@@ -373,8 +373,9 @@ public class Tile : MonoBehaviour
                 if (GM.I.selectedTile.ship.attacksRemaining > 0)
                 {
                     // Find the vantage point to attack from
-                    Tile vantagePoint = GM.I.selectedTile.ship.FindVantagePoint(this);
+                    vantagePoint = GM.I.selectedTile.ship.FindVantagePoint(this);
                     
+                    // Check if we found a vantage point.
                     if (vantagePoint != null)
                     {
                         // Check if we're already in range (vantage point is our current tile)
@@ -382,8 +383,10 @@ public class Tile : MonoBehaviour
                         {
                             // Show the path to the vantage point
                             vantagePoint.ShowPathPreview();
-                            attackPathTile = vantagePoint;
                         }
+
+                        // Show attack preview.
+                        PreviewAttack(vantagePoint);
                     }
                 }
             }
@@ -408,12 +411,13 @@ public class Tile : MonoBehaviour
 
         // Clear the preview of a path to this tile, if there was one.
         ClearPathPreview();
+        ClearAttackPreview();
 
         // Clear attack path preview if one exists
-        if (attackPathTile != null)
+        if (vantagePoint != null)
         {
-            attackPathTile.ClearPathPreview();
-            attackPathTile = null;
+            vantagePoint.ClearPathPreview();
+            vantagePoint = null;
         }
     }
 
@@ -450,8 +454,8 @@ public class Tile : MonoBehaviour
         if (pathLine == null)
         {
             pathLine = gameObject.AddComponent<LineRenderer>();
-            pathLine.startWidth = 0.1f;
-            pathLine.endWidth = 0.1f;
+            pathLine.startWidth = 0.02f;
+            pathLine.endWidth = 0.02f;
             pathLine.material = new Material(Shader.Find("Sprites/Default"));
             pathLine.startColor = Constance.FactionColor(selectedShip.faction);
             pathLine.endColor = Constance.FactionColor(selectedShip.faction);
@@ -494,5 +498,45 @@ public class Tile : MonoBehaviour
     }
 
     // - Attack paths
-    private static Tile attackPathTile;
+
+    // Whichever tile is currently being used as a vantage point (if any).
+    private static Tile vantagePoint;
+
+    // The line renderer used to display attack previews.
+    private LineRenderer attackLine;
+
+    // Display an attack preview from the vantage point to the current tile.
+    public void PreviewAttack(Tile vantagePoint)
+    {
+        // Create attack line renderer if needed
+        if (attackLine == null)
+        {
+            attackLine = gameObject.AddComponent<LineRenderer>();
+            attackLine.startWidth = 0.02f;
+            attackLine.endWidth = 0.01f;
+            attackLine.material = new Material(Shader.Find("Sprites/Default"));
+            attackLine.startColor = Color.red;
+            attackLine.endColor = Color.red;
+            attackLine.sortingOrder = 1001;
+        }
+
+        // Draw straight line from vantage point to this tile
+        Vector3 startPos = vantagePoint.transform.position;
+        startPos.z = -0.5f;
+        
+        Vector3 endPos = transform.position;
+        endPos.z = -0.5f;
+
+        attackLine.positionCount = 2;
+        attackLine.SetPositions(new Vector3[] { startPos, endPos });
+        attackLine.enabled = true;
+    }
+
+    public void ClearAttackPreview()
+    {
+        if (attackLine != null)
+        {
+            Destroy(attackLine);
+        }
+    }
 }
