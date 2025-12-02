@@ -2455,9 +2455,12 @@ MonoBehaviour:
   attacks: 1
   movementRemaining: 0
   attacksRemaining: 0
+  sr: {fileID: 1129484692}
   healthBar: {fileID: 1204778209}
   movementRemainingText: {fileID: 1266031744}
+  movementRemainingOutline: {fileID: 7019829}
   attacksRemainingText: {fileID: 1377096320}
+  attacksRemainingOutline: {fileID: 1445156865}
   mana: 0
   fleet: []
 --- !u!1 &662211612
@@ -6211,9 +6214,12 @@ MonoBehaviour:
   attacks: 1
   movementRemaining: 0
   attacksRemaining: 0
+  sr: {fileID: 922722137}
   healthBar: {fileID: 729532211}
   movementRemainingText: {fileID: 372867707}
+  movementRemainingOutline: {fileID: 1722080316}
   attacksRemainingText: {fileID: 1899389463}
+  attacksRemainingOutline: {fileID: 1051948567}
   mana: 0
   fleet: []
 --- !u!1 &1281701244
@@ -7413,9 +7419,12 @@ MonoBehaviour:
   attacks: 1
   movementRemaining: 0
   attacksRemaining: 0
+  sr: {fileID: 862720499}
   healthBar: {fileID: 1777358929}
   movementRemainingText: {fileID: 964139582}
+  movementRemainingOutline: {fileID: 868715625}
   attacksRemainingText: {fileID: 671819485}
+  attacksRemainingOutline: {fileID: 173470264}
 --- !u!1 &1487250962
 GameObject:
   m_ObjectHideFlags: 0
@@ -7809,9 +7818,12 @@ MonoBehaviour:
   attacks: 1
   movementRemaining: 0
   attacksRemaining: 0
+  sr: {fileID: 1626173557}
   healthBar: {fileID: 1377438404}
   movementRemainingText: {fileID: 1250894781}
+  movementRemainingOutline: {fileID: 140528464}
   attacksRemainingText: {fileID: 309741488}
+  attacksRemainingOutline: {fileID: 1871294164}
 --- !u!1 &1652702032
 GameObject:
   m_ObjectHideFlags: 0
@@ -8563,9 +8575,12 @@ MonoBehaviour:
   attacks: 1
   movementRemaining: 0
   attacksRemaining: 0
+  sr: {fileID: 61606889}
   healthBar: {fileID: 884697448}
   movementRemainingText: {fileID: 1920658221}
+  movementRemainingOutline: {fileID: 843979898}
   attacksRemainingText: {fileID: 808588636}
+  attacksRemainingOutline: {fileID: 1015554381}
 --- !u!1 &1871294162
 GameObject:
   m_ObjectHideFlags: 0
@@ -9411,9 +9426,12 @@ MonoBehaviour:
   attacks: 1
   movementRemaining: 0
   attacksRemaining: 0
+  sr: {fileID: 1227976946}
   healthBar: {fileID: 820917528}
   movementRemainingText: {fileID: 1684638061}
+  movementRemainingOutline: {fileID: 1420069159}
   attacksRemainingText: {fileID: 595642100}
+  attacksRemainingOutline: {fileID: 617439480}
   mana: 0
   fleet: []
 --- !u!1 &2054717618

@@ -26,9 +26,25 @@ public class Ship : MonoBehaviour
     public int attacksRemaining;
 
     [Header("Manual Machinery")]
+    // This ship's sprite renderer.
+    public SpriteRenderer sr;
+
+    // This ship's health bar.
     public Image healthBar;
+
+    // This ship's movement remaining text indicator.
     public TMP_Text movementRemainingText;
+
+    // The outline behind this ship's movement remaining text indicator.
+    // Also the parent object of the movement remaining text indicator.
+    public Image movementRemainingOutline;
+
+    // This ship's attacks remaining text indicator.
     public TMP_Text attacksRemainingText;
+
+    // The outline behidn this ship's attacks remaining text indicator.
+    // Also the parent object of the attacks remaining text indicator.
+    public Image attacksRemainingOutline;
 
     // Attempt to move into range and attack the target ship.
     // Fails if:
@@ -254,6 +270,9 @@ public class Ship : MonoBehaviour
 
         // Set text.
         movementRemainingText.text = movementRemaining.ToString();
+
+        // Consider greying ourselves out to show we are done for the turn.
+        ConsiderGoingGrey();
     }
 
     // Set remaining movement to the given value.
@@ -264,6 +283,9 @@ public class Ship : MonoBehaviour
 
         // Set text.
         movementRemainingText.text = movementRemaining.ToString();
+
+        // Consider greying ourselves out to show we are done for the turn.
+        ConsiderGoingGrey();
     }
 
     // Spend an attack.
@@ -274,6 +296,9 @@ public class Ship : MonoBehaviour
 
         // Set text.
         attacksRemainingText.text = attacksRemaining.ToString();
+
+        // Consider greying ourselves out to show we are done for the turn.
+        ConsiderGoingGrey();
     }
 
     // Set attacks remaining.
@@ -284,5 +309,59 @@ public class Ship : MonoBehaviour
 
         // Set text.
         attacksRemainingText.text = attacksRemaining.ToString();
+
+        // Consider greying ourselves out to show we are done for the turn.
+        ConsiderGoingGrey();
+    }
+
+    // Consider greying ourselves out to show we are done for the turn.
+    // To qualify for going grey, a ship must:
+    // - Have no movement remaining.
+    // - Have no attacks remaining.
+    // If a ship has none of one but some of the other,
+    // the one with none goes away but the other stays and the ship doesn't go grey.
+    public void ConsiderGoingGrey()
+    {
+        // Check if we have movement remaining.
+        if (movementRemaining <= 0)
+        {
+            // Hide movement remaining.
+            movementRemainingOutline.gameObject.SetActive(false);
+        } else {
+            // Reveal movement remaining.
+            movementRemainingOutline.gameObject.SetActive(true);
+        }
+
+        // Check if we have attacks remaining.
+        if (attacksRemaining <= 0)
+        {
+            // Hide attacks remaining.
+            attacksRemainingOutline.gameObject.SetActive(false);
+        } else {
+            // Reveal attacks remaining.
+            attacksRemainingOutline.gameObject.SetActive(true);
+        }
+
+        // Check if we have movement or attacks remaining.
+        if (movementRemaining > 0 || attacksRemaining > 0)
+        {
+            // Make sure we aren't grey!
+            UnGrey();
+        } else {
+            // Go grey!
+            GoGrey();
+        }
+    }
+
+    // Grey yourself out!
+    public void GoGrey()
+    {
+        sr.color = new Color(0.5f, 0.5f, 0.5f, 0.9f);
+    }
+
+    // Ungrey yourself!
+    public void UnGrey()
+    {
+        sr.color = new Color(1f, 1f, 1f, 1f);
     }
 }
