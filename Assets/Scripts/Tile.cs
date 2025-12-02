@@ -442,6 +442,10 @@ public class Tile : MonoBehaviour
 
     public void ShowPathPreview()
     {
+        // Get selected ship.
+        Ship selectedShip = GM.I.selectedTile.ship;
+        if (selectedShip == null) return;
+
         // Create line renderer if needed.
         if (pathLine == null)
         {
@@ -449,8 +453,8 @@ public class Tile : MonoBehaviour
             pathLine.startWidth = 0.1f;
             pathLine.endWidth = 0.1f;
             pathLine.material = new Material(Shader.Find("Sprites/Default"));
-            pathLine.startColor = Color.white;
-            pathLine.endColor = Color.white;
+            pathLine.startColor = Constance.FactionColor(selectedShip.faction);
+            pathLine.endColor = Constance.FactionColor(selectedShip.faction);
             pathLine.sortingOrder = 1000;
         }
 
