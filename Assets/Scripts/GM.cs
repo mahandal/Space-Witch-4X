@@ -81,8 +81,6 @@ public class GM : MonoBehaviour
     // End the current turn and go to the next one.
     public void EndTurn()
     {
-        Debug.Log("Ending the turn for faction: " + activeFaction);
-
         // Let the current leader end the turn for their faction.
         leaders[activeFaction].EndTurn();
 
@@ -107,8 +105,6 @@ public class GM : MonoBehaviour
     // Start a new turn for the given faction.
     public void NewTurn(Faction faction)
     {
-        Debug.Log("Starting a new turn for faction: " + faction);
-        
         // Set new active faction.
         activeFaction = faction;
 

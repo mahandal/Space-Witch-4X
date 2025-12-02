@@ -246,8 +246,6 @@ public class Ship : MonoBehaviour
     // Should be called once at the beginning of each turn.
     public void Refresh()
     {
-        Debug.Log(myName + " is refreshing itself!");
-        
         // Refresh movement.
         SetMovementRemaining(speed);
 
