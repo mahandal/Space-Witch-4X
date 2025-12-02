@@ -376,22 +376,25 @@ public class Tile : MonoBehaviour
         faction = newFaction;
 
         // - Set faction color.
+        Color factionColor = Constance.FactionColor(newFaction);
+        factionColor.a = 0.5f;
+        factionBG.color = factionColor;
 
-        // Neutral
-        if (faction == Faction.Neutral)
-            factionBG.color = new Color(0.5f, 0.5f, 0.5f, 0.5f);
+        // // Neutral
+        // if (faction == Faction.Neutral)
+        //     factionBG.color = new Color(0.5f, 0.5f, 0.5f, 0.5f);
 
-        // The Swarm
-        else if (faction == Faction.Swarm)
-            factionBG.color = new Color(0f, 1f, 0.0429f, 0.5f);
+        // // The Swarm
+        // else if (faction == Faction.Swarm)
+        //     factionBG.color = new Color(0f, 1f, 0.0429f, 0.5f);
 
-        // The Coven
-        else if (faction == Faction.Coven)
-            factionBG.color = new Color(0f, 0.9889f, 1f, 0.5f);
+        // // The Coven
+        // else if (faction == Faction.Coven)
+        //     factionBG.color = new Color(0f, 0.9889f, 1f, 0.5f);
 
-        // The Syndicate
-        else if (faction == Faction.Syndicate)
-            factionBG.color = new Color(1f, 0.8535f, 0f, 0.5f);
+        // // The Syndicate
+        // else if (faction == Faction.Syndicate)
+        //     factionBG.color = new Color(1f, 0.8535f, 0f, 0.5f);
 
         // Claim other tiles in path!
         if (previousTileInPath != null)

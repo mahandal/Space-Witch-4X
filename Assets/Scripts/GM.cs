@@ -83,6 +83,9 @@ public class GM : MonoBehaviour
     {
         Debug.Log("Ending the turn for faction: " + activeFaction);
 
+        // Let the current leader end the turn for their faction.
+        leaders[activeFaction].EndTurn();
+
         // Increment turn index.
         turnIndex++;
 
@@ -109,13 +112,13 @@ public class GM : MonoBehaviour
         // Set new active faction.
         activeFaction = faction;
 
-        // Display new faction.
-        UI.I.activeFaction.text = faction.ToString();
-
         // Get the faction's leader.
         Leader leader = leaders[faction];
 
-        // Peform upkeep for each of that faction's ships & tiles.
-        leader.Upkeep();
+        // Let the leader start their faction's turn.
+        leader.StartTurn();
+
+        // Set up UI.
+        UI.I.NewTurn(faction);
     }
 }
