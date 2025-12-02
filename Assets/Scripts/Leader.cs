@@ -41,6 +41,9 @@ public class Leader : Ship
         // Reset fleet list.
         fleet = new List<Ship>();
         fleet.Add(this);
+
+        // Set health bar color.
+        healthBar.color = Constance.FactionColor(faction, 1f);
     }
 
     // Move this leader to a random position as its starting location.
