@@ -163,18 +163,26 @@ public class SpawnManager : MonoBehaviour
         Ship newShip = null;
 
         // Check ship type to instantiate new ship.
-        if (shipType == "Space Witch")
-        {
-            newShip = Object.Instantiate(p_SpaceWitch);
-        }
-        else if (shipType == "Tarodactyl")
+
+        // - Swarm
+        if (shipType == "Tarodactyl")
         {
             newShip = Object.Instantiate(p_Tarodactyl);
         }
+
+        // - Coven
+        else if (shipType == "Space Witch")
+        {
+            newShip = Object.Instantiate(p_SpaceWitch);
+        }
+
+        // Syndicate
         else if (shipType == "Flybot")
         {
             newShip = Object.Instantiate(p_Flybot);
         }
+
+        // - Unknown?
         else
         {
             Debug.LogError("ERROR! Failed to spawn new ship of unknown type: " + shipType);

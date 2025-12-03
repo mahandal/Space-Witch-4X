@@ -6,7 +6,7 @@ public class Leader : Ship
 {
     [Header("Leader")]
     public int mana = 0;
-    public List<Ship> fleet = new List<Ship>();
+    public HashSet<Ship> fleet = new HashSet<Ship>();
 
     // Initialize this leader:
     // - Move it to a random position.
@@ -39,7 +39,7 @@ public class Leader : Ship
         }
 
         // Reset fleet list.
-        fleet = new List<Ship>();
+        fleet = new HashSet<Ship>();
         fleet.Add(this);
 
         // Set health bar color.

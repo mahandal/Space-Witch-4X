@@ -97,9 +97,22 @@ public class GM : MonoBehaviour
             round++;
         }
 
-        // Start a new turn for the next faction.
+        // Get the next faction.
         Faction nextFaction = turnOrder[turnIndex];
-        NewTurn(nextFaction);        
+
+        // Get the leader of the next faction.
+        Leader nextLeader = leaders[nextFaction];
+
+        // If the next faction's leader is gone, skip them!
+        if (nextLeader == null ||
+            nextLeader.currentHealth <= 0 ||
+            nextLeader.faction != nextFaction)
+        {
+            EndTurn();
+        } else {
+            // Start a new turn for the next faction.
+            NewTurn(nextFaction);   
+        }
     }
 
     // Start a new turn for the given faction.

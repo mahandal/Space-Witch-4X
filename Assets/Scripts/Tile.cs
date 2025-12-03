@@ -64,6 +64,10 @@ public class Tile : MonoBehaviour
     // Select this tile!
     public void Select()
     {
+        // Clear old previews.
+        ClearPathPreview();
+        ClearAttackPreview();
+        
         // Clear old highlighting.
         ClearAllHighlights();
 
@@ -450,17 +454,17 @@ public class Tile : MonoBehaviour
         Ship selectedShip = GM.I.selectedTile.ship;
         if (selectedShip == null) return;
 
-        // Create line renderer if needed.
-        if (pathLine == null)
-        {
-            pathLine = gameObject.AddComponent<LineRenderer>();
-            pathLine.startWidth = 0.02f;
-            pathLine.endWidth = 0.02f;
-            pathLine.material = new Material(Shader.Find("Sprites/Default"));
-            pathLine.startColor = Constance.FactionColor(selectedShip.faction);
-            pathLine.endColor = Constance.FactionColor(selectedShip.faction);
-            pathLine.sortingOrder = 1000;
-        }
+        // Make sure path line does not already exist.
+        ClearPathPreview();
+
+        // Create line renderer.
+        pathLine = gameObject.AddComponent<LineRenderer>();
+        pathLine.startWidth = 0.02f;
+        pathLine.endWidth = 0.02f;
+        pathLine.material = new Material(Shader.Find("Sprites/Default"));
+        pathLine.startColor = Constance.FactionColor(selectedShip.faction);
+        pathLine.endColor = Constance.FactionColor(selectedShip.faction);
+        pathLine.sortingOrder = 1000;
 
         // Make sure we can actually move here.
         if (moveCostFromSelectedTile < 0 || moveCostFromSelectedTile > GM.I.selectedTile.ship.speed || ship != null)

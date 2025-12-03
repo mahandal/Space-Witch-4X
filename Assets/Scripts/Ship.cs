@@ -13,6 +13,7 @@ public class Ship : MonoBehaviour
     public Tile currentTile;
 
     [Header("Core")]
+    public int manaCost = 0;
     public float currentHealth;
     public int maxHealth;
     public int damage;
@@ -187,11 +188,11 @@ public class Ship : MonoBehaviour
         SpendAttack();
 
         // Deal damage.
-        target.ReceiveDamage(damage);
+        target.ReceiveDamage(damage, this);
     }
 
     // Receive damage.
-    public void ReceiveDamage(int incomingDamage)
+    public void ReceiveDamage(int incomingDamage, Ship attacker = null)
     {
         // Minus armor.
         incomingDamage -= armor;
@@ -202,11 +203,54 @@ public class Ship : MonoBehaviour
         // Check death?
         if (currentHealth <= 0)
         {
-            Destroy(gameObject);
+            Death(attacker);
+            // Destroy(gameObject);
         }
 
         // Update health bar.
         healthBar.fillAmount = currentHealth / maxHealth;
+    }
+
+    // Handle 'death'.
+    // Note: When you 'die' by the hand of the Coven, you are reborn anew!
+    // Note 2: Other faction mechanics are handled here also!
+    public void Death(Ship killer = null)
+    {
+        // - Faction mechanics
+
+        // Swarm
+        if (killer.faction == Faction.Swarm)
+        {
+            // Consume EVERYTHING
+            killer.Refresh();
+        }
+        // Coven
+        else if (killer.faction == Faction.Coven)
+        {
+            // Make Love Not War!
+            Convert(Faction.Coven);
+        }
+        // Syndicate
+        else if (killer.faction == Faction.Syndicate)
+        {
+            // War Profiteers
+            GM.I.leaders[Faction.Syndicate].mana += manaCost;
+        }
+
+        // - Clean up.
+        // (Unless we were recruited!)
+        bool wasRecruited = (killer != null && killer.faction == Faction.Coven);
+        if (!wasRecruited)
+        {
+            // Get leader.
+            Leader leader = GM.I.leaders[faction];
+
+            // Remove from leader's fleet.
+            leader.fleet.Remove(this);
+
+            // Clean up object.
+            Object.Destroy(gameObject);
+        }
     }
 
     // Move the ship to new coordinates.
@@ -359,5 +403,63 @@ public class Ship : MonoBehaviour
     public void UnGrey()
     {
         sr.color = new Color(1f, 1f, 1f, 1f);
+    }
+
+
+    // Convert to the given faction.
+    // Also claims the tile this ship is on.
+    // If shouldFullHeal is true, which it is by default,
+    // then it also fully heals the ship, though draining it of all movement and attacks in the process.
+    public void Convert(Faction newFaction, bool shouldFullHeal = true)
+    {
+        // Check if we are the leader of our faction.
+        Leader thisAsLeader = this as Leader;
+        if (thisAsLeader != null)
+        {
+            // Convert all of our fleet.
+            foreach (Ship ship in thisAsLeader.fleet)
+            {
+                // Don't loop infinitely on ourself!
+                if (ship != this)
+                    ship.Convert(newFaction);
+            }
+        } else {
+            // Get leader of old faction.
+            Leader oldLeader = GM.I.leaders[faction];
+
+            // Remove from old faction leader's fleet.
+            oldLeader.fleet.Remove(this);
+        }
+
+        // Set new faction.
+        faction = newFaction;
+
+        // Get new faction leader.
+        Leader newLeader = GM.I.leaders[newFaction];
+
+        // Add to new faction leader's fleet.
+        newLeader.fleet.Add(this);
+
+        // Claim tile.
+        currentTile.Claim(newFaction);
+
+        // Check that we should also full heal.
+        if (shouldFullHeal)
+        {
+            // Heal to full health.
+            currentHealth = maxHealth;
+
+            // Drain of movement.
+            SetMovementRemaining(0);
+
+            // Drain of attacks.
+            SetAttacksRemaining(0);
+        }
+
+        // Update health bar to reflect you have changed teams.
+        healthBar.color = Constance.FactionColor(newFaction, 1f);
+
+        // Update health bar to show you have fully healed.
+        healthBar.fillAmount = currentHealth / maxHealth;
     }
 }
