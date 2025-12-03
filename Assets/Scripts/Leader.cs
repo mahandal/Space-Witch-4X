@@ -112,8 +112,19 @@ public class Leader : Ship
 
                 // Check if tile is owned by this faction.
                 if (tile.faction == faction)
-                    mana++;
+                    GainMana();
             }
         }
+    }
+
+    // Gain mana.
+    public void GainMana(int manaGained = 1)
+    {
+        // Update mana variable.
+        mana += manaGained;
+
+        // Update text display, if we're the active faction.
+        if (faction == GM.I.activeFaction)
+            UI.I.currentMana.text = mana.ToString();
     }
 }

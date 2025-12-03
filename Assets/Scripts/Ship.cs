@@ -269,7 +269,7 @@ public class Ship : MonoBehaviour
         else if (killer.faction == Faction.Syndicate)
         {
             // War Profiteers
-            GM.I.leaders[Faction.Syndicate].mana += manaCost;
+            GM.I.leaders[Faction.Syndicate].GainMana(manaCost);
         }
 
         // - Clean up.
