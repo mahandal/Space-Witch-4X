@@ -132,7 +132,17 @@ public class Leader : Ship
 
                 // Check if tile is owned by this faction.
                 if (tile.faction == faction)
-                    GainMana();
+                {
+                    // Check if tile is a planet.
+                    if (tile.myType == TileType.Planet)
+                    {
+                        // Gain mana equal to the current round.
+                        GainMana(GM.I.round);
+                    } else {
+                        // Gain 1 mana.
+                        GainMana(1);
+                    }
+                }
             }
         }
     }
