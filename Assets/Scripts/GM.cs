@@ -130,4 +130,18 @@ public class GM : MonoBehaviour
         // Set up UI.
         UI.I.NewTurn(faction);
     }
+
+    // Return the tile in our grid located at position (x, y)
+    // Returns null if position is out of bounds.
+    public Tile GetTile(int x, int y)
+    {
+        // Respect boundaries
+        if (x < 0) return null;
+        if (y < 0) return null;
+        if (x >= gridWidth) return null;
+        if (y >= gridHeight) return null;
+
+        // Return!
+        return grid[x, y];
+    }
 }

@@ -37,7 +37,6 @@ public class Tile : MonoBehaviour
     // Called when a ship enters this tile.
     public void OnEnter(Ship incomingShip)
     {
-        Debug.Log(incomingShip.myName + " is entering tile " + x + " " + y);
         // Damage
         incomingShip.ReceiveDamage(damageOnEnter);
     }

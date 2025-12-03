@@ -43,7 +43,7 @@ public class Ship : MonoBehaviour
     // This ship's attacks remaining text indicator.
     public TMP_Text attacksRemainingText;
 
-    // The outline behidn this ship's attacks remaining text indicator.
+    // The outline behind this ship's attacks remaining text indicator.
     // Also the parent object of the attacks remaining text indicator.
     public Image attacksRemainingOutline;
 
@@ -443,6 +443,24 @@ public class Ship : MonoBehaviour
         sr.color = new Color(1f, 1f, 1f, 1f);
     }
 
+    // Hide movement and attack remaining indicators.
+    // Should be called once at the end of each turn.
+    public void HideMovementAndAttacks()
+    {
+        // Hide movement and attacks.
+        movementRemainingOutline.gameObject.SetActive(false);
+        attacksRemainingOutline.gameObject.SetActive(false);
+    }
+
+    // Reveal movement and attack remaining indicators.
+    // Should be called once at the beginning of each turn.
+    public void RevealMovementAndAttacks()
+    {
+        // Reveal movement and attacks.
+        movementRemainingOutline.gameObject.SetActive(true);
+        attacksRemainingOutline.gameObject.SetActive(true);
+    }
+
 
     // Convert to the given faction.
     // Also claims the tile this ship is on.
@@ -508,6 +526,9 @@ public class Ship : MonoBehaviour
     {
         // Damage!
         ReceiveDamage(currentTile.damageOnUpkeep);
+
+        // Reveal movement and attacks remaining.
+        RevealMovementAndAttacks();
     }
 
     // Rest.
@@ -539,10 +560,11 @@ public class Ship : MonoBehaviour
             for (int j = -1; j <= 1; j++)
             {
                 // Get tile.
-                Tile adjacentTile = GM.I.grid[x + i, y + j];
+                // Tile adjacentTile = GM.I.grid[x + i, y + j];
+                Tile adjacentTile = GM.I.GetTile(x + i, y + j);
 
                 // Check tile faction.
-                if (adjacentTile.faction == faction)
+                if (adjacentTile != null && adjacentTile.faction == faction)
                     percentMaxHealthToHeal += 0.01f; // Heal 1% per friendly adjacent tile.
             }
         }

@@ -44,6 +44,9 @@ public class Leader : Ship
 
         // Set health bar color.
         healthBar.color = Constance.FactionColor(faction, 1f);
+
+        // Start with movement and attacks hidden.
+        HideMovementAndAttacks();
     }
 
     // Move this leader to a random position as its starting location.
@@ -67,7 +70,7 @@ public class Leader : Ship
 
     // Refresh all ships that fly under this leader's banner.
     // Called at the end of each turn.
-    public void RefreshAllShips()
+    public void RefreshFleet()
     {
         // Loop through each ship in our fleet.
         foreach (Ship ship in fleet)
@@ -77,11 +80,28 @@ public class Leader : Ship
         }
     }
 
+    // Hide movement and attacks remaining for all ships in our fleet.
+    // Called at the end of each turn.
+    public void HideFleetMovementAndAttacks()
+    {
+        // Loop through ech ship in our fleet.
+        foreach (Ship ship in fleet)
+        {
+            ship.HideMovementAndAttacks();
+        }
+    }
+
     // Handle ending a turn for this leader's faction.
-    // - Refreshes all ships.
+    // - Refreshes all ships in our fleet.
+    // - Hides movement and attacks remaining for all ships.
+    // --- (Not hidden like a secret, just so you can see which faction is active currently easier)
     public void EndTurn()
     {
-        RefreshAllShips();
+        // Refresh our fleet!
+        RefreshFleet();
+
+        // Hide movement and attacks remaining for all ships in our fleet.
+        HideFleetMovementAndAttacks();
     }
 
     // Handle starting a turn for this leader's faction.
