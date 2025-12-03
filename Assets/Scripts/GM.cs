@@ -10,7 +10,7 @@ public class GM : MonoBehaviour
 
     [Header("Turns")]
     // Which faction's turn is it?
-    public Faction activeFaction = Faction.Swarm;
+    public Faction activeFaction = Faction.Pack;
 
     // What round are we on?
     // A round is complete when each faction takes their turn.
@@ -18,7 +18,7 @@ public class GM : MonoBehaviour
 
     // The order factions take turns in.
     // TBD: Add neutrals!
-    public Faction[] turnOrder = new Faction[] { Faction.Swarm, Faction.Coven, Faction.Syndicate };
+    public Faction[] turnOrder = new Faction[] { Faction.Pack, Faction.Coven, Faction.Syndicate };
 
     // Index in the turn order array.
     private int turnIndex = 0;
@@ -28,8 +28,8 @@ public class GM : MonoBehaviour
     // A dictionary mapping each faction to their leader.
     public Dictionary<Faction, Leader> leaders = new Dictionary<Faction, Leader>();
 
-    // The hero leading the Swarm in this skirmish.
-    public Leader swarmLeader;
+    // The hero leading the Pack in this skirmish.
+    public Leader packLeader;
 
     // The hero leading the Coven in this skirmish.
     public Leader covenLeader;
@@ -72,7 +72,7 @@ public class GM : MonoBehaviour
             Destroy(this);
 
         // Initialize dictionary of leaders.
-        if (swarmLeader != null) leaders[Faction.Swarm] = swarmLeader;
+        if (packLeader != null) leaders[Faction.Pack] = packLeader;
         if (covenLeader != null) leaders[Faction.Coven] = covenLeader;
         if (syndicateLeader != null) leaders[Faction.Syndicate] = syndicateLeader;
         if (neutralLeader != null) leaders[Faction.Neutral] = neutralLeader;

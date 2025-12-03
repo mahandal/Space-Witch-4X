@@ -16,8 +16,8 @@ public static class Constance
         // Neutral
         if (faction == Faction.Neutral)
             c = new Color(0.5f, 0.5f, 0.5f, opacity);
-        // The Swarm
-        else if (faction == Faction.Swarm)
+        // The Pack
+        else if (faction == Faction.Pack)
             c = new Color(0f, 1f, 0.0429f, opacity);
         // The Coven
         else if (faction == Faction.Coven)
@@ -36,7 +36,7 @@ public static class Constance
 public enum Faction
 {
     Neutral,
-    Swarm,
+    Pack,
     Coven,
     Syndicate
 }

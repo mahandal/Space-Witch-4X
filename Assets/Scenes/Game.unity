@@ -2931,7 +2931,7 @@ GameObject:
   m_Component:
   - component: {fileID: 723447071}
   m_Layer: 0
-  m_Name: Swarm Ships
+  m_Name: Pack Ships
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5442,7 +5442,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1179755319}
   m_Layer: 0
-  m_Name: Swarm Ships
+  m_Name: Pack Ships
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7053,6 +7053,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SpawnManager
   tileParent: {fileID: 673435625}
   swarmShipParent: {fileID: 1179755319}
+  packShipParent: {fileID: 1179755319}
   covenShipParent: {fileID: 2054717619}
   syndicateShipParent: {fileID: 20375830}
   neutralShipParent: {fileID: 0}
@@ -7080,7 +7081,7 @@ MonoBehaviour:
   activeFaction: 1
   round: 1
   turnOrder: 010000000200000003000000
-  swarmLeader: {fileID: 653616652}
+  packLeader: {fileID: 653616652}
   covenLeader: {fileID: 2021684153}
   syndicateLeader: {fileID: 1273853953}
   neutralLeader: {fileID: 0}

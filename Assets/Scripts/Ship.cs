@@ -253,8 +253,8 @@ public class Ship : MonoBehaviour
     {
         // - Faction mechanics
 
-        // Swarm
-        if (killer.faction == Faction.Swarm)
+        // Pack
+        if (killer.faction == Faction.Pack)
         {
             // Consume EVERYTHING
             killer.Refresh();

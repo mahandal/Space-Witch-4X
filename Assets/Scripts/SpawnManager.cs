@@ -7,8 +7,9 @@ public class SpawnManager : MonoBehaviour
     // A parent object of all tiles for this map.
     public Transform tileParent;
 
-    // A parent object for all Swarm ships on this map.
+    // A parent object for all Pack ships on this map.
     public Transform swarmShipParent;
+    public Transform packShipParent;
 
     // A parent object for all Coven ships on this map.
     public Transform covenShipParent;
@@ -26,7 +27,7 @@ public class SpawnManager : MonoBehaviour
     public Tile p_Fire;
     public Tile p_Asteroids;
 
-    [Header("Progenitors - Swarm Ships")]
+    [Header("Progenitors - Pack Ships")]
     public Ship p_Tarodactyl;
 
     [Header("Progenitors - Coven Ships")]
@@ -90,8 +91,8 @@ public class SpawnManager : MonoBehaviour
             leader.Init();
         }
 
-        // - Begin the game by starting a new turn for the swarm!
-        GM.I.NewTurn(Faction.Swarm);
+        // - Begin the game by starting a new turn for the pack!
+        GM.I.NewTurn(Faction.Pack);
     }
 
     // Spawn a random tile at the given coordinates.
@@ -164,7 +165,7 @@ public class SpawnManager : MonoBehaviour
 
         // Check ship type to instantiate new ship.
 
-        // - Swarm
+        // - Pack
         if (shipType == "Tarodactyl")
         {
             newShip = Object.Instantiate(p_Tarodactyl);
@@ -201,9 +202,9 @@ public class SpawnManager : MonoBehaviour
         if (newShip.faction == Faction.Neutral)
             newShip.transform.SetParent(neutralShipParent);
 
-        // Swarm
-        else if (newShip.faction == Faction.Swarm)
-            newShip.transform.SetParent(swarmShipParent);
+        // Pack
+        else if (newShip.faction == Faction.Pack)
+            newShip.transform.SetParent(packShipParent);
 
         // Coven
         else if (newShip.faction == Faction.Coven)
