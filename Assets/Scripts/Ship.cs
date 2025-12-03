@@ -188,6 +188,10 @@ public class Ship : MonoBehaviour
         int totalArmor = target.armor + target.currentTile.GetArmorBonus();
         int totalDamage = damage - totalArmor;
 
+        // Do a minimum of 1 damage.
+        if (totalDamage < 1)
+            totalDamage = 1;
+
         // Deal damage.
         target.ReceiveDamage(totalDamage, this);
     }
