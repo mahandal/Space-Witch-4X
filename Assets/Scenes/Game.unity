@@ -2524,7 +2524,7 @@ MonoBehaviour:
   x: 0
   y: 0
   currentTile: {fileID: 0}
-  manaCost: 0
+  manaCost: 100
   currentHealth: 50
   maxHealth: 50
   damage: 10
@@ -6389,7 +6389,7 @@ MonoBehaviour:
   x: 0
   y: 0
   currentTile: {fileID: 0}
-  manaCost: 0
+  manaCost: 100
   currentHealth: 50
   maxHealth: 50
   damage: 10
@@ -9368,9 +9368,9 @@ MonoBehaviour:
   y: 0
   ship: {fileID: 0}
   moveCost: 1
-  armorBonus: -2
-  damageOnEnter: 2
-  damageOnUpkeep: 2
+  armorBonus: -3
+  damageOnEnter: 3
+  damageOnUpkeep: 3
   moveCostFromSelectedTile: -1
   previousTileInPath: {fileID: 0}
   factionBG: {fileID: 916244329}
@@ -9620,7 +9620,7 @@ MonoBehaviour:
   x: 0
   y: 0
   currentTile: {fileID: 0}
-  manaCost: 0
+  manaCost: 100
   currentHealth: 50
   maxHealth: 50
   damage: 10

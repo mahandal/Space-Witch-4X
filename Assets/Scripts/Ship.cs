@@ -209,6 +209,10 @@ public class Ship : MonoBehaviour
         if (currentHealth <= 0)
             Death(attacker);
 
+        // Cap max hp, just in case!
+        if (currentHealth > maxHealth)
+            currentHealth = maxHealth;
+
         // Update health bar.
         healthBar.fillAmount = currentHealth / maxHealth;
 
@@ -217,6 +221,29 @@ public class Ship : MonoBehaviour
             Debug.Log(attacker.myName + " attacked " + myName + " for " + incomingDamage + " damage!");
         else
             Debug.Log(myName + " lost " + incomingDamage + " health!");
+    }
+
+    // Gain health.
+    public void GainHealth(int incomingHealing, Ship healer = null)
+    {
+        // Ignore 0 healing.
+        if (incomingHealing == 0) return;
+
+        // Gain health.
+        currentHealth += incomingHealing;
+
+        // Cap max hp.
+        if (currentHealth > maxHealth)
+            currentHealth = maxHealth;
+
+        // Update health bar.
+        healthBar.fillAmount = currentHealth / maxHealth;
+
+        // Log it!
+        if (healer == null || healer == this)
+            Debug.Log(myName + " is healing herself for " + incomingHealing + " health!");
+        else
+            Debug.Log(myName + " is being healed by " + healer.myName + " for " + incomingHealing + " health!");
     }
 
     // Handle 'death'.
@@ -481,5 +508,55 @@ public class Ship : MonoBehaviour
     {
         // Damage!
         ReceiveDamage(currentTile.damageOnUpkeep);
+    }
+
+    // Rest.
+    // Consume all remaining movement and attacks to regain health.
+    // Regain up to 19% of max health in total:
+    // - Regain up to 5% of max health with all movement remaining.
+    // - Regain up to 5% of max health with all attacks remaining.
+    // - Regain 1% of max health per adjacent friendly tile (including this one!)
+    public void Rest()
+    {
+        // Initialize our count of how much health we'll heal.
+        float percentMaxHealthToHeal = 0f;
+
+        // Get percentage of movement remaining.
+        float percentMovementRemaining = movementRemaining / speed;
+
+        // Multiply by 5% and add to total heal amount.
+        percentMaxHealthToHeal += percentMovementRemaining * 0.05f;
+
+        // Get percentage of attacks remaining.
+        float percentAttacksRemaining = attacksRemaining / attacks;
+
+        // Multiply by 5% and add to total heal amount.
+        percentMaxHealthToHeal += percentAttacksRemaining * 0.05f;
+
+        // Go through each adjacent tile:
+        for (int i = -1; i <= 1; i++)
+        {
+            for (int j = -1; j <= 1; j++)
+            {
+                // Get tile.
+                Tile adjacentTile = GM.I.grid[x + i, y + j];
+
+                // Check tile faction.
+                if (adjacentTile.faction == faction)
+                    percentMaxHealthToHeal += 0.01f; // Heal 1% per friendly adjacent tile.
+            }
+        }
+
+        // Get total health recovered.
+        int totalHealthRecovered = (int)(percentMaxHealthToHeal * maxHealth);
+
+        // Heal up!
+        GainHealth(totalHealthRecovered, this);
+
+        // Consume remaining movement.
+        SetMovementRemaining(0);
+
+        // Consume remaining attacks.
+        SetAttacksRemaining(0);
     }
 }

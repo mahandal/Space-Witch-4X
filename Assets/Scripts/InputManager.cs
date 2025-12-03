@@ -54,8 +54,14 @@ public class InputManager : MonoBehaviour
                 // Make sure the target tile exists.
                 if (GM.I.hoveredTile != null)
                 {
+                    // Check if we're targeting the selected tile.
+                    if (GM.I.hoveredTile == GM.I.selectedTile)
+                    {
+                        // Rest!
+                        GM.I.selectedTile.ship.Rest();
+                    }
                     // Check if there's an enemy ship there.
-                    if (GM.I.hoveredTile.ship != null &&
+                    else if (GM.I.hoveredTile.ship != null &&
                         GM.I.hoveredTile.ship.faction != GM.I.selectedTile.ship.faction)
                     {
                         // Try moving toward the enemy ship and attacking them.
