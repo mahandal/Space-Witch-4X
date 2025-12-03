@@ -184,34 +184,35 @@ public class Ship : MonoBehaviour
         // Spend attack.
         SpendAttack();
 
+        // Find total damage dealt.
+        int totalArmor = target.armor + target.currentTile.GetArmorBonus();
+        int totalDamage = damage - totalArmor;
+
         // Deal damage.
-        target.ReceiveDamage(damage, this);
+        target.ReceiveDamage(totalDamage, this);
     }
 
     // Receive damage.
     public void ReceiveDamage(int incomingDamage, Ship attacker = null)
     {
-        // Get armor (including from tile!)
-        int totalArmor = armor + currentTile.GetArmorBonus(this);
-
-        // Minus armor.
-        incomingDamage -= totalArmor;
+        // Ignore 0 damage.
+        if (incomingDamage == 0) return;
 
         // Lose health
         currentHealth -= incomingDamage;
 
         // Check death?
         if (currentHealth <= 0)
-        {
             Death(attacker);
-            // Destroy(gameObject);
-        }
 
         // Update health bar.
         healthBar.fillAmount = currentHealth / maxHealth;
 
         // Log it!
-        Debug.Log(attacker.myName + " attacked " + myName + " for " + incomingDamage + " damage!");
+        if (attacker != null)
+            Debug.Log(attacker.myName + " attacked " + myName + " for " + incomingDamage + " damage!");
+        else
+            Debug.Log(myName + " lost " + incomingDamage + " health!");
     }
 
     // Handle 'death'.
@@ -287,6 +288,9 @@ public class Ship : MonoBehaviour
         // Spend movement.
         if (costMovement)
             SpendMovement(newTile.moveCostFromSelectedTile);
+
+        // Call tile's OnEnter function.
+        newTile.OnEnter(this);
     }
 
     // Refreshes this ship's movement and attacks.
@@ -464,5 +468,14 @@ public class Ship : MonoBehaviour
 
         // Update health bar to show you have fully healed.
         healthBar.fillAmount = currentHealth / maxHealth;
+    }
+
+    // Handle upkeep for this ship.
+    // E.g. burning in fire!
+    // Should be called once at the beginning of each turn, by this ship's leader.
+    public void Upkeep()
+    {
+        // Damage!
+        ReceiveDamage(currentTile.damageOnUpkeep);
     }
 }

@@ -13,6 +13,8 @@ public class Tile : MonoBehaviour
     [Header("Stats")]
     public int moveCost = 1;
     public int armorBonus = 0;
+    public int damageOnEnter = 0;
+    public int damageOnUpkeep = 0;
 
     [Header("Automated Machinery")]
     public int moveCostFromSelectedTile = -1;
@@ -31,6 +33,14 @@ public class Tile : MonoBehaviour
     // - Purple is used for tiles a ship can move and attack to.
     // (so blue is actually rare, only used for pacifists and ships with minimum range)
     public SpriteRenderer bg;
+
+    // Called when a ship enters this tile.
+    public void OnEnter(Ship incomingShip)
+    {
+        Debug.Log(incomingShip.myName + " is entering tile " + x + " " + y);
+        // Damage
+        incomingShip.ReceiveDamage(damageOnEnter);
+    }
 
     // Clear our selection so no tiles are highlighted.
     public static void ClearSelection()
@@ -293,7 +303,7 @@ public class Tile : MonoBehaviour
 
     // Get this tile's armor bonus.
     // (A bit odd looking on its own, perhaps, but it's to match the movement above!)
-    public int GetArmorBonus(Ship protectedShip)
+    public int GetArmorBonus()
     {
         // Default.
         int totalArmorBonus = armorBonus;

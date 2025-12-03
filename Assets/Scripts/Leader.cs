@@ -86,9 +86,17 @@ public class Leader : Ship
 
     // Handle starting a turn for this leader's faction.
     // - Harvest 1 mana per tile owned.
+    // - Handle upkeep for each ship (e.g. burning in fire!)
     public void StartTurn()
     {
+        // Harvest mana.
         HarvestMana();
+
+        // Handle upkeep for each ship in our fleet!
+        foreach (Ship ship in fleet)
+        {
+            ship.Upkeep();
+        }
     }
 
     // Harvest 1 mana per tile owned.
