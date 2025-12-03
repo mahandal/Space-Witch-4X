@@ -288,6 +288,14 @@ public class Tile : MonoBehaviour
         // Default.
         int totalMoveCost = moveCost;
 
+        // - Territory
+
+        // Claiming territory from another faction costs additional movement.
+        if (faction != incomingShip.faction && faction != Faction.Neutral)
+        {
+            totalMoveCost++;
+        }
+
         // - Ships
 
         // Block enemy ships
