@@ -1733,7 +1733,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d5b031382fee5340a8e94d0f603fa69, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Tile
-  myType: Asteroids
+  myType: 3
   faction: 0
   x: 0
   y: 0
@@ -2520,6 +2520,7 @@ MonoBehaviour:
   x: 0
   y: 0
   currentTile: {fileID: 0}
+  manaCost: 0
   currentHealth: 50
   maxHealth: 50
   damage: 10
@@ -2536,7 +2537,6 @@ MonoBehaviour:
   attacksRemainingText: {fileID: 1377096320}
   attacksRemainingOutline: {fileID: 1445156865}
   mana: 0
-  fleet: []
 --- !u!1 &662211612
 GameObject:
   m_ObjectHideFlags: 0
@@ -6385,6 +6385,7 @@ MonoBehaviour:
   x: 0
   y: 0
   currentTile: {fileID: 0}
+  manaCost: 0
   currentHealth: 50
   maxHealth: 50
   damage: 10
@@ -6401,7 +6402,6 @@ MonoBehaviour:
   attacksRemainingText: {fileID: 1899389463}
   attacksRemainingOutline: {fileID: 1051948567}
   mana: 0
-  fleet: []
 --- !u!1 &1281701244
 GameObject:
   m_ObjectHideFlags: 0
@@ -7317,7 +7317,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d5b031382fee5340a8e94d0f603fa69, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Tile
-  myType: Water
+  myType: 1
   faction: 0
   x: 0
   y: 0
@@ -7590,6 +7590,7 @@ MonoBehaviour:
   x: 0
   y: 0
   currentTile: {fileID: 0}
+  manaCost: 0
   currentHealth: 15
   maxHealth: 15
   damage: 4
@@ -7710,7 +7711,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d5b031382fee5340a8e94d0f603fa69, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Tile
-  myType: Planet
+  myType: 4
   faction: 0
   x: 0
   y: 0
@@ -7989,6 +7990,7 @@ MonoBehaviour:
   x: 0
   y: 0
   currentTile: {fileID: 0}
+  manaCost: 0
   currentHealth: 10
   maxHealth: 10
   damage: 5
@@ -8746,6 +8748,7 @@ MonoBehaviour:
   x: 0
   y: 0
   currentTile: {fileID: 0}
+  manaCost: 0
   currentHealth: 5
   maxHealth: 5
   damage: 2
@@ -9347,7 +9350,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d5b031382fee5340a8e94d0f603fa69, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Tile
-  myType: Fire
+  myType: 2
   faction: 0
   x: 0
   y: 0
@@ -9461,7 +9464,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d5b031382fee5340a8e94d0f603fa69, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Tile
-  myType: Air
+  myType: 0
   faction: 0
   x: 0
   y: 0
@@ -9597,6 +9600,7 @@ MonoBehaviour:
   x: 0
   y: 0
   currentTile: {fileID: 0}
+  manaCost: 0
   currentHealth: 50
   maxHealth: 50
   damage: 10
@@ -9613,7 +9617,6 @@ MonoBehaviour:
   attacksRemainingText: {fileID: 595642100}
   attacksRemainingOutline: {fileID: 617439480}
   mana: 0
-  fleet: []
 --- !u!1 &2054717618
 GameObject:
   m_ObjectHideFlags: 0

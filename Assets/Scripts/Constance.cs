@@ -30,6 +30,8 @@ public static class Constance
     }
 }
 
+// - Enums
+
 // Factions.
 public enum Faction
 {
@@ -37,4 +39,14 @@ public enum Faction
     Swarm,
     Coven,
     Syndicate
+}
+
+// Tiles.
+public enum TileType
+{
+    Air,
+    Water,
+    Fire,
+    Asteroids,
+    Planet
 }

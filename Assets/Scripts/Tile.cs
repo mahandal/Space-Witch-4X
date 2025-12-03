@@ -4,7 +4,7 @@ using System.Collections.Generic;
 public class Tile : MonoBehaviour
 {
     [Header("Tile")]
-    public string myType = "Air";
+    public TileType myType = TileType.Air;
     public Faction faction = Faction.Neutral;
     public int x = 0;
     public int y = 0;
@@ -67,7 +67,7 @@ public class Tile : MonoBehaviour
         // Clear old previews.
         ClearPathPreview();
         ClearAttackPreview();
-        
+
         // Clear old highlighting.
         ClearAllHighlights();
 
@@ -276,11 +276,11 @@ public class Tile : MonoBehaviour
         int moveCost = 1;
 
         // - Geography
-        if (myType == "Water")
+        if (myType == TileType.Water)
         {
             moveCost = 2;
         }
-        else if (myType == "Asteroids")
+        else if (myType == TileType.Asteroids)
         {
             moveCost = 2;
         }
