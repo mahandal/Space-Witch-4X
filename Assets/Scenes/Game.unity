@@ -1738,6 +1738,8 @@ MonoBehaviour:
   x: 0
   y: 0
   ship: {fileID: 0}
+  moveCost: 2
+  armorBonus: 2
   moveCostFromSelectedTile: -1
   previousTileInPath: {fileID: 0}
   factionBG: {fileID: 1595680885}
@@ -7322,6 +7324,8 @@ MonoBehaviour:
   x: 0
   y: 0
   ship: {fileID: 0}
+  moveCost: 2
+  armorBonus: 0
   moveCostFromSelectedTile: -1
   previousTileInPath: {fileID: 0}
   factionBG: {fileID: 797584963}
@@ -7716,6 +7720,8 @@ MonoBehaviour:
   x: 0
   y: 0
   ship: {fileID: 0}
+  moveCost: 2
+  armorBonus: 1
   moveCostFromSelectedTile: -1
   previousTileInPath: {fileID: 0}
   factionBG: {fileID: 848351497}
@@ -9355,6 +9361,8 @@ MonoBehaviour:
   x: 0
   y: 0
   ship: {fileID: 0}
+  moveCost: 1
+  armorBonus: -1
   moveCostFromSelectedTile: -1
   previousTileInPath: {fileID: 0}
   factionBG: {fileID: 916244329}
@@ -9469,6 +9477,8 @@ MonoBehaviour:
   x: 0
   y: 0
   ship: {fileID: 0}
+  moveCost: 1
+  armorBonus: 0
   moveCostFromSelectedTile: -1
   previousTileInPath: {fileID: 0}
   factionBG: {fileID: 258699528}

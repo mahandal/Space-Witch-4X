@@ -181,9 +181,6 @@ public class Ship : MonoBehaviour
     // Note: Does NOT error check!
     public void Attack(Ship target)
     {
-        // Log it!
-        Debug.Log(myName + " is attacking " + target.myName + " for " + damage + " damage!");
-
         // Spend attack.
         SpendAttack();
 
@@ -194,8 +191,11 @@ public class Ship : MonoBehaviour
     // Receive damage.
     public void ReceiveDamage(int incomingDamage, Ship attacker = null)
     {
+        // Get armor (including from tile!)
+        int totalArmor = armor + currentTile.GetArmorBonus(this);
+
         // Minus armor.
-        incomingDamage -= armor;
+        incomingDamage -= totalArmor;
 
         // Lose health
         currentHealth -= incomingDamage;
@@ -209,6 +209,9 @@ public class Ship : MonoBehaviour
 
         // Update health bar.
         healthBar.fillAmount = currentHealth / maxHealth;
+
+        // Log it!
+        Debug.Log(attacker.myName + " attacked " + myName + " for " + incomingDamage + " damage!");
     }
 
     // Handle 'death'.

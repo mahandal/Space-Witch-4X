@@ -3,12 +3,16 @@ using System.Collections.Generic;
 
 public class Tile : MonoBehaviour
 {
-    [Header("Tile")]
+    [Header("Meta")]
     public TileType myType = TileType.Air;
     public Faction faction = Faction.Neutral;
     public int x = 0;
     public int y = 0;
     public Ship ship;
+
+    [Header("Stats")]
+    public int moveCost = 1;
+    public int armorBonus = 0;
 
     [Header("Automated Machinery")]
     public int moveCostFromSelectedTile = -1;
@@ -272,29 +276,30 @@ public class Tile : MonoBehaviour
     // Get the movement cost for a tile.
     public int GetMovementCost(Ship incomingShip)
     {
-        // Default to 1.
-        int moveCost = 1;
-
-        // - Geography
-        if (myType == TileType.Water)
-        {
-            moveCost = 2;
-        }
-        else if (myType == TileType.Asteroids)
-        {
-            moveCost = 2;
-        }
+        // Default.
+        int totalMoveCost = moveCost;
 
         // - Ships
 
         // Block enemy ships
         if (ship != null && ship.faction != incomingShip.faction)
         {
-            moveCost = 100;
+            totalMoveCost = 100;
         }
 
         // Return!
-        return moveCost;
+        return totalMoveCost;
+    }
+
+    // Get this tile's armor bonus.
+    // (A bit odd looking on its own, perhaps, but it's to match the movement above!)
+    public int GetArmorBonus(Ship protectedShip)
+    {
+        // Default.
+        int totalArmorBonus = armorBonus;
+
+        // Return!
+        return totalArmorBonus;
     }
 
 
