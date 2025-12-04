@@ -14,6 +14,11 @@ public class InputManager : MonoBehaviour
     private Vector3 dragStartScreenPos;
     private Vector3 dragStartCameraPos;
 
+    // Zoom
+    public float zoomSpeed = 5f;
+    public float minZoom = 1f;
+    public float maxZoom = 5f;
+
     // Remember the last hovered tile so we can unhighlight it.
     private Tile lastHoveredTile;
 
@@ -92,6 +97,8 @@ public class InputManager : MonoBehaviour
         HandleCameraDragging();
 
         HandleEdgePanning();
+
+        HandleCameraZoom();
     }
 
     // Handle camera dragging.
@@ -183,6 +190,25 @@ public class InputManager : MonoBehaviour
             newPos.y = Mathf.Clamp(newPos.y, minY, maxY);
             
             Camera.main.transform.position = newPos;
+        }
+    }
+
+    // Handle camera zooming with mouse scroll wheel
+    public void HandleCameraZoom()
+    {
+        // Get scroll input
+        float scrollInput = Mouse.current.scroll.ReadValue().y;
+        
+        // Apply zoom if there's scroll input
+        if (scrollInput != 0)
+        {
+            Camera cam = Camera.main;
+            
+            // Adjust orthographic size (smaller = more zoomed in)
+            float newSize = cam.orthographicSize - (scrollInput * zoomSpeed * Time.deltaTime);
+            
+            // Clamp to min/max zoom
+            cam.orthographicSize = Mathf.Clamp(newSize, minZoom, maxZoom);
         }
     }
 }

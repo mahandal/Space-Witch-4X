@@ -25060,6 +25060,9 @@ MonoBehaviour:
   edgePanThreshold: 20
   panSpeed: 10
   cameraPadding: 2
+  zoomSpeed: 5
+  minZoom: 1
+  maxZoom: 5
 --- !u!114 &1422601902
 MonoBehaviour:
   m_ObjectHideFlags: 0
