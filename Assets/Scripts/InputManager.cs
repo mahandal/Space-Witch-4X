@@ -9,6 +9,11 @@ public class InputManager : MonoBehaviour
     public float panSpeed = 10f; // Camera movement speed
     public float cameraPadding = 2f; // Extra space beyond grid edges
 
+    // Camera dragging
+    private bool isDragging = false;
+    private Vector3 dragStartScreenPos;
+    private Vector3 dragStartCameraPos;
+
     // Remember the last hovered tile so we can unhighlight it.
     private Tile lastHoveredTile;
 
@@ -84,9 +89,58 @@ public class InputManager : MonoBehaviour
             Tile.ClearSelection();
         }
 
+        HandleCameraDragging();
+
         HandleEdgePanning();
     }
 
+    // Handle camera dragging.
+    // Use middle click to drag the camera.
+    public void HandleCameraDragging()
+    {
+        // Check if middle mouse button was just pressed
+        if (Mouse.current.middleButton.wasPressedThisFrame)
+        {
+            isDragging = true;
+            dragStartScreenPos = Mouse.current.position.ReadValue();
+            dragStartCameraPos = Camera.main.transform.position;
+        }
+
+        // Check if middle mouse button was released
+        if (Mouse.current.middleButton.wasReleasedThisFrame)
+        {
+            isDragging = false;
+        }
+
+        // Handle dragging
+        if (isDragging)
+        {
+            Vector3 currentScreenPos = Mouse.current.position.ReadValue();
+            Vector3 screenDifference = dragStartScreenPos - currentScreenPos;
+            
+            // Convert screen difference to world difference
+            Vector3 worldDifference = Camera.main.ScreenToWorldPoint(screenDifference) - Camera.main.ScreenToWorldPoint(Vector3.zero);
+            
+            Vector3 newPos = dragStartCameraPos + worldDifference;
+
+            // Calculate dynamic boundaries from grid size
+            float minX = -cameraPadding;
+            float maxX = GM.I.gridWidth * Constance.tileSize + cameraPadding;
+            float minY = -cameraPadding;
+            float maxY = GM.I.gridHeight * Constance.tileSize + cameraPadding;
+
+            // Clamp to boundaries
+            newPos.x = Mathf.Clamp(newPos.x, minX, maxX);
+            newPos.y = Mathf.Clamp(newPos.y, minY, maxY);
+            newPos.z = Camera.main.transform.position.z;
+
+            Camera.main.transform.position = newPos;
+        }
+    }
+
+    // Handle edge panning.
+    // When the mouse gets near enough an edge of the screen,
+    // move the camera in that direction.
     public void HandleEdgePanning()
     {
         // - Edge panning
