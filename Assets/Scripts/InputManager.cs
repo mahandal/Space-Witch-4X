@@ -3,6 +3,12 @@ using UnityEngine.InputSystem;
 
 public class InputManager : MonoBehaviour
 {
+    [Header("Camera")]
+    // Edge panning
+    public float edgePanThreshold = 20f; // How close to edge before panning starts
+    public float panSpeed = 10f; // Camera movement speed
+    public float cameraPadding = 2f; // Extra space beyond grid edges
+
     // Remember the last hovered tile so we can unhighlight it.
     private Tile lastHoveredTile;
 
@@ -76,6 +82,53 @@ public class InputManager : MonoBehaviour
 
             // Clear selection.
             Tile.ClearSelection();
+        }
+
+        HandleEdgePanning();
+    }
+
+    public void HandleEdgePanning()
+    {
+        // - Edge panning
+
+        // Get mouse screen position
+        Vector2 mousePos = Mouse.current.position.ReadValue();
+        
+        // Calculate pan direction
+        Vector3 panDirection = Vector3.zero;
+        
+        // Check left edge
+        if (mousePos.x < edgePanThreshold)
+            panDirection.x = -1f;
+        
+        // Check right edge
+        if (mousePos.x > Screen.width - edgePanThreshold)
+            panDirection.x = 1f;
+        
+        // Check bottom edge
+        if (mousePos.y < edgePanThreshold)
+            panDirection.y = -1f;
+        
+        // Check top edge
+        if (mousePos.y > Screen.height - edgePanThreshold)
+            panDirection.y = 1f;
+        
+        // Apply panning
+        if (panDirection != Vector3.zero)
+        {
+            Vector3 newPos = Camera.main.transform.position + panDirection * panSpeed * Time.deltaTime;
+            
+            // Calculate dynamic boundaries from grid size
+            float minX = -cameraPadding;
+            float maxX = GM.I.gridWidth * Constance.tileSize + cameraPadding;
+            float minY = -cameraPadding;
+            float maxY = GM.I.gridHeight * Constance.tileSize + cameraPadding;
+            
+            // Clamp to boundaries
+            newPos.x = Mathf.Clamp(newPos.x, minX, maxX);
+            newPos.y = Mathf.Clamp(newPos.y, minY, maxY);
+            
+            Camera.main.transform.position = newPos;
         }
     }
 }
