@@ -25,6 +25,17 @@ public class InputManager : MonoBehaviour
     // Update!
     void Update()
     {
+        HandleHovering();
+        HandleLeftClick();
+        HandleRightClick();
+        HandleCameraDragging();
+        HandleEdgePanning();
+        HandleCameraZoom();
+    }
+
+    // Handle hovering over tiles.
+    public void HandleHovering()
+    {
         // Get mouse position in world space.
         Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
         mouseWorldPos.z = 0;
@@ -46,7 +57,13 @@ public class InputManager : MonoBehaviour
             // Remember!
             lastHoveredTile = GM.I.hoveredTile;
         }
+    }
 
+    // Handle left clicks.
+    // Select a tile if we click on it!
+    // OR clear our selection if we click on nothing.
+    public void HandleLeftClick()
+    {
         // Check for left click.
         if (Mouse.current.leftButton.wasPressedThisFrame)
         {
@@ -60,8 +77,11 @@ public class InputManager : MonoBehaviour
                 Tile.ClearSelection();
             }
         }
+    }
 
-        // Check for right click.
+    // Handle right clicks.
+    public void HandleRightClick()
+    {
         if (Mouse.current.rightButton.wasPressedThisFrame)
         {
             // Check if we are trying to control a ship.
@@ -93,12 +113,6 @@ public class InputManager : MonoBehaviour
             // Clear selection.
             Tile.ClearSelection();
         }
-
-        HandleCameraDragging();
-
-        HandleEdgePanning();
-
-        HandleCameraZoom();
     }
 
     // Handle camera dragging.
