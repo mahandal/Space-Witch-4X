@@ -56,6 +56,9 @@ public class InputManager : MonoBehaviour
 
             // Remember!
             lastHoveredTile = GM.I.hoveredTile;
+
+            // UI.
+            UI.I.HoverTile(GM.I.hoveredTile);
         }
     }
 
@@ -87,6 +90,10 @@ public class InputManager : MonoBehaviour
             // Check if we are trying to control a ship.
             if (GM.I.selectedTile != null && GM.I.selectedTile.ship != null)
             {
+                // Make sure it's our turn!
+                // if (GM.I.activeFaction != GM.I.playerFaction)
+                //     return;
+
                 // Make sure the target tile exists.
                 if (GM.I.hoveredTile != null)
                 {
@@ -94,7 +101,7 @@ public class InputManager : MonoBehaviour
                     if (GM.I.hoveredTile == GM.I.selectedTile)
                     {
                         // Rest!
-                        GM.I.selectedTile.ship.Rest();
+                        GM.I.selectedTile.ship.AttemptRest();
                     }
                     // Check if there's an enemy ship there.
                     else if (GM.I.hoveredTile.ship != null &&

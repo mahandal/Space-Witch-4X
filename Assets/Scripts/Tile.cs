@@ -49,6 +49,9 @@ public class Tile : MonoBehaviour
 
         // Clear highlights.
         ClearAllHighlights();
+
+        // Clear tooltips.
+        UI.I.ClearSelection();
     }
 
     // Clear ALL highlighting for ALL tiles.
@@ -93,6 +96,9 @@ public class Tile : MonoBehaviour
 
         // Set as currently selected tile.
         GM.I.selectedTile = this;
+
+        // UI!
+        UI.I.SelectTile(this);
     }
 
     // Highlight nearby tiles to show the selected ship's movement and attack ranges.

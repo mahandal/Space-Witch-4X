@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 public class Utility : MonoBehaviour
@@ -70,5 +71,25 @@ public class Utility : MonoBehaviour
     public void ReloadGame()
     {
         SceneManager.LoadScene("Game");
+    }
+
+    // Load an image located at the given location into the given image.
+    public static void LoadImage(Image image, string fileName)
+    {
+        // Load file into sprite.
+        Sprite sprite = Resources.Load<Sprite>(fileName);
+
+        // Load sprite into image
+        image.sprite = sprite;
+    }
+
+    // Load a given faction's icon into the given image.
+    public static void LoadFactionIcon(Image image, Faction faction)
+    {
+        // Get file path.
+        string filePath = "Faction Icon - " + faction.ToString();
+
+        // Delegate to LoadImage
+        LoadImage(image, filePath);
     }
 }

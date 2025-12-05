@@ -12,6 +12,9 @@ public class GM : MonoBehaviour
     // Which faction's turn is it?
     public Faction activeFaction = Faction.Pack;
 
+    // Which faction is the player currently playing as?
+    public Faction playerFaction = Faction.Coven;
+
     // What round are we on?
     // A round is complete when each faction takes their turn.
     public int round = 1;

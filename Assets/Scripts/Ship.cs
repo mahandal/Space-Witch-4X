@@ -20,6 +20,7 @@ public class Ship : MonoBehaviour
     public int armor;
     public int speed;
     public int range;
+    public int vision;
     public int attacks = 1;
 
     [Header("Per turn")]
@@ -46,6 +47,9 @@ public class Ship : MonoBehaviour
     // The outline behind this ship's attacks remaining text indicator.
     // Also the parent object of the attacks remaining text indicator.
     public Image attacksRemainingOutline;
+
+    // The image showing this ship's allegiance.
+    public Image factionIcon;
 
     // Attempt to move into range and attack the target ship.
     // Fails if:
@@ -517,6 +521,10 @@ public class Ship : MonoBehaviour
 
         // Update health bar to show you have fully healed.
         healthBar.fillAmount = currentHealth / maxHealth;
+
+        // Update faction icon.
+        string factionIconName = "Faction Icon - " + newFaction.ToString();
+        Utility.LoadImage(factionIcon, factionIconName);
     }
 
     // Handle upkeep for this ship.
@@ -529,6 +537,26 @@ public class Ship : MonoBehaviour
 
         // Reveal movement and attacks remaining.
         RevealMovementAndAttacks();
+    }
+
+    // Attempt to rest.
+    // Delegates to Rest() if successful.
+    // Fails if:
+    // - It is not our turn.
+    // - This ship has no movement or attacks remaining.
+    public bool AttemptRest()
+    {
+        // Check if it is our turn.
+        if (faction != GM.I.activeFaction) return false;
+
+        // Check if we have no movement or attacks remaining.
+        if (movementRemaining <= 0 && attacksRemaining <= 0) return false;
+
+        // Delegate to Rest();
+        Rest();
+
+        // Return successful!
+        return true;
     }
 
     // Rest.
