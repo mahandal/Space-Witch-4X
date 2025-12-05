@@ -85,41 +85,51 @@ public class InputManager : MonoBehaviour
     // Handle right clicks.
     public void HandleRightClick()
     {
-        if (Mouse.current.rightButton.wasPressedThisFrame)
+        // Did we just right click?
+        if (!Mouse.current.rightButton.wasPressedThisFrame) return;
+
+        // Remember whether we should re-select the currently selected ship after the current action.
+        bool shouldReselect = false;
+  
+        // Check if we are trying to control a ship.
+        Ship selectedShip = null;
+        if (GM.I.selectedTile != null)
+            selectedShip = GM.I.selectedTile.ship;
+
+        if (selectedShip != null)
         {
-            // Check if we are trying to control a ship.
-            if (GM.I.selectedTile != null && GM.I.selectedTile.ship != null)
+            // Make sure the target tile exists.
+            if (GM.I.hoveredTile != null)
             {
-                // Make sure it's our turn!
-                // if (GM.I.activeFaction != GM.I.playerFaction)
-                //     return;
-
-                // Make sure the target tile exists.
-                if (GM.I.hoveredTile != null)
+                // Check if we're targeting the selected tile.
+                if (GM.I.hoveredTile == GM.I.selectedTile)
                 {
-                    // Check if we're targeting the selected tile.
-                    if (GM.I.hoveredTile == GM.I.selectedTile)
-                    {
-                        // Rest!
-                        GM.I.selectedTile.ship.AttemptRest();
-                    }
-                    // Check if there's an enemy ship there.
-                    else if (GM.I.hoveredTile.ship != null &&
-                        GM.I.hoveredTile.ship.faction != GM.I.selectedTile.ship.faction)
-                    {
-                        // Try moving toward the enemy ship and attacking them.
-                        GM.I.selectedTile.ship.AttemptAttackMove(GM.I.hoveredTile.ship);
-                    } else {
-                        // Try to move the ship to the target tile.
-                        GM.I.selectedTile.ship.AttemptMove(GM.I.hoveredTile.x, GM.I.hoveredTile.y);
-                    }
-                        
+                    // Rest!
+                    selectedShip.AttemptRest();
                 }
-            }
+                // Check if there's an enemy ship there.
+                else if (GM.I.hoveredTile.ship != null &&
+                    GM.I.hoveredTile.ship.faction != selectedShip.faction)
+                {
+                    // Try moving toward the enemy ship and attacking them.
+                    selectedShip.AttemptAttackMove(GM.I.hoveredTile.ship);
+                } else {
+                    // Try to move the ship to the target tile.
+                    selectedShip.AttemptMove(GM.I.hoveredTile.x, GM.I.hoveredTile.y);
+                }
 
-            // Clear selection.
-            Tile.ClearSelection();
+                // See if we should reselect this ship after.
+                if (selectedShip.movementRemaining > 0 || selectedShip.attacksRemaining > 0)
+                    shouldReselect = true;
+            }
         }
+
+        // Check if we should reselect the ship we just used,
+        // or just clear the selection entirely.
+        if (shouldReselect)
+            GM.I.hoveredTile.Select();
+        else
+            Tile.ClearSelection();
     }
 
     // Handle camera dragging.
