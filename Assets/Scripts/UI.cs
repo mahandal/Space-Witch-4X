@@ -39,7 +39,17 @@ public class UI : MonoBehaviour
     public TMP_Text hoveredTileArmor;
 
     // Hovered ship.
-    // TBD!
+    public GameObject hoveredShipParent;
+    public Image hoveredShipFactionIcon;
+    public TMP_Text hoveredShipName;
+    public TMP_Text hoveredShipCurrentHealth;
+    public TMP_Text hoveredShipMaxHealth;
+    public TMP_Text hoveredShipMovesRemaining;
+    public TMP_Text hoveredShipSpeed;
+    public TMP_Text hoveredShipRange;
+    public TMP_Text hoveredShipVision;
+    public TMP_Text hoveredShipDamage;
+    public TMP_Text hoveredShipArmor;
 
 
     // Singleton
@@ -73,6 +83,8 @@ public class UI : MonoBehaviour
     // Set up the UI for a newly hovered tile.
     public void HoverTile(Tile hoveredTile)
     {
+        // - Tile
+
         // Clear if hovered tile is null.
         if (hoveredTile == null)
         {
@@ -89,7 +101,36 @@ public class UI : MonoBehaviour
         hoveredTileName.text = hoveredTile.myType.ToString();
         hoveredTileMoveCost.text = hoveredTile.moveCost.ToString();
         hoveredTileArmor.text = hoveredTile.armorBonus.ToString();
+
+        // - Ship
+        Ship hoveredShip = hoveredTile.ship;
+
+        // Clear if selecting nothing.
+        if (hoveredShip == null)
+        {
+            // Hide hovered ship tooltip.
+            hoveredShipParent.SetActive(false);
+
+            // Return!
+            return;
+        } else {
+            // Reveal hovered ship tooltip.
+            hoveredShipParent.SetActive(true);
+        }
         
+        // Load faction icon.
+        Utility.LoadFactionIcon(hoveredShipFactionIcon, hoveredShip.faction);
+
+        // Load text.
+        hoveredShipName.text = hoveredShip.myName;
+        hoveredShipCurrentHealth.text = hoveredShip.currentHealth.ToString();
+        hoveredShipMaxHealth.text = hoveredShip.maxHealth.ToString();
+        hoveredShipMovesRemaining.text = hoveredShip.movementRemaining.ToString();;
+        hoveredShipSpeed.text = hoveredShip.speed.ToString();
+        hoveredShipRange.text = hoveredShip.range.ToString();
+        hoveredShipVision.text = hoveredShip.vision.ToString();
+        hoveredShipDamage.text = hoveredShip.damage.ToString();
+        hoveredShipArmor.text = hoveredShip.armor.ToString();
     }
 
     // Set up the UI for a newly selected tile.
