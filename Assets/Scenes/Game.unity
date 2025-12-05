@@ -13603,7 +13603,7 @@ MonoBehaviour:
   armor: 1
   speed: 4
   range: 1
-  vision: 0
+  vision: 13
   attacks: 1
   movementRemaining: 0
   attacksRemaining: 0
@@ -27391,7 +27391,7 @@ MonoBehaviour:
   armor: 1
   speed: 2
   range: 3
-  vision: 0
+  vision: 13
   attacks: 1
   movementRemaining: 0
   attacksRemaining: 0
@@ -31887,7 +31887,7 @@ MonoBehaviour:
   armor: 0
   speed: 3
   range: 1
-  vision: 0
+  vision: 3
   attacks: 1
   movementRemaining: 0
   attacksRemaining: 0
@@ -34179,7 +34179,7 @@ MonoBehaviour:
   armor: 1
   speed: 3
   range: 2
-  vision: 0
+  vision: 4
   attacks: 1
   movementRemaining: 0
   attacksRemaining: 0
@@ -37906,7 +37906,7 @@ MonoBehaviour:
   armor: 0
   speed: 5
   range: 1
-  vision: 0
+  vision: 2
   attacks: 1
   movementRemaining: 0
   attacksRemaining: 0
@@ -41076,7 +41076,7 @@ MonoBehaviour:
   armor: 1
   speed: 3
   range: 2
-  vision: 0
+  vision: 13
   attacks: 1
   movementRemaining: 0
   attacksRemaining: 0

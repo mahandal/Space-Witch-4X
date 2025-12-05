@@ -8,6 +8,58 @@ public class Leader : Ship
     public int mana = 0;
     public HashSet<Ship> fleet = new HashSet<Ship>();
 
+    // Use the AI to run a turn for this faction.
+    public void AITurn()
+    {
+        // Make a copy of the fleet list to avoid modification during iteration
+        List<Ship> fleetList = new List<Ship>(fleet);
+        
+        // Loop through each ship in our fleet
+        foreach (Ship ship in fleetList)
+        {
+            // Skip if ship is dead
+            if (ship == null || ship.currentHealth <= 0) continue;
+            
+            // Get visible enemies
+            List<Ship> visibleEnemies = ship.GetVisibleEnemies();
+            
+            // Check if we can see any enemies
+            if (visibleEnemies.Count > 0)
+            {
+                // Attack the closest enemy
+                Ship closestEnemy = null;
+                int shortestDistance = int.MaxValue;
+                
+                foreach (Ship enemy in visibleEnemies)
+                {
+                    Debug.Log(ship.myName + " sees " + enemy.myName + " as an enemy!");
+
+                    int distance = Utility.Distance(ship.currentTile, enemy.currentTile);
+                    if (distance < shortestDistance)
+                    {
+                        shortestDistance = distance;
+                        closestEnemy = enemy;
+                    }
+                }
+                
+                // Try to attack
+                bool attackSuccessful = ship.AttemptAttackMove(closestEnemy);
+                
+                // If we couldn't attack, try to move closer
+                if (!attackSuccessful)
+                {
+                    MoveShipToward(ship, closestEnemy.currentTile);
+                }
+            }
+
+            // Move randomly.
+            ship.MoveShipRandomly();
+        }
+
+        // End our turn!
+        GM.I.EndTurn();
+    }
+
     // Initialize this leader:
     // - Move it to a random position.
     // - Heal it to full health.

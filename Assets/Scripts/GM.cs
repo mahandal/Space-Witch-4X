@@ -132,6 +132,10 @@ public class GM : MonoBehaviour
 
         // Set up UI.
         UI.I.NewTurn(faction);
+
+        // AI?
+        if (activeFaction != playerFaction)
+            leader.AITurn();
     }
 
     // Return the tile in our grid located at position (x, y)

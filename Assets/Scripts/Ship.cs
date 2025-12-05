@@ -609,4 +609,106 @@ public class Ship : MonoBehaviour
         // Consume remaining attacks.
         SetAttacksRemaining(0);
     }
+
+
+    // Get all enemy ships within vision range.
+    public List<Ship> GetVisibleEnemies()
+    {
+        List<Ship> visibleEnemies = new List<Ship>();
+        
+        // Check all tiles within vision range
+        for (int dx = -vision; dx <= vision; dx++)
+        {
+            for (int dy = -vision; dy <= vision; dy++)
+            {
+                // Get the tile
+                Tile tile = GM.I.GetTile(x + dx, y + dy);
+                
+                // Skip if tile doesn't exist
+                if (tile == null) continue;
+                
+                // Skip if no ship on tile
+                if (tile.ship == null) continue;
+                
+                // Skip if ship is friendly
+                if (tile.ship.faction == faction) continue;
+                
+                // Calculate actual distance
+                int distance = Utility.Distance(currentTile, tile);
+                
+                // Check if within vision range
+                if (distance <= vision)
+                {
+                    visibleEnemies.Add(tile.ship);
+                }
+            }
+        }
+        
+        return visibleEnemies;
+    }
+
+
+    // Move this ship in a random direction.
+    public void MoveShipRandomly()
+    {
+        // Skip if no movement remaining
+        if (movementRemaining <= 0) return;
+        
+        // Get all tiles this ship can move to
+        HashSet<Tile> moveableTiles = currentTile.GetTilesInMovementRange();
+        
+        // Filter out tiles with ships on them
+        List<Tile> validTiles = new List<Tile>();
+        foreach (Tile tile in moveableTiles)
+        {
+            if (tile.ship == null)
+                validTiles.Add(tile);
+        }
+        
+        // Check if we have any valid tiles
+        if (validTiles.Count == 0) return;
+        
+        // Pick a random tile
+        int randomIndex = Random.Range(0, validTiles.Count);
+        Tile randomTile = validTiles[randomIndex];
+        
+        // Move there
+        AttemptMove(randomTile.x, randomTile.y);
+    }
+
+    // Move a ship toward a target tile.
+    public void MoveShipToward(Ship ship, Tile targetTile)
+    {
+        // Skip if no movement remaining
+        if (movementRemaining <= 0) return;
+        
+        // Get all tiles this ship can move to
+        HashSet<Tile> moveableTiles = currentTile.GetTilesInMovementRange();
+        
+        // Find the tile that gets us closest to the target
+        Tile bestTile = null;
+        int shortestDistance = int.MaxValue;
+        
+        foreach (Tile tile in moveableTiles)
+        {
+            // Skip tiles with ships on them
+            if (tile.ship != null) continue;
+            
+            // Calculate distance to target
+            int distance = Utility.Distance(tile, targetTile);
+            
+            // Check if this is better than our current best
+            if (distance < shortestDistance)
+            {
+                shortestDistance = distance;
+                bestTile = tile;
+            }
+        }
+        
+        // Move to the best tile if we found one
+        if (bestTile != null)
+        {
+            AttemptMove(bestTile.x, bestTile.y);
+        }
+    }
 }
