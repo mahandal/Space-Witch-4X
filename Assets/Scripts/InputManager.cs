@@ -127,7 +127,7 @@ public class InputManager : MonoBehaviour
         // Check if we should reselect the ship we just used,
         // or just clear the selection entirely.
         if (shouldReselect)
-            GM.I.hoveredTile.Select();
+            selectedShip.currentTile.Select();
         else
             Tile.ClearSelection();
     }
