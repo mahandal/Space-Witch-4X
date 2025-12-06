@@ -82,61 +82,24 @@ public class GM : MonoBehaviour
     }
 
     // End the current turn and go to the next one.
-    // public void EndTurn()
-    // {
-    //     // Fade to black if it was the player's turn.
-    //     if (activeFaction == playerFaction)
-    //         UI.I.overlayBG.color = Color.black;
-    //         // UI.I.FadeOverlay(true, 1f);
-
-    //     // Let the current leader end the turn for their faction.
-    //     leaders[activeFaction].EndTurn();
-
-    //     // Increment turn index.
-    //     turnIndex++;
-
-    //     // Check if each faction has had a turn.
-    //     if (turnIndex >= turnOrder.Length)
-    //     {
-    //         // Reset to beginning.
-    //         turnIndex = 0;
-
-    //         // Start a new round!
-    //         round++;
-    //     }
-
-    //     // Get the next faction.
-    //     Faction nextFaction = turnOrder[turnIndex];
-
-    //     // Get the leader of the next faction.
-    //     Leader nextLeader = leaders[nextFaction];
-
-    //     // If the next faction's leader is gone, skip them!
-    //     if (nextLeader == null ||
-    //         nextLeader.currentHealth <= 0 ||
-    //         nextLeader.faction != nextFaction)
-    //     {
-    //         EndTurn();
-    //     } else {
-    //         // Start a new turn for the next faction.
-    //         NewTurn(nextFaction);   
-    //     }
-    // }
-
-    // End the current turn and go to the next one.
-    // Delegates to a coroutine so we can let AI take time to think.
+    // Delegates to a coroutine so we can let AI have some time to think.
     public void EndTurn()
     {
         StartCoroutine(EndTurnCoroutine());
     }
 
+    // Handle ending a turn.
+    // Note: Waits a second first to give AI time to think!
     private IEnumerator EndTurnCoroutine()
     {
-        // Fade out the screen
-        UI.I.FadeOverlay(true, 1f);
+        // // Fade out the screen
+        // UI.I.FadeOverlay(true, 1f);
+
+        // Fade out overlay.
+        UI.I.EndTurn(activeFaction);
         
-        // Wait for fade to complete
-        // also give each AI a second for their turn.
+        // Wait for fade to complete.
+        // (also give each AI a second for their turn!)
         yield return new WaitForSeconds(1f);
         
         // Let the current leader end the turn for their faction.

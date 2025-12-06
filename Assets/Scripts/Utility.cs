@@ -94,9 +94,20 @@ public class Utility : MonoBehaviour
         LoadImage(image, filePath);
     }
 
-    // Fade an image to a target alpha value.
-    public static IEnumerator FadeImage(Image image, float targetAlpha, float duration = 0.5f)
+    // Fade an image to a target alpha value over a set duration.
+    // Wrapper of a coroutine so you can call it like a normal function.
+    public static void FadeImage(Image image, float targetAlpha, float duration = 0.5f)
     {
+        GM.I.StartCoroutine(FadeImageCoroutine(image, targetAlpha, duration));
+    }
+
+    // Fade an image to a target alpha value.
+    // Note: Deactivates objects when they fade to 0 opacity.
+    public static IEnumerator FadeImageCoroutine(Image image, float targetAlpha, float duration = 0.5f)
+    {
+        // Make sure object is active!
+        image.gameObject.SetActive(true);
+        
         float elapsed = 0f;
         Color startColor = image.color;
         Color targetColor = new Color(startColor.r, startColor.g, startColor.b, targetAlpha);
@@ -109,5 +120,9 @@ public class Utility : MonoBehaviour
         }
         
         image.color = targetColor;
+
+        // Deactivate object if it is fully faded out.
+        if (targetAlpha <= 0f)
+            image.gameObject.SetActive(false);
     }
 }

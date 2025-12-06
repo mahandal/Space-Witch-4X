@@ -6,9 +6,12 @@ public class UI : MonoBehaviour
 {
     [Header("Fade in/out")]
     public Image overlayBG;
+    public Image packOverlay;
+    public Image covenOverlay;
+    public Image syndicateOverlay;
+    public Image neutralOverlay;
 
     [Header("Top Bar")]
-    public TMP_Text activeFaction;
     public TMP_Text currentMana;
     public Image toggleEdgePanning;
 
@@ -69,7 +72,21 @@ public class UI : MonoBehaviour
 
         // Disable what should not be.
         ClearSelection();
+
+        packOverlay.gameObject.SetActive(false);
+        covenOverlay.gameObject.SetActive(false);
+        syndicateOverlay.gameObject.SetActive(false);
+        neutralOverlay.gameObject.SetActive(false);
+
+        // Fade in from black.
         overlayBG.color = new Color(0f, 0f, 0f, 1f);
+        // Utility.FadeImage(overlayBG, 0f, 1f);
+    }
+
+    void Start()
+    {
+        // Fade in from black.
+        // overlayBG.color = new Color(0f, 0f, 0f, 1f);
         Utility.FadeImage(overlayBG, 0f, 1f);
     }
 
@@ -79,14 +96,16 @@ public class UI : MonoBehaviour
         // Get the faction's leader.
         Leader leader = GM.I.leaders[faction];
 
-        // Set faction text.
-        activeFaction.text = faction.ToString();
-
-        // Set faction color.
-        activeFaction.color = Constance.FactionColor(faction);
-
         // Set mana text.
         currentMana.text = leader.mana.ToString();
+    }
+
+    // Handle the UI for ending a turn for a given faction.
+    public void EndTurn(Faction faction)
+    {
+        // Fade out the screen
+        if (faction == GM.I.playerFaction)
+            FadeOverlay(true, 1f);
     }
 
     // Set up the UI for a newly hovered tile.
@@ -208,6 +227,6 @@ public class UI : MonoBehaviour
     public void FadeOverlay(bool fadeIn, float duration = 0.5f)
     {
         float targetAlpha = fadeIn ? 1f : 0f;
-        StartCoroutine(Utility.FadeImage(overlayBG, targetAlpha, duration));
+        Utility.FadeImage(overlayBG, targetAlpha, duration);
     }
 }
