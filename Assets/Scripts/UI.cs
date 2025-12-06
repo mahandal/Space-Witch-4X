@@ -88,16 +88,11 @@ public class UI : MonoBehaviour
     {
         // - Tile
 
-        // Clear if hovered tile is null.
-        if (hoveredTile == null)
+        // Clear if hovered tile is null or hidden in fog of war.
+        if (hoveredTile == null || !hoveredTile.isVisibleToPlayer)
         {
             hoveredTooltipParent.SetActive(false);
             return;
-        }
-        else
-        {
-            // Otherwise, make sure it's visible!
-            hoveredTooltipParent.SetActive(true);
         }
 
         // Set up tooltip.
@@ -134,6 +129,9 @@ public class UI : MonoBehaviour
         hoveredShipVision.text = hoveredShip.vision.ToString();
         hoveredShipDamage.text = hoveredShip.damage.ToString();
         hoveredShipArmor.text = hoveredShip.armor.ToString();
+
+        // Make sure tooltip is visible!
+        hoveredTooltipParent.SetActive(true);
     }
 
     // Set up the UI for a newly selected tile.
@@ -141,17 +139,14 @@ public class UI : MonoBehaviour
     {
         // - Tile
 
-        // Clear if selecting nothing.
-        if (selectedTile == null)
+        // Clear if selecting nothing or attempting to select in fog of war.
+        if (selectedTile == null || !selectedTile.isVisibleToPlayer)
         {
             // Deactivate parent object.
             selectedTooltipParent.SetActive(false);
 
             // Return!
             return;
-        } else {
-            // Ensure selection tooltips are visible.
-            selectedTooltipParent.SetActive(true);
         }
 
         // Set up selected tile tooltip.
@@ -188,6 +183,9 @@ public class UI : MonoBehaviour
         selectedShipVision.text = selectedShip.vision.ToString();
         selectedShipDamage.text = selectedShip.damage.ToString();
         selectedShipArmor.text = selectedShip.armor.ToString();
+
+        // Ensure selection tooltips are visible.
+        selectedTooltipParent.SetActive(true);
     }
 
     // Clear the selection UI.
