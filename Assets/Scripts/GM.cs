@@ -267,8 +267,6 @@ public class GM : MonoBehaviour
         {
             int index = (startIndex + i) % fleetList.Count;
             Ship ship = fleetList[index];
-
-            Debug.Log("Fleet["+ index + "]: " + ship.myName);
             
             // Skip dead ships
             if (ship == null || ship.currentHealth <= 0) continue;
