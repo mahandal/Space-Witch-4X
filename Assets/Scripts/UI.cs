@@ -5,6 +5,7 @@ using TMPro;
 public class UI : MonoBehaviour
 {
     [Header("Fade in/out")]
+    public float fadeTime = 1f;
     public Image overlayBG;
     public Image packOverlay;
     public Image covenOverlay;
@@ -80,14 +81,6 @@ public class UI : MonoBehaviour
 
         // Fade in from black.
         overlayBG.color = new Color(0f, 0f, 0f, 1f);
-        // Utility.FadeImage(overlayBG, 0f, 1f);
-    }
-
-    void Start()
-    {
-        // Fade in from black.
-        // overlayBG.color = new Color(0f, 0f, 0f, 1f);
-        Utility.FadeImage(overlayBG, 0f, 1f);
     }
 
     // Set up the UI for a new turn for the given faction.
@@ -108,7 +101,7 @@ public class UI : MonoBehaviour
     {
         // Fade out the screen
         if (faction == GM.I.playerFaction)
-            FadeOverlay(true, 1f);
+            FadeOverlay(true, fadeTime);
     }
 
     // Set up the UI for a newly hovered tile.
