@@ -15,6 +15,7 @@ public class UI : MonoBehaviour
     [Header("Top Bar")]
     public TMP_Text currentMana;
     public Image toggleEdgePanning;
+    public Button endTurnButton;
 
     [Header("Tooltips")]
     // Parent object of our selection tooltips.
@@ -94,6 +95,10 @@ public class UI : MonoBehaviour
 
         // Move camera to leader's position.
         Utility.MoveCamera(leader.currentTile);
+
+        // Reveal end turn button for the player.
+        if (faction == GM.I.playerFaction)
+            endTurnButton.gameObject.SetActive(true);
     }
 
     // Handle the UI for ending a turn for a given faction.

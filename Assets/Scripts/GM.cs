@@ -9,6 +9,9 @@ public class GM : MonoBehaviour
     // Track the current state of the game.
     public int gameState = 0;
 
+    // How much time each AI gets to think.
+    public float aiTurnTime = 1f;
+
     [Header("Turns")]
     // Which faction's turn is it?
     public Faction activeFaction = Faction.Pack;
@@ -81,6 +84,17 @@ public class GM : MonoBehaviour
         if (neutralLeader != null) leaders[Faction.Neutral] = neutralLeader;
     }
 
+    // Called when the player clicks the end turn button.
+    // Error checks then delegates to EndTurn().
+    public void Button_EndTurn()
+    {
+        // Hide end turn button.
+        UI.I.endTurnButton.gameObject.SetActive(false);
+
+        // End the current turn.
+        EndTurn();
+    }
+
     // End the current turn and go to the next one.
     // Delegates to a coroutine so we can let AI have some time to think.
     public void EndTurn()
@@ -92,15 +106,12 @@ public class GM : MonoBehaviour
     // Note: Waits a second first to give AI time to think!
     private IEnumerator EndTurnCoroutine()
     {
-        // // Fade out the screen
-        // UI.I.FadeOverlay(true, 1f);
-
         // Fade out overlay.
         UI.I.EndTurn(activeFaction);
         
         // Wait for fade to complete.
         // (also give each AI a second for their turn!)
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(aiTurnTime);
         
         // Let the current leader end the turn for their faction.
         leaders[activeFaction].EndTurn();

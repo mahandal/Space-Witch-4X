@@ -1933,11 +1933,11 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 362013502}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 250, y: 0}
+  m_AnchorMin: {x: 1, y: 1}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: -250, y: 0}
   m_SizeDelta: {x: 200, y: 150}
-  m_Pivot: {x: 0, y: 1}
+  m_Pivot: {x: 1, y: 1}
 --- !u!114 &69859666
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5525,7 +5525,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &242664253
 RectTransform:
   m_ObjectHideFlags: 0
@@ -16138,6 +16138,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18ef7e72d09adab49b24e36f6988ae86, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UI
+  fadeTime: 0.1
   overlayBG: {fileID: 1976800815}
   packOverlay: {fileID: 1394689760}
   covenOverlay: {fileID: 242664254}
@@ -16145,6 +16146,7 @@ MonoBehaviour:
   neutralOverlay: {fileID: 1300558124}
   currentMana: {fileID: 1094448257}
   toggleEdgePanning: {fileID: 69859667}
+  endTurnButton: {fileID: 1670815767}
   selectedTooltipParent: {fileID: 787905674}
   selectedTileName: {fileID: 1412198667}
   selectedTileMoveCost: {fileID: 1743007367}
@@ -30219,7 +30221,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1300558123
 RectTransform:
   m_ObjectHideFlags: 0
@@ -31926,7 +31928,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1394689759
 RectTransform:
   m_ObjectHideFlags: 0
@@ -32458,6 +32460,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GM
   gameState: 0
+  aiTurnTime: 0.1
   activeFaction: 1
   playerFaction: 2
   round: 1
@@ -37403,7 +37406,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1422601900}
         m_TargetAssemblyTypeName: GM, Assembly-CSharp
-        m_MethodName: EndTurn
+        m_MethodName: Button_EndTurn
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -45886,7 +45889,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2098324656
 RectTransform:
   m_ObjectHideFlags: 0
