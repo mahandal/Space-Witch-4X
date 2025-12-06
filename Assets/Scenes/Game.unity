@@ -10335,6 +10335,7 @@ MonoBehaviour:
   ship: {fileID: 0}
   moveCost: 2
   armorBonus: 2
+  visionCost: 2
   damageOnEnter: 0
   damageOnUpkeep: 0
   isVisibleToPlayer: 0
@@ -33206,6 +33207,7 @@ MonoBehaviour:
   ship: {fileID: 0}
   moveCost: 2
   armorBonus: 0
+  visionCost: 1
   damageOnEnter: 0
   damageOnUpkeep: 0
   isVisibleToPlayer: 0
@@ -34397,6 +34399,7 @@ MonoBehaviour:
   ship: {fileID: 0}
   moveCost: 2
   armorBonus: 1
+  visionCost: 1
   damageOnEnter: 0
   damageOnUpkeep: 0
   isVisibleToPlayer: 0
@@ -42816,6 +42819,7 @@ MonoBehaviour:
   ship: {fileID: 0}
   moveCost: 1
   armorBonus: -3
+  visionCost: 1
   damageOnEnter: 3
   damageOnUpkeep: 3
   isVisibleToPlayer: 0
@@ -43954,6 +43958,7 @@ MonoBehaviour:
   ship: {fileID: 0}
   moveCost: 1
   armorBonus: 0
+  visionCost: 1
   damageOnEnter: 0
   damageOnUpkeep: 0
   isVisibleToPlayer: 0

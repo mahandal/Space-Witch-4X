@@ -13,6 +13,7 @@ public class Tile : MonoBehaviour
     [Header("Stats")]
     public int moveCost = 1;
     public int armorBonus = 0;
+    public int visionCost = 1;
     public int damageOnEnter = 0;
     public int damageOnUpkeep = 0;
 
@@ -292,6 +293,82 @@ public class Tile : MonoBehaviour
         return reachable;
     }
 
+    // Get a set of all tiles the ship on this tile can see.
+    public HashSet<Tile> GetTilesInVisionRange()
+    {
+        // Nothing can't see nothing!
+        if (ship == null) return null;
+        
+        // Store all visible tiles.
+        HashSet<Tile> visible = new HashSet<Tile>();
+
+        // Store the cost to see each tile.
+        Dictionary<Tile, int> costToSee = new Dictionary<Tile, int>();
+
+        // Track tiles that we've heard of and need to investigate further.
+        Queue<Tile> frontier = new Queue<Tile>();
+
+        // Start with the current tile.
+        frontier.Enqueue(this);
+        visible.Add(this);
+
+        // Can always see yourself!
+        costToSee[this] = 0;
+
+        // Go until there's no more relevant tiles.
+        while (frontier.Count > 0)
+        {
+            // Get the current tile.
+            Tile current = frontier.Dequeue();
+
+            // Get each neighboring tile.
+            List<Tile> neighbors = new List<Tile>();
+            if (current.x > 0) neighbors.Add(GM.I.grid[current.x - 1, current.y]);
+            if (current.y > 0) neighbors.Add(GM.I.grid[current.x, current.y - 1]);
+            if (current.x < GM.I.gridWidth - 1) neighbors.Add(GM.I.grid[current.x + 1, current.y]);
+            if (current.y < GM.I.gridHeight - 1) neighbors.Add(GM.I.grid[current.x, current.y + 1]);
+
+            // Go through each neighbor.
+            foreach (Tile neighbor in neighbors)
+            {
+                // Find the total cost to see this neighbor.
+                int neighborVisionCost = costToSee[current] + neighbor.GetVisionCost(ship);
+
+                // Check if this neighbor is within our vision range.
+                if (neighborVisionCost <= ship.vision)
+                {
+                    // Check if we already have a path to see this tile.
+                    if (costToSee.ContainsKey(neighbor))
+                    {
+                        // Check if we found a new best path.
+                        if (neighborVisionCost < costToSee[neighbor])
+                        {
+                            // Set new best vision cost.
+                            costToSee[neighbor] = neighborVisionCost;
+
+                            // Add our new path to the frontier.
+                            frontier.Enqueue(neighbor);
+                        }
+                    }
+                    else
+                    {
+                        // Add this tile to our set of visible tiles.
+                        visible.Add(neighbor);
+
+                        // Remember our cost to see this neighbor.
+                        costToSee[neighbor] = neighborVisionCost;
+
+                        // Add the new tile to the frontier!
+                        frontier.Enqueue(neighbor);
+                    }
+                }
+            }
+        }
+
+        // Return all visible tiles.
+        return visible;
+    }
+
     // Get the movement cost for a tile.
     public int GetMovementCost(Ship incomingShip)
     {
@@ -329,6 +406,16 @@ public class Tile : MonoBehaviour
 
         // Return!
         return totalMoveCost;
+    }
+
+    // Get the vision cost of a tile.
+    public int GetVisionCost(Ship beholder)
+    {
+        // Default
+        int totalVisionCost = visionCost;
+
+        // Return.
+        return totalVisionCost;
     }
 
     // Get this tile's armor bonus.

@@ -223,24 +223,12 @@ public class GM : MonoBehaviour
             // Skip dead ships
             if (ship == null || ship.currentHealth <= 0) continue;
 
-            // Reveal tiles within this ship's vision range
-            for (int dx = -ship.vision; dx <= ship.vision; dx++)
+            // Get all visible tiles from this ship
+            HashSet<Tile> visibleTiles = ship.currentTile.GetTilesInVisionRange();
+            
+            foreach (Tile tile in visibleTiles)
             {
-                for (int dy = -ship.vision; dy <= ship.vision; dy++)
-                {
-                    // Get the tile
-                    Tile tile = GetTile(ship.x + dx, ship.y + dy);
-                    if (tile == null) continue;
-
-                    // Calculate actual distance
-                    int distance = Utility.Distance(ship.currentTile, tile);
-
-                    // Reveal if within vision range
-                    if (distance <= ship.vision)
-                    {
-                        tile.RevealFromFog();
-                    }
-                }
+                tile.RevealFromFog();
             }
         }
     }
