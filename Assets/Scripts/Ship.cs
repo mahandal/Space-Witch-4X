@@ -611,7 +611,8 @@ public class Ship : MonoBehaviour
 
     // Rest.
     // Consume all remaining movement and attacks to regain health.
-    // Regain up to 19% of max health in total:
+    // Regain up to 29% of max health in total:
+    // - Regain up to 10% of max health if you are resting on a planet.
     // - Regain up to 5% of max health with all movement remaining.
     // - Regain up to 5% of max health with all attacks remaining.
     // - Regain 1% of max health per adjacent friendly tile (including this one!)
@@ -619,6 +620,10 @@ public class Ship : MonoBehaviour
     {
         // Initialize our count of how much health we'll heal.
         float percentMaxHealthToHeal = 0f;
+
+        // Check if we're on a planet.
+        if (currentTile.myType == TileType.Planet)
+            percentMaxHealthToHeal += 0.1f;
 
         // Get percentage of movement remaining.
         float percentMovementRemaining = movementRemaining / speed;
@@ -658,6 +663,9 @@ public class Ship : MonoBehaviour
 
         // Consume remaining attacks.
         SetAttacksRemaining(0);
+
+        // Update hover tooltip.
+        currentTile.Hover();
     }
 
 

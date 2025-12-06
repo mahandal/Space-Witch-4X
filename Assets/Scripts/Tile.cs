@@ -532,6 +532,9 @@ public class Tile : MonoBehaviour
                 ShowPathPreview();
             }
         }
+
+        // UI.
+        UI.I.HoverTile(this);
     }
 
     // Unhovering returns background opacity as it was.
