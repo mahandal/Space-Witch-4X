@@ -36,6 +36,9 @@ public class SpawnManager : MonoBehaviour
     [Header("Progenitors - Syndicate Ships")]
     public Ship p_Flybot;
 
+    [Header("Progenitors - Neutral Ships")]
+    public Ship p_SkyPirate;
+
     void Awake()
     {
         // - Make sure progenitors are hidden!
@@ -51,6 +54,7 @@ public class SpawnManager : MonoBehaviour
         p_SpaceWitch.gameObject.SetActive(false);
         p_Tarodactyl.gameObject.SetActive(false);
         p_Flybot.gameObject.SetActive(false);
+        p_SkyPirate.gameObject.SetActive(false);
     }
 
     // Start your engines!

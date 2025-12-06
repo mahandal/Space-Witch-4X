@@ -4,6 +4,9 @@ using TMPro;
 
 public class UI : MonoBehaviour
 {
+    [Header("Fade in/out")]
+    public Image overlayBG;
+
     [Header("Top Bar")]
     public TMP_Text activeFaction;
     public TMP_Text currentMana;
@@ -66,6 +69,7 @@ public class UI : MonoBehaviour
 
         // Disable what should not be.
         ClearSelection();
+        overlayBG.color = new Color(0f, 0f, 0f, 0f);
     }
 
     // Set up the UI for a new turn for the given faction.
