@@ -69,7 +69,8 @@ public class UI : MonoBehaviour
 
         // Disable what should not be.
         ClearSelection();
-        overlayBG.color = new Color(0f, 0f, 0f, 0f);
+        overlayBG.color = new Color(0f, 0f, 0f, 1f);
+        Utility.FadeImage(overlayBG, 0f, 1f);
     }
 
     // Set up the UI for a new turn for the given faction.
@@ -201,5 +202,12 @@ public class UI : MonoBehaviour
 
         // Hide ship selection specifically.
         selectedShipParent.SetActive(false);
+    }
+
+    // Fade the overlay in or out.
+    public void FadeOverlay(bool fadeIn, float duration = 0.5f)
+    {
+        float targetAlpha = fadeIn ? 1f : 0f;
+        StartCoroutine(Utility.FadeImage(overlayBG, targetAlpha, duration));
     }
 }

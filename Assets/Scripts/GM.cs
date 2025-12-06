@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using System.Collections.Generic;
+using System.Collections;
 
 public class GM : MonoBehaviour
 {
@@ -81,8 +82,63 @@ public class GM : MonoBehaviour
     }
 
     // End the current turn and go to the next one.
+    // public void EndTurn()
+    // {
+    //     // Fade to black if it was the player's turn.
+    //     if (activeFaction == playerFaction)
+    //         UI.I.overlayBG.color = Color.black;
+    //         // UI.I.FadeOverlay(true, 1f);
+
+    //     // Let the current leader end the turn for their faction.
+    //     leaders[activeFaction].EndTurn();
+
+    //     // Increment turn index.
+    //     turnIndex++;
+
+    //     // Check if each faction has had a turn.
+    //     if (turnIndex >= turnOrder.Length)
+    //     {
+    //         // Reset to beginning.
+    //         turnIndex = 0;
+
+    //         // Start a new round!
+    //         round++;
+    //     }
+
+    //     // Get the next faction.
+    //     Faction nextFaction = turnOrder[turnIndex];
+
+    //     // Get the leader of the next faction.
+    //     Leader nextLeader = leaders[nextFaction];
+
+    //     // If the next faction's leader is gone, skip them!
+    //     if (nextLeader == null ||
+    //         nextLeader.currentHealth <= 0 ||
+    //         nextLeader.faction != nextFaction)
+    //     {
+    //         EndTurn();
+    //     } else {
+    //         // Start a new turn for the next faction.
+    //         NewTurn(nextFaction);   
+    //     }
+    // }
+
+    // End the current turn and go to the next one.
+    // Delegates to a coroutine so we can let AI take time to think.
     public void EndTurn()
     {
+        StartCoroutine(EndTurnCoroutine());
+    }
+
+    private IEnumerator EndTurnCoroutine()
+    {
+        // Fade out the screen
+        UI.I.FadeOverlay(true, 1f);
+        
+        // Wait for fade to complete
+        // also give each AI a second for their turn.
+        yield return new WaitForSeconds(1f);
+        
         // Let the current leader end the turn for their faction.
         leaders[activeFaction].EndTurn();
 
@@ -120,6 +176,10 @@ public class GM : MonoBehaviour
     // Start a new turn for the given faction.
     public void NewTurn(Faction faction)
     {
+        // Fade in if it is the player's turn.
+        if (faction == playerFaction)
+            UI.I.FadeOverlay(false, 1f);
+
         // Set new active faction.
         activeFaction = faction;
 

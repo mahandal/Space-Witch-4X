@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using System.Collections;
 
 public class Utility : MonoBehaviour
 {
@@ -91,5 +92,22 @@ public class Utility : MonoBehaviour
 
         // Delegate to LoadImage
         LoadImage(image, filePath);
+    }
+
+    // Fade an image to a target alpha value.
+    public static IEnumerator FadeImage(Image image, float targetAlpha, float duration = 0.5f)
+    {
+        float elapsed = 0f;
+        Color startColor = image.color;
+        Color targetColor = new Color(startColor.r, startColor.g, startColor.b, targetAlpha);
+        
+        while (elapsed < duration)
+        {
+            elapsed += Time.deltaTime;
+            image.color = Color.Lerp(startColor, targetColor, elapsed / duration);
+            yield return null;
+        }
+        
+        image.color = targetColor;
     }
 }
