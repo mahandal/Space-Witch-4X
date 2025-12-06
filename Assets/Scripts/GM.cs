@@ -133,6 +133,9 @@ public class GM : MonoBehaviour
         // Set up UI.
         UI.I.NewTurn(faction);
 
+        // Set up fog of war?
+        UpdateFogOfWar();
+
         // AI?
         if (activeFaction != playerFaction)
             leader.AITurn();
@@ -150,5 +153,58 @@ public class GM : MonoBehaviour
 
         // Return!
         return grid[x, y];
+    }
+
+    // Update fog of war based on player's units' vision
+    public void UpdateFogOfWar()
+    {
+        // First, reveal your territory.
+        for (int i = 0; i < gridWidth; i++)
+        {
+            for (int j = 0; j < gridHeight; j++)
+            {
+                // Get tile.
+                Tile tile = grid[i, j];
+
+                // Check if tile is in your territory.
+                if (tile.faction == playerFaction)
+                {
+                    tile.RevealFromFog();
+                } else {
+                    tile.HideInFog();
+                }
+            }
+        }
+
+        // Get player's leader
+        Leader playerLeader = leaders[playerFaction];
+        if (playerLeader == null) return;
+
+        // Reveal tiles your ships can see.
+        foreach (Ship ship in playerLeader.fleet)
+        {
+            // Skip dead ships
+            if (ship == null || ship.currentHealth <= 0) continue;
+
+            // Reveal tiles within this ship's vision range
+            for (int dx = -ship.vision; dx <= ship.vision; dx++)
+            {
+                for (int dy = -ship.vision; dy <= ship.vision; dy++)
+                {
+                    // Get the tile
+                    Tile tile = GetTile(ship.x + dx, ship.y + dy);
+                    if (tile == null) continue;
+
+                    // Calculate actual distance
+                    int distance = Utility.Distance(ship.currentTile, tile);
+
+                    // Reveal if within vision range
+                    if (distance <= ship.vision)
+                    {
+                        tile.RevealFromFog();
+                    }
+                }
+            }
+        }
     }
 }

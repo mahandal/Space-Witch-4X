@@ -16,7 +16,11 @@ public class Tile : MonoBehaviour
     public int damageOnEnter = 0;
     public int damageOnUpkeep = 0;
 
-    [Header("Automated Machinery")]
+    [Header("Fog of War")]
+    public bool isVisibleToPlayer = false;
+    public SpriteRenderer fogOverlay;
+
+    [Header("Pathfinding")]
     public int moveCostFromSelectedTile = -1;
     public Tile previousTileInPath;
 
@@ -578,5 +582,21 @@ public class Tile : MonoBehaviour
             DestroyImmediate(attackLine);
             // attackLine.enabled = false;
         }
+    }
+
+    // - Fog of War
+
+    // Hide this tile in fog of war.
+    public void HideInFog()
+    {
+        isVisibleToPlayer = false;
+        fogOverlay.color = new Color(0, 0, 0, 1f);
+    }
+
+    // Reveal this tile from fog of war.
+    public void RevealFromFog()
+    {
+        isVisibleToPlayer = true;
+        fogOverlay.color = new Color(0, 0, 0, 0f);
     }
 }

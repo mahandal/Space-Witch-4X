@@ -32,8 +32,6 @@ public class Leader : Ship
                 
                 foreach (Ship enemy in visibleEnemies)
                 {
-                    Debug.Log(ship.myName + " sees " + enemy.myName + " as an enemy!");
-
                     int distance = Utility.Distance(ship.currentTile, enemy.currentTile);
                     if (distance < shortestDistance)
                     {

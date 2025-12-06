@@ -324,6 +324,10 @@ public class Ship : MonoBehaviour
         if (costMovement)
             SpendMovement(newTile.moveCostFromSelectedTile);
 
+        // Update fog of war if player faction
+        if (faction == GM.I.playerFaction)
+            GM.I.UpdateFogOfWar();
+
         // Call tile's OnEnter function.
         newTile.OnEnter(this);
     }
