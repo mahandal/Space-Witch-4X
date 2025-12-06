@@ -301,7 +301,9 @@ public class Tile : MonoBehaviour
         // - Territory
 
         // Claiming territory from another faction costs additional movement.
-        if (faction != incomingShip.faction && faction != Faction.Neutral)
+        // (except for Neutral ships!)
+        if (faction != incomingShip.faction && faction != Faction.Neutral
+            && incomingShip.faction != Faction.Neutral)
         {
             totalMoveCost++;
         }

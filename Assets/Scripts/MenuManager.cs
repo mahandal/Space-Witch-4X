@@ -32,20 +32,23 @@ public class MenuManager : MonoBehaviour
     public void Button_ToggleEdgePanning()
     {
         // If it's off, turn it on.
-        if (!inputManager.edgePanningEnabled)
+        if (!Settings.edgePanningEnabled)
         {
             // Set bool.
-            inputManager.edgePanningEnabled = true;
+            Settings.edgePanningEnabled = true;
 
             // Load image.
             // Utility.LoadImage(UI.I.toggleEdgePanning, "Toggle - On");
         } else {
             // Set bool.
-            inputManager.edgePanningEnabled = false;
+            Settings.edgePanningEnabled = false;
 
             // Load image.
             // Utility.LoadImage(UI.I.toggleEdgePanning, "Toggle - Off");
         }
-        // inputManager.edgePanningEnabled = !inputManager.edgePanningEnabled; 
+
+        // Save to PlayerPrefs (1 for true, 0 for false)
+        PlayerPrefs.SetInt("EdgePanning", Settings.edgePanningEnabled ? 1 : 0);
+        PlayerPrefs.Save();
     }
 }

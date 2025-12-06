@@ -17,6 +17,10 @@ public class UI : MonoBehaviour
     public Image toggleEdgePanning;
     public Button endTurnButton;
 
+    [Header("Post Game")]
+    public GameObject postGameParent;
+    public Image postgameBackground;
+
     [Header("Tooltips")]
     // Parent object of our selection tooltips.
     public GameObject selectedTooltipParent;
@@ -79,6 +83,8 @@ public class UI : MonoBehaviour
         covenOverlay.gameObject.SetActive(false);
         syndicateOverlay.gameObject.SetActive(false);
         neutralOverlay.gameObject.SetActive(false);
+
+        postGameParent.SetActive(false);
 
         // Fade in from black.
         overlayBG.color = new Color(0f, 0f, 0f, 1f);
@@ -229,5 +235,34 @@ public class UI : MonoBehaviour
     {
         float targetAlpha = fadeIn ? 1f : 0f;
         Utility.FadeImage(overlayBG, targetAlpha, duration);
+    }
+
+    // - Post Game
+
+    // Victory!
+    public void Victory()
+    {
+        // Load background.
+        Utility.LoadImage(postgameBackground, "Backgrounds/Victory 1");
+
+        // Shared post game.
+        PostGame();
+    }
+
+    // Defeat :(
+    public void Defeat()
+    {
+        // Load background.
+        Utility.LoadImage(postgameBackground, "Backgrounds/Defeat 1");
+
+        // Shared post game.
+        PostGame();
+    }
+
+    // Shared post game stuff.
+    public void PostGame()
+    {
+        // Activate post game parent.
+        postGameParent.SetActive(true);
     }
 }

@@ -2,9 +2,31 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using System.Collections;
+using System.Collections.Generic;
 
 public class Utility : MonoBehaviour
 {
+    // - Debugging
+    public static void DebugSet<T>(HashSet<T> set)
+    {
+        Debug.Log("PRINTING SET");
+
+        foreach (T t in set)
+        {
+            Debug.Log(t);
+        }
+    }
+
+    // Debug print the contents of a Dictionary
+    public static void DebugDic<TKey, TValue>(Dictionary<TKey, TValue> dict, string label = "Dictionary")
+    {
+        Debug.Log($"{label} contains {dict.Count} items:");
+        foreach (KeyValuePair<TKey, TValue> pair in dict)
+        {
+            Debug.Log($"  - {pair.Key}: {pair.Value}");
+        }
+    }
+
     // - Conversions!
 
     // Convert grid coordinates to world coordinates.
@@ -69,7 +91,7 @@ public class Utility : MonoBehaviour
     }
 
     // Reload the game scene.
-    public void ReloadGame()
+    public static void ReloadGame()
     {
         SceneManager.LoadScene("Game");
     }

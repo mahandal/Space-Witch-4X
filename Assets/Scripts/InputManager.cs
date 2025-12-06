@@ -3,8 +3,8 @@ using UnityEngine.InputSystem;
 
 public class InputManager : MonoBehaviour
 {
-    [Header("Settings")]
-    public bool edgePanningEnabled = true;
+    // [Header("Settings")]
+    // public bool edgePanningEnabled = true;
 
     [Header("Camera")]
     // Edge panning
@@ -185,7 +185,7 @@ public class InputManager : MonoBehaviour
     public void HandleEdgePanning()
     {
         // Check if it's disabled.
-        if (!edgePanningEnabled) return;
+        if (!Settings.edgePanningEnabled) return;
 
         // - Edge panning
 

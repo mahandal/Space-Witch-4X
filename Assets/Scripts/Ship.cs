@@ -257,10 +257,22 @@ public class Ship : MonoBehaviour
     // Note 2: Other faction mechanics are handled here also!
     public void Death(Ship killer = null)
     {
+        // Remember our old leader.
+        Leader oldLeader = GM.I.leaders[faction];
+
+        // Remember our old faction.
+        // (in case we convert!)
+        Faction oldFaction = faction;
+
         // - Faction mechanics
 
+        // null
+        if (killer == null)
+        {
+            Debug.Log("Killed by nothing! What a way to go...");
+        }
         // Pack
-        if (killer.faction == Faction.Pack)
+        else if (killer.faction == Faction.Pack)
         {
             // Consume EVERYTHING
             killer.Refresh();
@@ -278,20 +290,37 @@ public class Ship : MonoBehaviour
             GM.I.leaders[Faction.Syndicate].GainMana(manaCost);
         }
 
-        // - Clean up.
-        // (Unless we were recruited!)
+        // Check if we were recruited!
         bool wasRecruited = (killer != null && killer.faction == Faction.Coven);
-        if (wasRecruited) return;
 
         // Get leader.
-        Leader leader = GM.I.leaders[faction];
+        // Leader leader = GM.I.leaders[faction];
 
-        // Remove from leader's fleet.
-        leader.fleet.Remove(this);
+        // Remove from old leader's fleet.
+        if (!wasRecruited)
+            oldLeader.fleet.Remove(this);
 
-        // Check if we're the leader and our fleet should abandon this battle.
-        if (leader == this)
-            leader.AbandonFleet();
+        // Check if we were the leader.
+        if (oldLeader == this)
+        {
+            // Remove from UN.
+            // GM.I.leaders.Remove(faction);
+            GM.I.leaders[oldFaction] = null;
+
+            // Our fleet abandons the fight!
+            if (!wasRecruited)
+                oldLeader.AbandonFleet();
+
+            // Check if the player just lost.
+            GM.I.CheckDefeat();
+
+            // Check if the player just won!
+            GM.I.CheckVictory();
+        }
+
+        // - Clean up.
+        // (Unless we were recruited!)
+        if (wasRecruited) return;
             
         // Clean up object.
         Object.Destroy(gameObject);
@@ -534,6 +563,9 @@ public class Ship : MonoBehaviour
         // Update faction icon.
         string factionIconName = "Faction Icon - " + newFaction.ToString();
         Utility.LoadImage(factionIcon, factionIconName);
+
+        // Update fog of war.
+        GM.I.UpdateFogOfWar();
     }
 
     // Handle upkeep for this ship.

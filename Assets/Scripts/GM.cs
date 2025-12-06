@@ -99,6 +99,10 @@ public class GM : MonoBehaviour
     // Delegates to a coroutine so we can let AI have some time to think.
     public void EndTurn()
     {
+        // Stop once the game is over.
+        if (gameState > 1) return;
+
+        // Start the coroutine!
         StartCoroutine(EndTurnCoroutine());
     }
 
@@ -239,5 +243,77 @@ public class GM : MonoBehaviour
                 }
             }
         }
+    }
+
+    // - Game Over
+
+    // Victory!
+    public void Victory()
+    {
+        // UI
+        UI.I.Victory();
+
+        // Shared game over.
+        GameOver();
+    }
+
+    // Defeat :(
+    public void Defeat()
+    {
+        // UI
+        UI.I.Defeat();
+
+        // Shared game over.
+        GameOver();
+    }
+
+    // Shared game over.
+    public void GameOver()
+    {
+        // Set game state.
+        gameState = 2;
+    }
+
+    // Check if we won!
+    // Note: Also begins the celebration!
+    public bool CheckVictory()
+    {
+        // Init to true.
+        bool weJustWon = true;
+
+        // Check if we're the last leader standing
+        foreach (Leader leader in leaders.Values)
+        {
+            // Can't claim victory until all other leaders are gone or on our side.
+            if (leader != null && leader.faction != playerFaction)
+                weJustWon = false;
+        }
+
+        // If we have no opposition, claim victory!
+        if (weJustWon)
+            Victory();
+
+        // Return!
+        return weJustWon;
+    }
+
+    // Check if we just lost!
+    public bool CheckDefeat()
+    {
+        // Try and get our leader.
+        Leader leader = leaders[playerFaction];
+
+        // Leader is dead!
+        if (leader == null || leader.currentHealth <= 0)
+        {
+            // Start mourning.
+            Defeat();
+
+            // Return!
+            return true;
+        }
+
+        // Otherwise, we're still in it!
+        return false;
     }
 }
