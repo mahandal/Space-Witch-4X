@@ -258,8 +258,6 @@ public class UI : MonoBehaviour
         // If our fleet has any actions remaining...
         if (fleetCanAct)
         {
-            Debug.Log("Fleet can act!");
-
             // Reveal the select next ship button!
             selectNextShipButton.gameObject.SetActive(true);
 
@@ -267,8 +265,7 @@ public class UI : MonoBehaviour
             endTurnButton.gameObject.SetActive(false);
         } else {
             // Fleet has no actions remaining!
-            Debug.Log("Fleet has no actions remaining!");
-
+            
             // Hide select next ship button.
             selectNextShipButton.gameObject.SetActive(false);
 

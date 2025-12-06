@@ -194,16 +194,48 @@ public class Ship : MonoBehaviour
         // Spend attack.
         SpendAttack();
 
-        // Find total damage dealt.
+        // - Find total damage dealt.
+
+        // Start with the attacker's damage.
+        float totalDamage = damage;
+
+        // Add 10% per adjacent friendly tile.
+        totalDamage *= 1 + (0.1f * CountFriendlyAdjacentTiles());
+
         int totalArmor = target.armor + target.currentTile.GetArmorBonus();
-        int totalDamage = damage - totalArmor;
+        totalDamage -= totalArmor;
 
         // Do a minimum of 1 damage.
         if (totalDamage < 1)
             totalDamage = 1;
 
         // Deal damage.
-        target.ReceiveDamage(totalDamage, this);
+        target.ReceiveDamage((int)totalDamage, this);
+    }
+
+    // Count how many tiles next to us we own.
+    // Note: For this context, the tile you are on is considered adjacent.
+    public int CountFriendlyAdjacentTiles()
+    {
+        // Initialize count.
+        int count = 0;
+
+        // Loop through each tile.
+        for (int i = -1; i <= 1; i++)
+        {
+            for (int j = -1; j <= 1; j++)
+            {
+                // Get tile.
+                Tile tile = Utility.GetTile(x + i, y + j);
+
+                // Add to count, if tile exists and is friendly.
+                if (tile != null && tile.faction == faction)
+                    count++;
+            }
+        }
+
+        // Return!
+        return count;
     }
 
     // Receive damage.

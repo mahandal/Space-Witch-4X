@@ -6,6 +6,21 @@ using System.Collections.Generic;
 
 public class Utility : MonoBehaviour
 {
+    // Safely check if the coordinates fit in the game grid,
+    // and return the tile there if they do.
+    // Otherwise, return null.
+    public static Tile GetTile(int x, int y)
+    {
+        // Respect boundaries.
+        if (x < 0) return null;
+        if (y < 0) return null;
+        if (x >= GM.I.gridWidth) return null;
+        if (y >= GM.I.gridHeight) return null;
+
+        // Return tile located in the game grid at coordinates (x, y).
+        return GM.I.grid[x, y];
+    }
+
     // - Debugging
     public static void DebugSet<T>(HashSet<T> set)
     {
