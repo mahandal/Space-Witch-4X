@@ -62,6 +62,9 @@ public class UI : MonoBehaviour
             I = this;
         else
             Destroy(this);
+
+        // Disable what should not be.
+        ClearSelection();
     }
 
     // Set up the UI for a new turn for the given faction.
@@ -192,5 +195,8 @@ public class UI : MonoBehaviour
     {
         // Hide selection tooltips.
         selectedTooltipParent.SetActive(false);
+
+        // Hide ship selection specifically.
+        selectedShipParent.SetActive(false);
     }
 }
