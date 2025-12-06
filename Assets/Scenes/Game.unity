@@ -15003,6 +15003,7 @@ MonoBehaviour:
   x: 0
   y: 0
   currentTile: {fileID: 0}
+  traits: []
   manaCost: 100
   currentHealth: 50
   maxHealth: 50
@@ -29412,6 +29413,7 @@ MonoBehaviour:
   x: 0
   y: 0
   currentTile: {fileID: 0}
+  traits: []
   manaCost: 100
   currentHealth: 30
   maxHealth: 30
@@ -34153,6 +34155,7 @@ MonoBehaviour:
   x: 0
   y: 0
   currentTile: {fileID: 0}
+  traits: []
   manaCost: 0
   currentHealth: 15
   maxHealth: 15
@@ -36945,6 +36948,7 @@ MonoBehaviour:
   x: 0
   y: 0
   currentTile: {fileID: 0}
+  traits: []
   manaCost: 0
   currentHealth: 10
   maxHealth: 10
@@ -39573,6 +39577,8 @@ MonoBehaviour:
   x: 0
   y: 0
   currentTile: {fileID: 0}
+  traits:
+  - Aquatic
   manaCost: 100
   currentHealth: 60
   maxHealth: 60
@@ -41135,6 +41141,7 @@ MonoBehaviour:
   x: 0
   y: 0
   currentTile: {fileID: 0}
+  traits: []
   manaCost: 0
   currentHealth: 5
   maxHealth: 5
@@ -43007,6 +43014,7 @@ MonoBehaviour:
   x: 0
   y: 0
   currentTile: {fileID: 0}
+  traits: []
   manaCost: 0
   currentHealth: 25
   maxHealth: 25
@@ -44456,6 +44464,7 @@ MonoBehaviour:
   x: 0
   y: 0
   currentTile: {fileID: 0}
+  traits: []
   manaCost: 100
   currentHealth: 40
   maxHealth: 40

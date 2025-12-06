@@ -298,6 +298,16 @@ public class Tile : MonoBehaviour
         // Default.
         int totalMoveCost = moveCost;
 
+
+        // - Traits
+
+        // Aquatic
+        if (myType == TileType.Water && incomingShip.traits.Contains("Aquatic"))
+        {
+            totalMoveCost = 1;
+        }
+
+
         // - Territory
 
         // Claiming territory from another faction costs additional movement.
@@ -307,6 +317,7 @@ public class Tile : MonoBehaviour
         {
             totalMoveCost++;
         }
+
 
         // - Ships
 

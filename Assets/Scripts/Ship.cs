@@ -12,6 +12,10 @@ public class Ship : MonoBehaviour
     public int y;
     public Tile currentTile;
 
+    [Header("Traits")]
+    // A list of this ship's special traits.
+    public List<string> traits = new List<string>();
+
     [Header("Core")]
     public int manaCost = 0;
     public float currentHealth;
