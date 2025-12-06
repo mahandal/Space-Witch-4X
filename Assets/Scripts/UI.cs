@@ -16,6 +16,7 @@ public class UI : MonoBehaviour
     public TMP_Text currentMana;
     public Image toggleEdgePanning;
     public Button endTurnButton;
+    public Button selectNextShipButton;
 
     [Header("Post Game")]
     public GameObject postGameParent;
@@ -102,9 +103,10 @@ public class UI : MonoBehaviour
         // Move camera to leader's position.
         Utility.MoveCamera(leader.currentTile);
 
-        // Reveal end turn button for the player.
+        // Reveal select ship button for the player.
         if (faction == GM.I.playerFaction)
-            endTurnButton.gameObject.SetActive(true);
+            selectNextShipButton.gameObject.SetActive(true);
+            // endTurnButton.gameObject.SetActive(true);
     }
 
     // Handle the UI for ending a turn for a given faction.
