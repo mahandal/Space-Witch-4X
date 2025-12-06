@@ -21,6 +21,8 @@ public class Ship : MonoBehaviour
     public int speed;
     public int range;
     public int vision;
+
+    [Header("Secret / Special")]
     public int attacks = 1;
 
     [Header("Per turn")]

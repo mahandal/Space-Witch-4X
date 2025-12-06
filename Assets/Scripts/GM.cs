@@ -20,8 +20,7 @@ public class GM : MonoBehaviour
     public int round = 1;
 
     // The order factions take turns in.
-    // TBD: Add neutrals!
-    public Faction[] turnOrder = new Faction[] { Faction.Pack, Faction.Coven, Faction.Syndicate };
+    public Faction[] turnOrder = new Faction[] {};
 
     // Index in the turn order array.
     private int turnIndex = 0;
@@ -40,7 +39,7 @@ public class GM : MonoBehaviour
     // The hero leading the Syndicate in this skirmish.
     public Leader syndicateLeader;
 
-    // The god worshipped by Neutral ships in this skirmish.
+    // The hero leading Neutral ships in this skirmish.
     public Leader neutralLeader;
 
     [Header("Grid")]

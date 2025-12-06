@@ -462,6 +462,9 @@ public class Tile : MonoBehaviour
     // Set this tile's faction.
     public void Claim(Faction newFaction)
     {
+        // Neutrals don't claim tiles.
+        if (newFaction == Faction.Neutral) return;
+        
         // Set faction.
         faction = newFaction;
 
