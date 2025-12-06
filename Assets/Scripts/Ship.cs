@@ -480,6 +480,9 @@ public class Ship : MonoBehaviour
             // Go grey!
             GoGrey();
         }
+
+        // See if we should suggest ending the turn.
+        UI.I.WhichButtonInTopRight();
     }
 
     // Grey yourself out!

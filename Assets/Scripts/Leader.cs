@@ -226,4 +226,21 @@ public class Leader : Ship
             Object.Destroy(ship.gameObject);
         }
     }
+
+    // Check if our fleet has any actions remaining.
+    // Returns true if any ship in our fleet has any movement or attacks remaining.
+    // Returns false if our turn is over (aside from ship production).
+    public bool CanFleetAct()
+    {
+        // Iterate through our whole fleet.
+        foreach (Ship ship in fleet)
+        {
+            if (ship.movementRemaining > 0 || ship.attacksRemaining > 0)
+                return true;
+        }
+
+        // Not a single action remaining in our whole fleet.
+        // Return false!
+        return false;
+    }
 }

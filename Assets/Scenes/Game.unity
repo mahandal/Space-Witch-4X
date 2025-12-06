@@ -16322,6 +16322,7 @@ MonoBehaviour:
   currentMana: {fileID: 1094448257}
   toggleEdgePanning: {fileID: 69859667}
   endTurnButton: {fileID: 1670815767}
+  selectNextShipButton: {fileID: 1048496055}
   postGameParent: {fileID: 362462080}
   postgameBackground: {fileID: 2021711878}
   selectedTooltipParent: {fileID: 787905674}
@@ -24615,7 +24616,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -159.21}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 150, y: 150}
   m_Pivot: {x: 1, y: 1}
 --- !u!114 &1048496055
@@ -32916,7 +32917,7 @@ MonoBehaviour:
   gridHeight: 10
   selectedTile: {fileID: 0}
   hoveredTile: {fileID: 0}
-  selectedShipIndex: 0
+  lastSelectedShip: {fileID: 0}
 --- !u!114 &1422601901
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -37931,7 +37932,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1670815766
 RectTransform:
   m_ObjectHideFlags: 0

@@ -239,6 +239,44 @@ public class UI : MonoBehaviour
         Utility.FadeImage(overlayBG, targetAlpha, duration);
     }
 
+    // Check whether we should display the Select Next Ship button, End Turn button, or neither.
+    public void WhichButtonInTopRight()
+    {
+        // If it is not our turn, then show neither.
+        if (GM.I.activeFaction != GM.I.playerFaction)
+        {
+            selectNextShipButton.gameObject.SetActive(false);
+            endTurnButton.gameObject.SetActive(false);
+        }
+
+        // Get the player's leader.
+        Leader leader = GM.I.leaders[GM.I.playerFaction];
+
+        // Check if our fleet has any actions remaining.
+        bool fleetCanAct = leader.CanFleetAct();
+
+        // If our fleet has any actions remaining...
+        if (fleetCanAct)
+        {
+            Debug.Log("Fleet can act!");
+
+            // Reveal the select next ship button!
+            selectNextShipButton.gameObject.SetActive(true);
+
+            // Hide the end turn button.
+            endTurnButton.gameObject.SetActive(false);
+        } else {
+            // Fleet has no actions remaining!
+            Debug.Log("Fleet has no actions remaining!");
+
+            // Hide select next ship button.
+            selectNextShipButton.gameObject.SetActive(false);
+
+            // Reveal end turn button.
+            endTurnButton.gameObject.SetActive(true);
+        }
+    }
+
     // - Post Game
 
     // Victory!
