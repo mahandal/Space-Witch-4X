@@ -7,6 +7,7 @@ public class UI : MonoBehaviour
     [Header("Top Bar")]
     public TMP_Text activeFaction;
     public TMP_Text currentMana;
+    public Image toggleEdgePanning;
 
     [Header("Tooltips")]
     // Parent object of our selection tooltips.
