@@ -207,4 +207,23 @@ public class Leader : Ship
         if (faction == GM.I.activeFaction)
             UI.I.currentMana.text = mana.ToString();
     }
+
+    // Your fleet abandons.
+    // All ships are destroyed.
+    // Called when a leader dies.
+    public void AbandonFleet()
+    {
+        // Make a copy of the fleet to avoid modification during iteration.
+        List<Ship> fleetCopy = new List<Ship>(fleet);
+        
+        // Destroy all ships in the fleet.
+        foreach (Ship ship in fleetCopy)
+        {
+            // Remove from fleet
+            fleet.Remove(ship);
+            
+            // Clean up object
+            Object.Destroy(ship.gameObject);
+        }
+    }
 }

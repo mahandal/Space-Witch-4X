@@ -225,7 +225,7 @@ public class UI : MonoBehaviour
     }
 
     // Fade the overlay in or out.
-    public void FadeOverlay(bool fadeIn, float duration = 0.5f)
+    public void FadeOverlay(bool fadeIn = false, float duration = 0.5f)
     {
         float targetAlpha = fadeIn ? 1f : 0f;
         Utility.FadeImage(overlayBG, targetAlpha, duration);

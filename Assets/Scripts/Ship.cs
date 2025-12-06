@@ -281,17 +281,20 @@ public class Ship : MonoBehaviour
         // - Clean up.
         // (Unless we were recruited!)
         bool wasRecruited = (killer != null && killer.faction == Faction.Coven);
-        if (!wasRecruited)
-        {
-            // Get leader.
-            Leader leader = GM.I.leaders[faction];
+        if (wasRecruited) return;
 
-            // Remove from leader's fleet.
-            leader.fleet.Remove(this);
+        // Get leader.
+        Leader leader = GM.I.leaders[faction];
 
-            // Clean up object.
-            Object.Destroy(gameObject);
-        }
+        // Remove from leader's fleet.
+        leader.fleet.Remove(this);
+
+        // Check if we're the leader and our fleet should abandon this battle.
+        if (leader == this)
+            leader.AbandonFleet();
+            
+        // Clean up object.
+        Object.Destroy(gameObject);
     }
 
     // Move the ship to new coordinates.
