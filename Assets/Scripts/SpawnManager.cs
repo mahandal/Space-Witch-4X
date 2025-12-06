@@ -104,27 +104,27 @@ public class SpawnManager : MonoBehaviour
         // Roll to decide which tile we spawn.
         float roll = Random.Range(0f, 100f);
 
-        // 50% - Air
-        if (roll < 50)
+        // 70% - Air
+        if (roll < 70)
         {
             newTile = Object.Instantiate(p_Air, tileParent);
-        }
-        // 20% - Water
-        else if (roll < 70)
-        {
-            newTile = Object.Instantiate(p_Water, tileParent);
         }
         // 15% - Asteroids
         else if (roll < 85)
         {
             newTile = Object.Instantiate(p_Asteroids, tileParent);
         }
-        // 10% - Fire
+        // 10% - Water
         else if (roll < 95)
+        {
+            newTile = Object.Instantiate(p_Water, tileParent);
+        }
+        // 3% - Fire
+        else if (roll < 98)
         {
             newTile = Object.Instantiate(p_Fire, tileParent);
         }
-        // 5% - Planet
+        // 2% - Planet
         else
         {
             newTile = Object.Instantiate(p_Planet, tileParent);
