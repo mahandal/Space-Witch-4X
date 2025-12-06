@@ -222,6 +222,11 @@ public class Ship : MonoBehaviour
         // Update health bar.
         healthBar.fillAmount = currentHealth / maxHealth;
 
+
+        // Update tooltip?
+        if (GM.I.hoveredTile != null && GM.I.hoveredTile.ship == this)
+            UI.I.HoverTile(GM.I.hoveredTile);
+
         // Log it!
         if (attacker != null)
             Debug.Log(attacker.myName + " attacked " + myName + " for " + incomingDamage + " damage!");
