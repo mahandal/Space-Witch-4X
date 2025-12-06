@@ -92,9 +92,15 @@ public class Tile : MonoBehaviour
         // Clear old highlighting.
         ClearAllHighlights();
 
-        // Highlight movement and attack ranges.
+        // Check if we're selecting a ship.
         if (ship != null)
+        {
+            // Highlight movement and attack ranges.
             HighlightRanges();
+
+            // Let GM remember.
+            GM.I.lastSelectedShip = ship;
+        }
 
         // Highlight the current tile!
         HighlightSelected();

@@ -59,9 +59,6 @@ public class InputManager : MonoBehaviour
 
             // Remember!
             lastHoveredTile = GM.I.hoveredTile;
-
-            // // UI.
-            // UI.I.HoverTile(GM.I.hoveredTile);
         }
     }
 

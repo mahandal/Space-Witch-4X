@@ -68,6 +68,9 @@ public class GM : MonoBehaviour
     // Singleton
     public static GM I;
 
+    // Remember the last ship we selected.
+    public Ship lastSelectedShip;
+
     // Awaken!
     void Awake()
     {
@@ -232,6 +235,59 @@ public class GM : MonoBehaviour
             }
         }
     }
+
+    // Select the next ship in your fleet.
+    public void Button_SelectNextShip()
+    {
+        // Get player's leader
+        Leader playerLeader = leaders[playerFaction];
+
+        // Convert fleet to list to loop through.
+        List<Ship> fleetList = new List<Ship>(playerLeader.fleet);
+
+        // Initialize our starting index.
+        int startIndex = 0;
+
+        // Check if we can start from our last selected ship.
+        if (lastSelectedShip != null && fleetList.Contains(lastSelectedShip))
+        {
+            // Get the index of our selected ship.
+            startIndex = fleetList.IndexOf(lastSelectedShip);
+
+            // Increment to get the next one!
+            startIndex++;
+
+            // Overflow!
+            if (startIndex >= fleetList.Count)
+                startIndex = startIndex % fleetList.Count;
+        }
+
+        // Search for next available ship
+        for (int i = 0; i < fleetList.Count; i++)
+        {
+            int index = (startIndex + i) % fleetList.Count;
+            Ship ship = fleetList[index];
+
+            Debug.Log("Fleet["+ index + "]: " + ship.myName);
+            
+            // Skip dead ships
+            if (ship == null || ship.currentHealth <= 0) continue;
+            
+            // Check if ship has actions remaining
+            if (ship.movementRemaining > 0 || ship.attacksRemaining > 0)
+            {
+                // Select this ship
+                ship.currentTile.Select();
+                
+                // Move camera to center on it
+                Utility.MoveCamera(ship.currentTile);
+
+                // Done!
+                return;
+            }
+        }
+    }
+
 
     // - Game Over
 
