@@ -107,7 +107,7 @@ public class Utility : MonoBehaviour
     {
         // Make sure object is active!
         image.gameObject.SetActive(true);
-        
+
         float elapsed = 0f;
         Color startColor = image.color;
         Color targetColor = new Color(startColor.r, startColor.g, startColor.b, targetAlpha);
@@ -124,5 +124,14 @@ public class Utility : MonoBehaviour
         // Deactivate object if it is fully faded out.
         if (targetAlpha <= 0f)
             image.gameObject.SetActive(false);
+    }
+
+    // Move the main camera to center on the given tile.
+    public static void MoveCamera(Tile tileToFocusOn)
+    {
+        // Get new position.
+        Vector3 newCameraPos = tileToFocusOn.transform.position;
+        newCameraPos.z = Camera.main.transform.position.z; // Keep camera's Z position
+        Camera.main.transform.position = newCameraPos;
     }
 }

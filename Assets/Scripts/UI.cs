@@ -98,6 +98,9 @@ public class UI : MonoBehaviour
 
         // Set mana text.
         currentMana.text = leader.mana.ToString();
+
+        // Move camera to leader's position.
+        Utility.MoveCamera(leader.currentTile);
     }
 
     // Handle the UI for ending a turn for a given faction.
