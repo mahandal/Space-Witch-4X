@@ -48,10 +48,15 @@ public class Leader : Ship
                 {
                     MoveShipToward(ship, closestEnemy.currentTile);
                 }
+            } else {
+                // - No enemies sighted.
+
+                // Move randomly.
+                ship.MoveShipRandomly();
             }
 
-            // Move randomly.
-            ship.MoveShipRandomly();
+            // Spend rest of movement and/or attacks resting.
+            ship.AttemptRest();
         }
 
         // End our turn!
