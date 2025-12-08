@@ -8,7 +8,6 @@ public class SpawnManager : MonoBehaviour
     public Transform tileParent;
 
     // A parent object for all Pack ships on this map.
-    public Transform swarmShipParent;
     public Transform packShipParent;
 
     // A parent object for all Coven ships on this map.
