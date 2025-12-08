@@ -70,8 +70,15 @@ public class InputManager : MonoBehaviour
             // Check if we have a tile?
             if (GM.I.hoveredTile != null)
             {
-                // Select tile!
-                GM.I.hoveredTile.Select();
+                // Check if we are hovering the tile we already have selected.
+                if (GM.I.hoveredTile == GM.I.selectedTile)
+                {
+                    // Clear selection!
+                    Tile.ClearSelection();
+                } else {
+                    // Select the new tile!
+                    GM.I.hoveredTile.Select();
+                }
             } else {
                 // Clear selection!
                 Tile.ClearSelection();
