@@ -478,23 +478,6 @@ public class Tile : MonoBehaviour
     // - Hovering
     private float unhoveredOpacity;
 
-    // Hovering increases background opacity,
-    // and previews a path to the hovered tile if you are selecting a ship.
-    // public void Hover()
-    // {
-    //     // Remember opacity
-    //     unhoveredOpacity = bg.color.a;
-
-    //     // Set new opacity.
-    //     Color c = bg.color;
-    //     c.a = 1f;
-    //     bg.color = c;
-
-    //     // Check if we should show a preview of a path to this tile.
-    //     if (GM.I.selectedTile != null && GM.I.selectedTile.ship != null)
-    //         ShowPathPreview();
-    // }
-
     public void Hover()
     {
         // Remember opacity

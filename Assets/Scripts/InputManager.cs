@@ -3,9 +3,6 @@ using UnityEngine.InputSystem;
 
 public class InputManager : MonoBehaviour
 {
-    // [Header("Settings")]
-    // public bool edgePanningEnabled = true;
-
     [Header("Camera")]
     // Edge panning
     public float edgePanThreshold = 20f; // How close to edge before panning starts
