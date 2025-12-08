@@ -158,6 +158,12 @@ public class Ship : MonoBehaviour
         return bestTile;
     }
 
+    // Attempt to move the ship to the target tile.
+    public bool AttemptMove(Tile targetTile)
+    {
+        return AttemptMove(targetTile.x, targetTile.y);
+    }
+
     // Attempt to move the ship to the new coordinates.
     // Fails if
     // - it's not our turn.
@@ -769,39 +775,164 @@ public class Ship : MonoBehaviour
         AttemptMove(randomTile.x, randomTile.y);
     }
 
-    // Move a ship toward a target tile.
+     // Move a ship toward a target tile.
     public void MoveShipToward(Ship ship, Tile targetTile)
     {
         // Skip if no movement remaining
         if (movementRemaining <= 0) return;
         
-        // Get all tiles this ship can move to
-        HashSet<Tile> moveableTiles = currentTile.GetTilesInMovementRange();
-        
-        // Find the tile that gets us closest to the target
-        Tile bestTile = null;
-        int shortestDistance = int.MaxValue;
-        
-        foreach (Tile tile in moveableTiles)
+        // Find a path to the target tile.
+        List<Tile> path = FindPathTo(targetTile);
+
+        // Check if we found a path
+        if (path == null) return;
+
+        // Move along path until we are out of movement or we reach our target.
+        int pathIndex = 0;
+        while (movementRemaining > 0 && currentTile != targetTile)
         {
-            // Skip tiles with ships on them
-            if (tile.ship != null) continue;
+            // Get the next tile in our path.
+            Tile nextTile = path[pathIndex];
+
+            // Move to the next tile.
+            AttemptMove(path[pathIndex]);
+
+            // Increment our path index.
+            pathIndex++;
+
+            // Check if we've reached the end?
+            if (pathIndex == path.Count)
+                return;
+        }
+    }
+
+    // Find a path from this ship's current tile to the target tile.
+    // Returns null if no path exists.
+    public List<Tile> FindPathTo(Tile targetTile)
+    {
+        if (targetTile == null) return null;
+        
+        // Track tiles we've visited and the cost to reach them
+        Dictionary<Tile, int> costToReach = new Dictionary<Tile, int>();
+        Dictionary<Tile, Tile> cameFrom = new Dictionary<Tile, Tile>();
+        Queue<Tile> frontier = new Queue<Tile>();
+        
+        // Start from current tile
+        frontier.Enqueue(currentTile);
+        costToReach[currentTile] = 0;
+        cameFrom[currentTile] = null;
+        
+        while (frontier.Count > 0)
+        {
+            Tile current = frontier.Dequeue();
             
-            // Calculate distance to target
-            int distance = Utility.Distance(tile, targetTile);
-            
-            // Check if this is better than our current best
-            if (distance < shortestDistance)
+            // Found the target!
+            if (current == targetTile)
             {
-                shortestDistance = distance;
-                bestTile = tile;
+                // Reconstruct path
+                List<Tile> path = new List<Tile>();
+                Tile step = targetTile;
+                while (step != null)
+                {
+                    path.Add(step);
+                    step = cameFrom[step];
+                }
+                path.Reverse();
+                return path;
+            }
+            
+            // Check all neighbors
+            List<Tile> neighbors = new List<Tile>();
+            if (current.x > 0) neighbors.Add(GM.I.grid[current.x - 1, current.y]);
+            if (current.x < GM.I.gridWidth - 1) neighbors.Add(GM.I.grid[current.x + 1, current.y]);
+            if (current.y > 0) neighbors.Add(GM.I.grid[current.x, current.y - 1]);
+            if (current.y < GM.I.gridHeight - 1) neighbors.Add(GM.I.grid[current.x, current.y + 1]);
+            
+            foreach (Tile neighbor in neighbors)
+            {
+                int newCost = costToReach[current] + neighbor.GetMovementCost(this);
+                
+                if (!costToReach.ContainsKey(neighbor) || newCost < costToReach[neighbor])
+                {
+                    costToReach[neighbor] = newCost;
+                    cameFrom[neighbor] = current;
+                    frontier.Enqueue(neighbor);
+                }
             }
         }
         
-        // Move to the best tile if we found one
-        if (bestTile != null)
+        // No path found
+        return null;
+    }
+
+    /*
+    // Walk along the path as far as we can go this turn
+    Tile furthestReachableTile = null;
+    int movementBudget = movementRemaining;
+    
+    for (int i = 1; i < path.Count; i++)
+    {
+        Tile nextTile = path[i];
+        
+        // Skip tiles with ships
+        if (nextTile.ship != null) break;
+        
+        // Check if we can afford this tile
+        int tileCost = nextTile.GetMovementCost(ship);
+        if (movementBudget >= tileCost)
         {
-            AttemptMove(bestTile.x, bestTile.y);
+            movementBudget -= tileCost;
+            furthestReachableTile = nextTile;
+        }
+        else
+        {
+            break;
         }
     }
+    
+    // Move to the furthest tile we can reach
+    if (furthestReachableTile != null)
+    {
+        AttemptMove(furthestReachableTile.x, furthestReachableTile.y);
+    }
+}
+
+
+    */
+
+    // // Move a ship toward a target tile.
+    // public void MoveShipToward(Ship ship, Tile targetTile)
+    // {
+    //     // Skip if no movement remaining
+    //     if (movementRemaining <= 0) return;
+        
+    //     // Get all tiles this ship can move to
+    //     HashSet<Tile> moveableTiles = currentTile.GetTilesInMovementRange();
+        
+    //     // Find the tile that gets us closest to the target
+    //     Tile bestTile = null;
+    //     int shortestDistance = int.MaxValue;
+        
+    //     foreach (Tile tile in moveableTiles)
+    //     {
+    //         // Skip tiles with ships on them
+    //         if (tile.ship != null) continue;
+            
+    //         // Calculate distance to target
+    //         int distance = Utility.Distance(tile, targetTile);
+            
+    //         // Check if this is better than our current best
+    //         if (distance < shortestDistance)
+    //         {
+    //             shortestDistance = distance;
+    //             bestTile = tile;
+    //         }
+    //     }
+        
+    //     // Move to the best tile if we found one
+    //     if (bestTile != null)
+    //     {
+    //         AttemptMove(bestTile.x, bestTile.y);
+    //     }
+    // }
 }
