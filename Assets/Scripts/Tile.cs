@@ -4,7 +4,7 @@ using System.Collections.Generic;
 public class Tile : MonoBehaviour
 {
     [Header("Meta")]
-    public TileType myType = TileType.Air;
+    public TileType myType = TileType.Void;
     public Faction faction = Faction.Neutral;
     public int x = 0;
     public int y = 0;
@@ -573,6 +573,9 @@ public class Tile : MonoBehaviour
     {
         // Neutrals don't claim tiles.
         if (newFaction == Faction.Neutral) return;
+
+        // Void tiles can't be claimed.
+        if (myType == TileType.Void) return;
         
         // Set faction.
         faction = newFaction;

@@ -78,6 +78,7 @@ public enum Faction
 // Tiles.
 public enum TileType
 {
+    Void,
     Air,
     Water,
     Fire,

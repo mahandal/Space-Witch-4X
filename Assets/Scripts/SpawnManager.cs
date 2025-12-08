@@ -21,6 +21,7 @@ public class SpawnManager : MonoBehaviour
     public Transform neutralShipParent;
 
     [Header("Progenitors - Tiles")]
+    public Tile p_Void;
     public Tile p_Air;
     public Tile p_Planet;
     public Tile p_Water;
@@ -44,6 +45,7 @@ public class SpawnManager : MonoBehaviour
         // - Make sure progenitors are hidden!
 
         // Tiles
+        p_Void.gameObject.SetActive(false);
         p_Air.gameObject.SetActive(false);
         p_Planet.gameObject.SetActive(false);
         p_Water.gameObject.SetActive(false);
@@ -108,8 +110,13 @@ public class SpawnManager : MonoBehaviour
         // Roll to decide which tile we spawn.
         float roll = Random.Range(0f, 100f);
 
-        // 70% - Air
-        if (roll < 70)
+        // 20% - Void
+        if (roll < 20)
+        {
+            newTile = Object.Instantiate(p_Void, tileParent);
+        }
+        // 50% - Air
+        else if (roll < 70)
         {
             newTile = Object.Instantiate(p_Air, tileParent);
         }
