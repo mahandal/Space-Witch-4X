@@ -33142,6 +33142,7 @@ GameObject:
   - component: {fileID: 1422601899}
   - component: {fileID: 1422601902}
   - component: {fileID: 1422601904}
+  - component: {fileID: 1422601905}
   m_Layer: 0
   m_Name: GM
   m_TagString: Untagged
@@ -33180,7 +33181,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SpawnManager
   tileParent: {fileID: 673435625}
-  swarmShipParent: {fileID: 1179755319}
   packShipParent: {fileID: 1179755319}
   covenShipParent: {fileID: 2054717619}
   syndicateShipParent: {fileID: 20375830}
@@ -33278,6 +33278,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c5bbd2ebaf93ae4ea9e36bbea137214, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Settings
+--- !u!114 &1422601905
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1422601897}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d59761f99bdf7f546b9e107772391a23, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CursorManager
+  defaultCursor: {fileID: 2800000, guid: 5a90846f320af5047ac4b7bb99898d51, type: 3}
+  inspectCursor: {fileID: 2800000, guid: f9eaebc55187d2d419fe1ed0e619ab80, type: 3}
+  selectCursor: {fileID: 2800000, guid: ba47244444f0cbd42a94d944863a38c0, type: 3}
+  moveCursor: {fileID: 2800000, guid: 9501d8a20f042274b8784c4a3288807b, type: 3}
+  attackCursor: {fileID: 2800000, guid: aa4c6470235fc854f98e6222afa8bab4, type: 3}
+  hotspot: {x: 0, y: 0}
 --- !u!1 &1424621832
 GameObject:
   m_ObjectHideFlags: 0

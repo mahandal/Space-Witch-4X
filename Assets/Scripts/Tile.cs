@@ -522,6 +522,9 @@ public class Tile : MonoBehaviour
             }
         }
 
+        // Update cursor.
+        CursorManager.I.UpdateCursor();
+
         // UI.
         UI.I.HoverTile(this);
     }
@@ -531,6 +534,9 @@ public class Tile : MonoBehaviour
     {
         // Avoid unhovering the selected tile.
         if (this == GM.I.selectedTile) return;
+
+        // Reset cursor.
+        CursorManager.I.SetDefaultCursor();
         
         // Reset normal opacity.
         Color c = bg.color;
