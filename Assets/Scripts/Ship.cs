@@ -801,7 +801,7 @@ public class Ship : MonoBehaviour
             pathIndex++;
 
             // Check if we've reached the end?
-            if (pathIndex == path.Count)
+            if (pathIndex >= path.Count)
                 return;
         }
     }
