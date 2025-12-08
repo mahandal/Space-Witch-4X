@@ -127,6 +127,9 @@ public class UI : MonoBehaviour
         {
             hoveredTooltipParent.SetActive(false);
             return;
+        } else {
+            // Make sure tooltip is visible!
+            hoveredTooltipParent.SetActive(true);
         }
 
         // Set up tooltip.
@@ -167,9 +170,6 @@ public class UI : MonoBehaviour
         if (hoveredShip.attacks > 1)
             damageText += "x" + hoveredShip.attacks.ToString();
         hoveredShipDamage.text = damageText;
-
-        // Make sure tooltip is visible!
-        hoveredTooltipParent.SetActive(true);
     }
 
     // Set up the UI for a newly selected tile.

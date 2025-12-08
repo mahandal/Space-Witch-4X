@@ -560,6 +560,10 @@ public class Tile : MonoBehaviour
             vantagePoint.ClearPathPreview();
             vantagePoint = null;
         }
+
+        // Clear hover tooltip?
+        if (GM.I.hoveredTile == null)
+            UI.I.HoverTile(null);
     }
 
 
