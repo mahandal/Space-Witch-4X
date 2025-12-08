@@ -46,7 +46,7 @@ public class Leader : Ship
                 // If we couldn't attack, try to move closer
                 if (!attackSuccessful)
                 {
-                    MoveShipToward(ship, closestEnemy.currentTile);
+                    ship.MoveToward(closestEnemy.currentTile);
                 }
             } else {
                 // - No enemies sighted.

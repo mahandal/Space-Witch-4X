@@ -776,7 +776,7 @@ public class Ship : MonoBehaviour
     }
 
      // Move a ship toward a target tile.
-    public void MoveShipToward(Ship ship, Tile targetTile)
+    public void MoveToward(Tile targetTile)
     {
         // Skip if no movement remaining
         if (movementRemaining <= 0) return;
@@ -788,14 +788,14 @@ public class Ship : MonoBehaviour
         if (path == null) return;
 
         // Move along path until we are out of movement or we reach our target.
-        int pathIndex = 0;
+        int pathIndex = 1;
         while (movementRemaining > 0 && currentTile != targetTile)
         {
             // Get the next tile in our path.
             Tile nextTile = path[pathIndex];
 
             // Move to the next tile.
-            AttemptMove(path[pathIndex]);
+            AttemptMove(nextTile);
 
             // Increment our path index.
             pathIndex++;
@@ -806,8 +806,9 @@ public class Ship : MonoBehaviour
         }
     }
 
-    // Find a path from this ship's current tile to the target tile.
+    // Find the shortest path from this ship's current tile to the target tile.
     // Returns null if no path exists.
+    // Uses Dijkstra's algorithm.
     public List<Tile> FindPathTo(Tile targetTile)
     {
         if (targetTile == null) return null;
@@ -815,19 +816,24 @@ public class Ship : MonoBehaviour
         // Track tiles we've visited and the cost to reach them
         Dictionary<Tile, int> costToReach = new Dictionary<Tile, int>();
         Dictionary<Tile, Tile> cameFrom = new Dictionary<Tile, Tile>();
-        Queue<Tile> frontier = new Queue<Tile>();
+        
+        // Priority queue: store tiles with their costs, always process lowest cost first
+        List<(Tile tile, int cost)> frontier = new List<(Tile, int)>();
         
         // Start from current tile
-        frontier.Enqueue(currentTile);
+        frontier.Add((currentTile, 0));
         costToReach[currentTile] = 0;
         cameFrom[currentTile] = null;
         
         while (frontier.Count > 0)
         {
-            Tile current = frontier.Dequeue();
+            // Get the tile with lowest cost (priority queue behavior)
+            frontier.Sort((a, b) => a.cost.CompareTo(b.cost));
+            var current = frontier[0];
+            frontier.RemoveAt(0);
             
             // Found the target!
-            if (current == targetTile)
+            if (current.tile == targetTile)
             {
                 // Reconstruct path
                 List<Tile> path = new List<Tile>();
@@ -843,20 +849,22 @@ public class Ship : MonoBehaviour
             
             // Check all neighbors
             List<Tile> neighbors = new List<Tile>();
-            if (current.x > 0) neighbors.Add(GM.I.grid[current.x - 1, current.y]);
-            if (current.x < GM.I.gridWidth - 1) neighbors.Add(GM.I.grid[current.x + 1, current.y]);
-            if (current.y > 0) neighbors.Add(GM.I.grid[current.x, current.y - 1]);
-            if (current.y < GM.I.gridHeight - 1) neighbors.Add(GM.I.grid[current.x, current.y + 1]);
+            if (current.tile.x > 0) neighbors.Add(GM.I.grid[current.tile.x - 1, current.tile.y]);
+            if (current.tile.x < GM.I.gridWidth - 1) neighbors.Add(GM.I.grid[current.tile.x + 1, current.tile.y]);
+            if (current.tile.y > 0) neighbors.Add(GM.I.grid[current.tile.x, current.tile.y - 1]);
+            if (current.tile.y < GM.I.gridHeight - 1) neighbors.Add(GM.I.grid[current.tile.x, current.tile.y + 1]);
             
             foreach (Tile neighbor in neighbors)
             {
-                int newCost = costToReach[current] + neighbor.GetMovementCost(this);
+                int moveCost = neighbor.GetMovementCost(this);
+                
+                int newCost = costToReach[current.tile] + moveCost;
                 
                 if (!costToReach.ContainsKey(neighbor) || newCost < costToReach[neighbor])
                 {
                     costToReach[neighbor] = newCost;
-                    cameFrom[neighbor] = current;
-                    frontier.Enqueue(neighbor);
+                    cameFrom[neighbor] = current.tile;
+                    frontier.Add((neighbor, newCost));
                 }
             }
         }
