@@ -868,7 +868,7 @@ public class Ship : MonoBehaviour
                 }
             }
         }
-        
+
         // No path found
         return null;
     }

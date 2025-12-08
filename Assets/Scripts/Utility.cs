@@ -121,6 +121,14 @@ public class Utility : MonoBehaviour
         image.sprite = sprite;
     }
 
+    // Loads a sprite into a spriteRenderer
+    public static void LoadImage(SpriteRenderer spriteRenderer, string fileName)
+    {
+        Sprite sprite = Resources.Load<Sprite>(fileName);
+        if (sprite != null)
+            spriteRenderer.sprite = sprite;
+    }
+
     // Load a given faction's icon into the given image.
     public static void LoadFactionIcon(Image image, Faction faction)
     {

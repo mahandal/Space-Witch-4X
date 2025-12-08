@@ -26,6 +26,9 @@ public class Tile : MonoBehaviour
     public Tile previousTileInPath;
 
     [Header("Manual Machinery")]
+    // The sprite showing this tile's type.
+    public SpriteRenderer typeImage;
+
     // The faction color for this tile.
     public SpriteRenderer factionBG;
 
@@ -706,5 +709,37 @@ public class Tile : MonoBehaviour
     {
         isVisibleToPlayer = true;
         fogOverlay.color = new Color(0, 0, 0, 0f);
+    }
+
+    // - Terraforming
+
+    // Set this tile's type and update its stats and visuals accordingly
+    public void Terraform(TileType newType)
+    {
+        // Get our progenitor.
+        Tile p = SpawnManager.I.p_Void;
+        if (newType == TileType.Air) p = SpawnManager.I.p_Air;
+        if (newType == TileType.Water) p = SpawnManager.I.p_Water;
+        if (newType == TileType.Fire) p = SpawnManager.I.p_Fire;
+        if (newType == TileType.Asteroids) p = SpawnManager.I.p_Asteroids;
+        if (newType == TileType.Planet) p = SpawnManager.I.p_Planet;
+
+        // Load stats
+        myType = newType;
+        moveCost = p.moveCost;
+        visionCost = p.visionCost;
+        armorBonus = p.armorBonus;
+        damageOnEnter = p.damageOnEnter;
+        damageOnUpkeep = p.damageOnUpkeep;
+
+        // Load image.
+        string fileName = "Tiles/Tile - " + myType.ToString();
+        Utility.LoadImage(typeImage, fileName);
+
+        // Set color.
+        // (cause Void tiles have no opacity!)
+        typeImage.color = p.typeImage.color;
+        factionBG.color = p.factionBG.color;
+        bg.color = p.bg.color;
     }
 }

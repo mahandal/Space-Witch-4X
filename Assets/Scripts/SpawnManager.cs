@@ -39,8 +39,16 @@ public class SpawnManager : MonoBehaviour
     [Header("Progenitors - Neutral Ships")]
     public Ship p_SkyPirate;
 
+    public static SpawnManager I;
+
     void Awake()
     {
+        // Enforce singleton pattern.
+        if (I == null)
+            I = this;
+        else
+            Destroy(this);
+
         // - Make sure progenitors are hidden!
 
         // Tiles
@@ -61,8 +69,10 @@ public class SpawnManager : MonoBehaviour
     // Start your engines!
     void Start()
     {
-        // Spawn a new map 15 tiles wide and 10 tiles tall.
-        GenerateNewMap(15, 10);
+        // Spawn a new map!
+        int width = Random.Range(10, 30);
+        int height = Random.Range(5, 20);
+        GenerateNewMap(width, height);
     }
 
     // Procedurally generate a new map.
@@ -87,13 +97,27 @@ public class SpawnManager : MonoBehaviour
         }
 
         // Clear highlighting!
-        Tile.ClearAllHighlights();
+        // Tile.ClearAllHighlights();
 
 
         // - Spawn in heroes
         foreach (Leader leader in GM.I.leaders.Values)
         {
+            // Initialize each leader.
+            // Note: Also moves them into a random position.
             leader.Init();
+
+            // Terraform spawn position to be a planet.
+            leader.currentTile.Terraform(TileType.Planet);
+        }
+
+        foreach (Leader leader in GM.I.leaders.Values)
+        {
+            // Clear a path from each leader to each other.
+            foreach (Leader otherLeader in GM.I.leaders.Values)
+            {
+                TerraformPath(leader, otherLeader);
+            }
         }
 
         // - Begin the game by starting a new turn for the pack!
@@ -109,12 +133,12 @@ public class SpawnManager : MonoBehaviour
         // Roll to decide which tile we spawn.
         float roll = Random.Range(0f, 100f);
 
-        // 20% - Void
-        if (roll < 20)
+        // 40% - Void
+        if (roll < 40)
         {
             newTile = Object.Instantiate(p_Void, tileParent);
         }
-        // 50% - Air
+        // 30% - Air
         else if (roll < 70)
         {
             newTile = Object.Instantiate(p_Air, tileParent);
@@ -149,6 +173,9 @@ public class SpawnManager : MonoBehaviour
 
         // Place in space.
         newTile.transform.position = Utility.GridToWorld(x, y);
+
+        // Reset tile lighting.
+        newTile.ClearHighlight();
 
         // Activate!
         newTile.gameObject.SetActive(true);
@@ -232,5 +259,19 @@ public class SpawnManager : MonoBehaviour
 
         // Return!
         return newShip;
+    }
+
+    // Terraform a path between the two ships.
+    public void TerraformPath(Ship incomingShip, Ship targetShip)
+    {
+        // Find the shortest path between them.
+        List<Tile> shortestPath = incomingShip.FindPathTo(targetShip.currentTile);
+
+        // Find any void tiles in the path and terraform them to air.
+        foreach (Tile tile in shortestPath)
+        {
+            if (tile.myType == TileType.Void)
+                tile.Terraform(TileType.Air);
+        }
     }
 }
