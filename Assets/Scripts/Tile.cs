@@ -85,6 +85,13 @@ public class Tile : MonoBehaviour
     // Select this tile!
     public void Select()
     {
+        // If we were already selecting this tile, clear our selection instead!
+        if (GM.I.selectedTile == this)
+        {
+            ClearSelection();
+            return;
+        }
+
         // Clear old previews.
         ClearPathPreview();
         ClearAttackPreview();

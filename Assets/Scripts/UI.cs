@@ -161,8 +161,12 @@ public class UI : MonoBehaviour
         hoveredShipSpeed.text = hoveredShip.speed.ToString();
         hoveredShipRange.text = hoveredShip.range.ToString();
         hoveredShipVision.text = hoveredShip.vision.ToString();
-        hoveredShipDamage.text = hoveredShip.damage.ToString();
         hoveredShipArmor.text = hoveredShip.armor.ToString();
+        // hoveredShipDamage.text = hoveredShip.damage.ToString();
+        string damageText = hoveredShip.damage.ToString();
+        if (hoveredShip.attacks > 1)
+            damageText += "x" + hoveredShip.attacks.ToString();
+        hoveredShipDamage.text = damageText;
 
         // Make sure tooltip is visible!
         hoveredTooltipParent.SetActive(true);
@@ -215,8 +219,13 @@ public class UI : MonoBehaviour
         selectedShipSpeed.text = selectedShip.speed.ToString();
         selectedShipRange.text = selectedShip.range.ToString();
         selectedShipVision.text = selectedShip.vision.ToString();
-        selectedShipDamage.text = selectedShip.damage.ToString();
+        // selectedShipDamage.text = selectedShip.damage.ToString();
         selectedShipArmor.text = selectedShip.armor.ToString();
+
+        string damageText = selectedShip.damage.ToString();
+        if (selectedShip.attacks > 1)
+            damageText += "x" + selectedShip.attacks.ToString();
+        selectedShipDamage.text = damageText;
 
         // Ensure selection tooltips are visible.
         selectedTooltipParent.SetActive(true);
@@ -251,6 +260,10 @@ public class UI : MonoBehaviour
 
         // Get the player's leader.
         Leader leader = GM.I.leaders[GM.I.playerFaction];
+
+        // Don't worry about it if the game is over!
+        if (leader == null || leader.currentHealth <= 0)
+            return; 
 
         // Check if our fleet has any actions remaining.
         bool fleetCanAct = leader.CanFleetAct();

@@ -6427,7 +6427,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 150, y: 0}
-  m_SizeDelta: {x: 50, y: 50}
+  m_SizeDelta: {x: 40, y: 50}
   m_Pivot: {x: 0, y: 0}
 --- !u!114 &258988022
 MonoBehaviour:
@@ -12842,7 +12842,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 150, y: 50}
-  m_SizeDelta: {x: 50, y: 50}
+  m_SizeDelta: {x: 40, y: 50}
   m_Pivot: {x: 0, y: 0}
 --- !u!114 &576060567
 MonoBehaviour:
@@ -14960,7 +14960,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 50, y: 50}
-  m_SizeDelta: {x: 50, y: 50}
+  m_SizeDelta: {x: 40, y: 50}
   m_Pivot: {x: 0, y: 0}
 --- !u!114 &647601950
 MonoBehaviour:
@@ -25037,7 +25037,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 150, y: 0}
-  m_SizeDelta: {x: 50, y: 50}
+  m_SizeDelta: {x: 40, y: 50}
   m_Pivot: {x: 0, y: 0}
 --- !u!114 &1071818981
 MonoBehaviour:
@@ -28987,7 +28987,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 150, y: 50}
-  m_SizeDelta: {x: 50, y: 50}
+  m_SizeDelta: {x: 40, y: 50}
   m_Pivot: {x: 0, y: 0}
 --- !u!114 &1255112852
 MonoBehaviour:
@@ -30419,7 +30419,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 50, y: 0}
-  m_SizeDelta: {x: 50, y: 50}
+  m_SizeDelta: {x: 40, y: 50}
   m_Pivot: {x: 0, y: 0}
 --- !u!114 &1288687689
 MonoBehaviour:
@@ -35611,7 +35611,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 50, y: 0}
-  m_SizeDelta: {x: 50, y: 50}
+  m_SizeDelta: {x: 40, y: 50}
   m_Pivot: {x: 0, y: 0}
 --- !u!114 &1548725437
 MonoBehaviour:
@@ -38612,7 +38612,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 50, y: 50}
-  m_SizeDelta: {x: 50, y: 50}
+  m_SizeDelta: {x: 40, y: 50}
   m_Pivot: {x: 0, y: 0}
 --- !u!114 &1681718614
 MonoBehaviour:
