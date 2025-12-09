@@ -153,6 +153,7 @@ public class GM : MonoBehaviour
     }
 
     // Build the given ship at the given tile.
+    // Note: Automatically detects faction from ship name.
     public void BuildShip(string shipName, Tile home)
     {
         // Instantiate the new ship.

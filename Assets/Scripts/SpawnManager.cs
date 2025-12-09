@@ -180,12 +180,12 @@ public class SpawnManager : MonoBehaviour
         {
             newTile = Object.Instantiate(p_Water, tileParent);
         }
-        // 3% - Fire
-        else if (roll < 98)
+        // 4% - Fire
+        else if (roll < 99)
         {
             newTile = Object.Instantiate(p_Fire, tileParent);
         }
-        // 2% - Planet
+        // 1% - Planet
         else
         {
             newTile = Object.Instantiate(p_Planet, tileParent);

@@ -60,12 +60,16 @@ public class Leader : Ship
                 // - No enemies sighted.
 
                 // Move randomly.
+                // TBD: Move intelligently!
                 ship.MoveShipRandomly();
             }
 
             // Spend rest of movement and/or attacks resting.
             ship.AttemptRest();
         }
+
+        // Build more ships!
+        Build();
 
         // End our turn!
         GM.I.EndTurn();
@@ -270,5 +274,80 @@ public class Leader : Ship
         {
             ship.HideMovementAndAttacks();
         }
+    }
+
+    // - Ship building
+
+    // Handle a turn of building for this leader.
+    // Called once each turn by each AI.
+    public void Build()
+    {
+        // Go through each of our planets.
+        List<Tile> myPlanets = GetMyPlanets();
+        foreach (Tile planet in myPlanets)
+        {
+            // Get the name of the biggest ship we can afford to build.
+            string shipName = GetBiggestShip();
+
+            // Check we have a valid ship to build, and a valid planet to build it on.
+            if (shipName != "" && planet.ship == null)
+            {
+                // Build it!
+                GM.I.BuildShip(shipName, planet);
+            }
+        }
+    }
+
+    // Return a list of all planets this leader owns.
+    public List<Tile> GetMyPlanets()
+    {
+        // List of all planet tiles belonging to the same faction as this leader.
+        List<Tile> myPlanets = new List<Tile>();
+
+        // Loop through grid.
+        for (int i = 0; i < GM.I.gridWidth; i++)
+        {
+            for (int j = 0; j < GM.I.gridHeight; j++)
+            {
+                // Get tile.
+                Tile tile = GM.I.grid[i, j];
+
+                // Check if tile is one of our planets.
+                if (tile.myType == TileType.Planet && tile.faction == faction)
+                {
+                    // Add to list.
+                    myPlanets.Add(tile);
+                }
+            }
+        }
+
+        // Return!
+        return myPlanets;
+    }
+
+    // Return the highest costing ship this leader can build.
+    public string GetBiggestShip()
+    {
+        // Remember the biggest ship.
+        string biggestShip = "";
+
+        // Remember the highest cost we've seen.
+        int highestCostSoFar = -1;
+
+        // Look through each of our blueprints.
+        foreach (Ship ship in blueprints)
+        {
+            // Check if its cost is higher than the highest we've seen so far,
+            // but less than or equal to how much mana we currently have.
+            if (ship.manaCost > highestCostSoFar && ship.manaCost <= mana)
+            {
+                // Remember this ship!
+                biggestShip = ship.myName;
+                highestCostSoFar = ship.manaCost;
+            }
+        }
+
+        // Return!
+        return biggestShip;
     }
 }
