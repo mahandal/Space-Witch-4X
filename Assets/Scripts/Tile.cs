@@ -450,6 +450,17 @@ public class Tile : MonoBehaviour
         // Default
         int totalVisionCost = visionCost;
 
+        // - Minimum
+
+        // Allow an adjacent ship to see this tile, even if otherwise it would exceed their vision
+        // unless their vision is 0.
+        if (Utility.Distance(this, beholder.currentTile) == 1 &&
+            totalVisionCost > beholder.vision &&
+            beholder.vision > 0)
+        {
+            totalVisionCost = beholder.vision;
+        }
+
         // Return.
         return totalVisionCost;
     }
