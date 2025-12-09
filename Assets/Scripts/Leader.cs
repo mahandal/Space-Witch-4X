@@ -191,9 +191,8 @@ public class Leader : Ship
         // Update mana variable.
         mana += manaGained;
 
-        // Update text display, if we're the active faction.
-        if (faction == GM.I.activeFaction)
-            UI.I.currentMana.text = mana.ToString();
+        // Visuals.
+        UI.I.UpdateManaDisplay();
     }
 
     // Spend mana.
@@ -202,9 +201,8 @@ public class Leader : Ship
         // Update mana variable.
         mana -= manaSpent;
 
-        // Update text display, if we're the active faction.
-        if (faction == GM.I.activeFaction)
-            UI.I.currentMana.text = mana.ToString();
+        // Visuals.
+        UI.I.UpdateManaDisplay();
     }
 
     // - Fleet management

@@ -320,4 +320,20 @@ public class UI : MonoBehaviour
         // Activate post game parent.
         postGameParent.SetActive(true);
     }
+
+
+    // - Mana
+    // Update our mana display.
+    // Should be called any time our mana changes.
+    public void UpdateManaDisplay()
+    {
+        // Get the player's leader.
+        Leader leader = GM.I.leaders[GM.I.playerFaction];
+
+        // Update text display.
+        UI.I.currentMana.text = leader.mana.ToString();
+
+        // Update the opacity of our blueprints, reflecting if we can afford them.
+        BuildButton.SetOpacityForAll();
+    }
 }

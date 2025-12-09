@@ -2217,6 +2217,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BuildButton
   shipName: Fairy
+  image: {fileID: 1668678970}
   highlight: {fileID: 357236406}
 --- !u!114 &79453181
 MonoBehaviour:
@@ -7486,6 +7487,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BuildButton
   shipName: Treant
+  image: {fileID: 1621260703}
   highlight: {fileID: 1415861713}
 --- !u!114 &283899948
 MonoBehaviour:
@@ -21569,6 +21571,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BuildButton
   shipName: Space Witch
+  image: {fileID: 580558998}
   highlight: {fileID: 961305257}
 --- !u!114 &829959172
 MonoBehaviour:
@@ -50270,6 +50273,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BuildButton
   shipName: Squirrel
+  image: {fileID: 1183954108}
   highlight: {fileID: 491997103}
 --- !u!1 &2065512461
 GameObject:

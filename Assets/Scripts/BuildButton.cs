@@ -6,17 +6,12 @@ public class BuildButton : MonoBehaviour
     [Header("Build Button")]
     public string shipName = "";
 
+    [Header("Manual Machinery")]
     // The image displaying the ship this button can build.
-    private Image image;
+    public Image image;
 
     // This button's highlight image.
     public Image highlight;
-
-    // Awaken!
-    void Awake()
-    {
-        image = GetComponent<Image>();
-    }
 
     // Called when this button is pressed.
     public void Button_Pressed()
@@ -47,6 +42,50 @@ public class BuildButton : MonoBehaviour
         // Highlight.
         Highlight();
     }
+    
+    // - Opacity
+    // Fade opacity for buttons you can't afford.
+
+    // Set opacity for all build buttons.
+    public static void SetOpacityForAll()
+    {
+        // Look through each build button.
+        foreach (BuildButton buildButton in UI.I.buildButtons)
+        {
+            // Get the progenitor for this button's ship.
+            Ship progenitor = SpawnManager.I.GetProgenitor(buildButton.shipName);
+
+            // Get player leader.
+            Leader leader = GM.I.leaders[GM.I.playerFaction];
+
+            // Check if the player can afford this button.
+            if (leader.mana < progenitor.manaCost)
+            {
+                // Can't afford it.
+                // Fade out!
+                buildButton.LowOpacity();
+            } else {
+                // Can afford it!
+                // Fade in!
+                buildButton.HighOpacity();
+            }
+        }
+    }
+
+    // Fade the opacity for this build button.
+    public void LowOpacity()
+    {
+        image.color = new Color(0.5f, 0.5f, 0.5f, 0.5f);
+    }
+
+    // Heighten the opacity of this build button!
+    public void HighOpacity()
+    {
+        image.color = new Color(1f, 1f, 1f, 1f);
+    }
+
+    // - Highlighting
+    // Highlight the currently selected button.
 
     // Clear whichever build button was highlighted.
     public static void ClearAllBuildHighlights()
@@ -60,8 +99,6 @@ public class BuildButton : MonoBehaviour
     // Clear the highlight effect.
     public void ClearHighlight()
     {
-        Debug.Log(name + " is clearing its highlight!");
-
         // image.color = new Color(1f, 1f, 1f, 0.5f);
         highlight.gameObject.SetActive(false);
     }
@@ -69,8 +106,6 @@ public class BuildButton : MonoBehaviour
     // Highlight this build button.
     public void Highlight()
     {
-        Debug.Log(name + " is activating its highlight!");
-        
         // image.color = new Color(1f, 1f, 1f, 1f);
         highlight.gameObject.SetActive(true);
     }
