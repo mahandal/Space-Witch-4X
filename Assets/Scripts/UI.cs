@@ -103,7 +103,7 @@ public class UI : MonoBehaviour
         Leader leader = GM.I.leaders[faction];
 
         // Set mana text.
-        currentMana.text = leader.mana.ToString();
+        // currentMana.text = leader.mana.ToString();
 
         // Move camera to leader's position.
         Utility.MoveCamera(leader.currentTile);
@@ -118,8 +118,8 @@ public class UI : MonoBehaviour
     public void EndTurn(Faction faction)
     {
         // Fade out the screen
-        if (faction == GM.I.playerFaction)
-            FadeOverlay(true, fadeTime);
+        // if (faction == GM.I.playerFaction)
+        //     FadeOverlay(true, fadeTime);
     }
 
     // Set up the UI for a newly hovered tile.
@@ -329,6 +329,9 @@ public class UI : MonoBehaviour
     {
         // Get the player's leader.
         Leader leader = GM.I.leaders[GM.I.playerFaction];
+
+        // Pause mana display if we've lost.
+        if (leader == null) return;
 
         // Update text display.
         UI.I.currentMana.text = leader.mana.ToString();

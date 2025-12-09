@@ -234,6 +234,7 @@ public class SpawnManager : MonoBehaviour
 
         // Update health bar.
         newShip.healthBar.fillAmount = newShip.currentHealth / newShip.maxHealth;
+        newShip.healthBar.color = Constance.FactionColor(newShip.faction, 1f);
         
         // Add to leader's fleet.
         GM.I.leaders[newShip.faction].fleet.Add(newShip);

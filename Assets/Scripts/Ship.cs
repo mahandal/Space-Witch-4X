@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
+using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 
@@ -102,14 +103,25 @@ public partial class Ship : MonoBehaviour
         // Use additional attacks?
         if (useAllAttacks)
         {
-            while (attacksRemaining > 0 && target.currentHealth > 0)
-            {
-                Attack(target);
-            }
+            StartCoroutine(FireEverything(target));
         }
 
         // Return successful.
         return true;
+    }
+
+    // FIRE EVERYTHING!
+    public IEnumerator FireEverything(Ship target)
+    {
+        // Loop until all attacks are used or target is destroyed (or converted!).
+        while (attacksRemaining > 0 && target.currentHealth > 0 && target.faction != faction)
+        {
+            // First, wait a bit to space out each attack.
+            yield return new WaitForSeconds(0.1f);
+
+            // Attack!
+            Attack(target);
+        }
     }
 
     // Find the closest tile to us that we can attack our target from.

@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 using System.Collections.Generic;
 
 // Your leader ship runs your fleet!
@@ -16,8 +17,16 @@ public class Leader : Ship
 
     // - AI
 
-    // Use the AI to run a turn for this faction.
+    // Start running a turn for an AI.
+    // Wrapper of AITurnCoroutine
     public void AITurn()
+    {
+        // Start coroutine.
+        StartCoroutine(AITurnCoroutine());
+    }
+
+    // Handle running an AI's turn.
+    public IEnumerator AITurnCoroutine()
     {
         // Make a copy of the fleet list to avoid modification during iteration
         List<Ship> fleetList = new List<Ship>(fleet);
@@ -66,6 +75,9 @@ public class Leader : Ship
 
             // Spend rest of movement and/or attacks resting.
             ship.AttemptRest();
+
+            // Wait a bit, give each ship their moment.
+            yield return new WaitForSeconds(0.1f);
         }
 
         // Build more ships!
@@ -280,7 +292,14 @@ public class Leader : Ship
 
     // Handle a turn of building for this leader.
     // Called once each turn by each AI.
+    // Wrapper of BuildCoroutine()
     public void Build()
+    {
+        StartCoroutine(BuildCoroutine());
+    }
+
+    // Try to build the most expensive ship we can at each planet we can.
+    public IEnumerator BuildCoroutine()
     {
         // Go through each of our planets.
         List<Tile> myPlanets = GetMyPlanets();
@@ -294,9 +313,14 @@ public class Leader : Ship
             {
                 // Build it!
                 GM.I.BuildShip(shipName, planet);
+
+                yield return new WaitForSeconds(0.5f);
             }
+
+            yield return new WaitForSeconds(0.1f);
         }
     }
+
 
     // Return a list of all planets this leader owns.
     public List<Tile> GetMyPlanets()
