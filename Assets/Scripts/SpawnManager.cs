@@ -32,6 +32,9 @@ public class SpawnManager : MonoBehaviour
 
     [Header("Progenitors - Coven Ships")]
     public Ship p_SpaceWitch;
+    public Ship p_Fairy;
+    public Ship p_Treant;
+    public Ship p_Squirrel;
 
     [Header("Progenitors - Syndicate Ships")]
     public Ship p_Flybot;
@@ -59,10 +62,21 @@ public class SpawnManager : MonoBehaviour
         p_Fire.gameObject.SetActive(false);
         p_Asteroids.gameObject.SetActive(false);
 
-        // Ships
-        p_SpaceWitch.gameObject.SetActive(false);
+        // - Ships
+
+        // Pack
         p_Tarodactyl.gameObject.SetActive(false);
+
+        // Coven
+        p_SpaceWitch.gameObject.SetActive(false);
+        p_Fairy.gameObject.SetActive(false);
+        p_Treant.gameObject.SetActive(false);
+        p_Squirrel.gameObject.SetActive(false);
+
+        // Syndicate
         p_Flybot.gameObject.SetActive(false);
+
+        // Neutral
         p_SkyPirate.gameObject.SetActive(false);
     }
 
@@ -197,43 +211,22 @@ public class SpawnManager : MonoBehaviour
         Tile tile = GM.I.grid[x, y];
         if (tile.ship != null) return null;
 
-        // Init new ship.
-        Ship newShip = null;
+        // Get our progenitor.
+        Ship progenitor = GetProgenitor(shipType);
 
-        // Check ship type to instantiate new ship.
-
-        // - Pack
-        if (shipType == "Tarodactyl")
-        {
-            newShip = Object.Instantiate(p_Tarodactyl);
-        }
-
-        // - Coven
-        else if (shipType == "Space Witch")
-        {
-            newShip = Object.Instantiate(p_SpaceWitch);
-        }
-
-        // Syndicate
-        else if (shipType == "Flybot")
-        {
-            newShip = Object.Instantiate(p_Flybot);
-        }
-
-        // - Unknown?
-        else
-        {
-            Debug.LogError("ERROR! Failed to spawn new ship of unknown type: " + shipType);
-            return null;
-        }
+        // Instantiate our new ship as a copy of our progenitor.
+        Ship newShip = Object.Instantiate(progenitor);
 
         Debug.Log("Spawning " + newShip.myName + " for faction: " + newShip.faction);
+
+        // Update health bar.
+        newShip.healthBar.fillAmount = newShip.currentHealth / newShip.maxHealth;
         
         // Add to leader's fleet.
         GM.I.leaders[newShip.faction].fleet.Add(newShip);
 
         // - Assign parent.
-        // (Doesn't really do anything, just for organizational purposes)
+        // (Doesn't really do much, just for organizational purposes)
 
         // Neutral
         if (newShip.faction == Faction.Neutral)
@@ -252,13 +245,42 @@ public class SpawnManager : MonoBehaviour
             newShip.transform.SetParent(syndicateShipParent);
 
         // Set new position.
-        newShip.Move(x, y);
+        newShip.Move(x, y, false);
 
         // Activate!
         newShip.gameObject.SetActive(true);
 
         // Return!
         return newShip;
+    }
+
+    // Return the progenitor ship of a given ship type.
+    public Ship GetProgenitor(string shipName)
+    {
+        // Pack
+        if (shipName == "Tarodactyl")
+            return p_Tarodactyl;
+        // Coven
+        else if (shipName == "Space Witch")
+            return p_SpaceWitch;
+        else if (shipName == "Fairy")
+            return p_Fairy;
+        else if (shipName == "Treant")
+            return p_Treant;
+        else if (shipName == "Squirrel")
+            return p_Squirrel;
+        // Syndicate
+        else if (shipName == "Flybot")
+            return p_Flybot;
+        // Neutral
+        else if (shipName == "Sky Pirate")
+            return p_SkyPirate;
+        // Unknown
+        else
+        {
+            Debug.LogError("Failed to find progenitor for unknown ship type: " + shipName);
+            return null;
+        }
     }
 
     // Terraform a path between the two ships.

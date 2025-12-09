@@ -8,6 +8,8 @@ public class Leader : Ship
     public int mana = 0;
     public HashSet<Ship> fleet = new HashSet<Ship>();
 
+    // - AI
+
     // Use the AI to run a turn for this faction.
     public void AITurn()
     {
@@ -62,6 +64,8 @@ public class Leader : Ship
         // End our turn!
         GM.I.EndTurn();
     }
+
+    // - Core
 
     // Initialize this leader:
     // - Move it to a random position.
@@ -120,30 +124,7 @@ public class Leader : Ship
         }
 
         // Move!
-        Move(spawnX, spawnY);
-    }
-
-    // Refresh all ships that fly under this leader's banner.
-    // Called at the end of each turn.
-    public void RefreshFleet()
-    {
-        // Loop through each ship in our fleet.
-        foreach (Ship ship in fleet)
-        {
-            // Refresh!
-            ship.Refresh();
-        }
-    }
-
-    // Hide movement and attacks remaining for all ships in our fleet.
-    // Called at the end of each turn.
-    public void HideFleetMovementAndAttacks()
-    {
-        // Loop through ech ship in our fleet.
-        foreach (Ship ship in fleet)
-        {
-            ship.HideMovementAndAttacks();
-        }
+        Move(spawnX, spawnY, false);
     }
 
     // Handle ending a turn for this leader's faction.
@@ -173,6 +154,8 @@ public class Leader : Ship
             ship.Upkeep();
         }
     }
+
+    // - Mana
 
     // Harvest 1 mana per tile owned.
     public void HarvestMana()
@@ -213,6 +196,19 @@ public class Leader : Ship
             UI.I.currentMana.text = mana.ToString();
     }
 
+    // Spend mana.
+    public void SpendMana(int manaSpent = 1)
+    {
+        // Update mana variable.
+        mana -= manaSpent;
+
+        // Update text display, if we're the active faction.
+        if (faction == GM.I.activeFaction)
+            UI.I.currentMana.text = mana.ToString();
+    }
+
+    // - Fleet management
+
     // Your fleet abandons.
     // All ships are destroyed.
     // Called when a leader dies.
@@ -247,5 +243,28 @@ public class Leader : Ship
         // Not a single action remaining in our whole fleet.
         // Return false!
         return false;
+    }
+
+    // Refresh all ships that fly under this leader's banner.
+    // Called at the end of each turn.
+    public void RefreshFleet()
+    {
+        // Loop through each ship in our fleet.
+        foreach (Ship ship in fleet)
+        {
+            // Refresh!
+            ship.Refresh();
+        }
+    }
+
+    // Hide movement and attacks remaining for all ships in our fleet.
+    // Called at the end of each turn.
+    public void HideFleetMovementAndAttacks()
+    {
+        // Loop through ech ship in our fleet.
+        foreach (Ship ship in fleet)
+        {
+            ship.HideMovementAndAttacks();
+        }
     }
 }

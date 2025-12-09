@@ -92,6 +92,9 @@ public class InputManager : MonoBehaviour
         // Did we just right click?
         if (!Mouse.current.rightButton.wasPressedThisFrame) return;
 
+        // Clear our building selection, if we were thinking of building something.
+        GM.I.ResetBuildOrder();
+
         // Remember whether we should re-select the currently selected ship after the current action.
         bool shouldReselect = false;
   

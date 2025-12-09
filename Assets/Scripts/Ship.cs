@@ -18,7 +18,6 @@ public class Ship : MonoBehaviour
 
     [Header("Core")]
     public int manaCost = 0;
-    public float currentHealth;
     public int maxHealth;
     public int damage;
     public int armor;
@@ -29,7 +28,8 @@ public class Ship : MonoBehaviour
     [Header("Secret / Special")]
     public int attacks = 1;
 
-    [Header("Per turn")]
+    [Header("Live")]
+    public float currentHealth;
     public int movementRemaining;
     public int attacksRemaining;
 

@@ -71,6 +71,10 @@ public class GM : MonoBehaviour
     // Remember the last ship we selected.
     public Ship lastSelectedShip;
 
+    // Remember which ship we are trying to build.
+    // Empty ("") unless we just clicked a Build Ship button
+    public string currentlyBuilding = "";
+
     // Awaken!
     void Awake()
     {
@@ -87,6 +91,31 @@ public class GM : MonoBehaviour
         if (neutralLeader != null) leaders[Faction.Neutral] = neutralLeader;
     }
 
+    // - Buttons
+
+    // Called when the player clicks one of their ship blueprints in the top bar.
+    public void Button_BuildShip(string shipName)
+    {
+        // Clear prior unit selection.
+        Tile.ClearSelection();
+
+        // Get mana cost.
+        int manaCost = GetManaCost(shipName);
+
+        // Get player's leader.
+        Leader leader = leaders[playerFaction];
+
+        // Check if player has enough mana to build this ship.
+        if (leader.mana < manaCost)
+        {
+            // Return.
+            return;
+        }
+
+        // Set currentlyBuilding
+        currentlyBuilding = shipName;
+    }
+
     // Called when the player clicks the end turn button.
     // Error checks then delegates to EndTurn().
     public void Button_EndTurn()
@@ -96,6 +125,59 @@ public class GM : MonoBehaviour
 
         // End the current turn.
         EndTurn();
+    }
+
+    // - Functions
+
+    // Get the mana cost of a ship from its name.
+    public int GetManaCost(string shipName)
+    {
+        // Get the progenitor ship.
+        Ship progenitor = SpawnManager.I.GetProgenitor(shipName);
+
+        // Check if ship name was invalid.
+        if (progenitor == null)
+        {
+            // Return -1 for invalid ships.
+            return -1;
+        } else {
+            // Return progenitor's mana cost.
+            return progenitor.manaCost;
+        }
+    }
+
+    // Build the given ship at the given tile.
+    public void BuildShip(string shipName, Tile home)
+    {
+        // Instantiate the new ship.
+        Ship newShip = SpawnManager.I.SpawnShip(shipName, home.x, home.y);
+
+        // Failed to build?
+        if (newShip == null)
+        {
+            Debug.LogError("Failed to build ship of type: " + shipName +
+                " at tile: " + home.myType + " (" + home.x + ", " + home.y + ")");
+            return;
+        }
+
+        // Drain of all actions.
+        newShip.SetMovementRemaining(0);
+        newShip.SetAttacksRemaining(0);
+
+        // Get faction leader.
+        Leader leader = leaders[newShip.faction];
+
+        // Spend mana.
+        leader.SpendMana(newShip.manaCost);
+
+        // Reset currently building.
+        currentlyBuilding = "";
+    }
+
+    // Stop building.
+    public void ResetBuildOrder()
+    {
+        currentlyBuilding = "";
     }
 
     // End the current turn and go to the next one.

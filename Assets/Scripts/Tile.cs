@@ -52,7 +52,7 @@ public class Tile : MonoBehaviour
     // Clear our selection so no tiles are highlighted.
     public static void ClearSelection()
     {
-        // Clear selection.
+        // Clear selected tile.
         GM.I.selectedTile = null;
 
         // Clear highlights.
@@ -60,6 +60,9 @@ public class Tile : MonoBehaviour
 
         // Clear tooltips.
         UI.I.ClearSelection();
+
+        // Clear building selection.
+        GM.I.ResetBuildOrder();
     }
 
     // Clear ALL highlighting for ALL tiles.
@@ -86,6 +89,7 @@ public class Tile : MonoBehaviour
 
 
     // Select this tile!
+    // TBD: Build a ship if currentlyBuilding != ""
     public void Select()
     {
         // Clear old previews.
@@ -103,6 +107,16 @@ public class Tile : MonoBehaviour
 
             // Let GM remember.
             GM.I.lastSelectedShip = ship;
+        }
+        // Check if we're selecting one of our planets to build on.
+        else if (myType == TileType.Planet && faction == GM.I.playerFaction)
+        {
+            // Build a ship!
+            GM.I.BuildShip(GM.I.currentlyBuilding, this);
+
+            // Return early.
+            // (don't need to select a new ship cause they can't act immediately)
+            return;
         }
 
         // Highlight the current tile!
