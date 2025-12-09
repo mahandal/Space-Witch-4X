@@ -167,8 +167,12 @@ public class GM : MonoBehaviour
         }
 
         // Drain of all actions.
-        newShip.SetMovementRemaining(0);
-        newShip.SetAttacksRemaining(0);
+        // newShip.SetMovementRemaining(0);
+        // newShip.SetAttacksRemaining(0);
+
+        // Update action indicators.
+        newShip.SetMovementRemaining(newShip.movementRemaining);
+        newShip.SetAttacksRemaining(newShip.attacksRemaining);
 
         // Get faction leader.
         Leader leader = leaders[newShip.faction];
