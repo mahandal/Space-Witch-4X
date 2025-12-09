@@ -658,6 +658,7 @@ public class Ship : MonoBehaviour
     // - Regain up to 5% of max health with all movement remaining.
     // - Regain up to 5% of max health with all attacks remaining.
     // - Regain 1% of max health per adjacent friendly tile (including this one!)
+    // Minimum of 1.
     public void Rest()
     {
         // Initialize our count of how much health we'll heal.
@@ -696,6 +697,10 @@ public class Ship : MonoBehaviour
 
         // Get total health recovered.
         int totalHealthRecovered = (int)(percentMaxHealthToHeal * maxHealth);
+
+        // Minimum of 1.
+        if (totalHealthRecovered < 1)
+            totalHealthRecovered = 1;
 
         // Heal up!
         GainHealth(totalHealthRecovered, this);
