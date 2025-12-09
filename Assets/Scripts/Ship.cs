@@ -3,7 +3,7 @@ using UnityEngine.UI;
 using System.Collections.Generic;
 using TMPro;
 
-public class Ship : MonoBehaviour
+public partial class Ship : MonoBehaviour
 {
     [Header("Meta")]
     public string myName;
@@ -624,7 +624,8 @@ public class Ship : MonoBehaviour
     // Should be called once at the beginning of each turn, by this ship's leader.
     public void Upkeep()
     {
-        // Damage!
+
+        // Tile damage!
         ReceiveDamage(currentTile.damageOnUpkeep);
 
         // Reveal movement and attacks remaining.

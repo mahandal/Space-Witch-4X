@@ -41,6 +41,9 @@ public class SpawnManager : MonoBehaviour
 
     [Header("Progenitors - Syndicate Ships")]
     public Ship p_Flybot;
+    public Ship p_Driller;
+    public Ship p_Soldier;
+    public Ship p_Banker;
 
     [Header("Progenitors - Neutral Ships")]
     public Ship p_SkyPirate;
@@ -81,6 +84,10 @@ public class SpawnManager : MonoBehaviour
 
         // Syndicate
         p_Flybot.gameObject.SetActive(false);
+        p_Driller.gameObject.SetActive(false);
+        p_Soldier.gameObject.SetActive(false);
+        p_Banker.gameObject.SetActive(false);
+
 
         // Neutral
         p_SkyPirate.gameObject.SetActive(false);
@@ -272,6 +279,7 @@ public class SpawnManager : MonoBehaviour
             return p_FireSpirit;
         else if (shipName == "Shark")
             return p_Shark;
+
         // Coven
         else if (shipName == "Space Witch")
             return p_SpaceWitch;
@@ -281,12 +289,21 @@ public class SpawnManager : MonoBehaviour
             return p_Treant;
         else if (shipName == "Squirrel")
             return p_Squirrel;
+
         // Syndicate
         else if (shipName == "Flybot")
             return p_Flybot;
+        else if (shipName == "Driller")
+            return p_Driller;
+        else if (shipName == "Soldier")
+            return p_Soldier;
+        else if (shipName == "Banker") 
+            return p_Banker;
+
         // Neutral
         else if (shipName == "Sky Pirate")
             return p_SkyPirate;
+        
         // Unknown
         else
         {

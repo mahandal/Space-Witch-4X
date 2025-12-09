@@ -89,5 +89,6 @@ public enum TileType
 // Traits
 public enum Trait
 {
-    Aquatic
+    Aquatic,
+    Miner
 }

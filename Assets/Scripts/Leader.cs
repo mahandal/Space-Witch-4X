@@ -5,7 +5,13 @@ using System.Collections.Generic;
 public class Leader : Ship
 {
     [Header("Leader")]
+    // How much mana we currently have available.
     public int mana = 0;
+
+    // The list of ship types we know how to build.
+    public List<Ship> blueprints;
+
+    // A set of all our ships.
     public HashSet<Ship> fleet = new HashSet<Ship>();
 
     // - AI
