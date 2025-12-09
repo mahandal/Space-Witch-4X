@@ -419,6 +419,20 @@ public class Tile : MonoBehaviour
         }
 
 
+        // - Minimum
+
+        // Allow an adjacent ship to move to this tile by spending all of its movement,
+        // if it would not be able to move here otherwise.
+        // (except for Void tiles)
+        if (Utility.Distance(this, incomingShip.currentTile) == 1 &&
+            incomingShip.movementRemaining == incomingShip.speed &&
+            totalMoveCost > incomingShip.speed &&
+            myType != TileType.Void)
+        {
+            totalMoveCost = incomingShip.speed;
+        }
+
+
         // - Ships
 
         // Block enemy ships
