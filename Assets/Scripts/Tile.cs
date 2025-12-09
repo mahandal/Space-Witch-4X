@@ -101,6 +101,9 @@ public class Tile : MonoBehaviour
         // Check if we're selecting a ship.
         if (ship != null)
         {
+            // Clear building selection.
+            GM.I.ResetBuildOrder();
+            
             // Highlight movement and attack ranges.
             HighlightRanges();
 
@@ -108,7 +111,8 @@ public class Tile : MonoBehaviour
             GM.I.lastSelectedShip = ship;
         }
         // Check if we're selecting one of our planets to build on.
-        else if (myType == TileType.Planet && faction == GM.I.playerFaction)
+        else if (GM.I.currentlyBuilding != "" &&
+            myType == TileType.Planet && faction == GM.I.playerFaction)
         {
             // Build a ship!
             GM.I.BuildShip(GM.I.currentlyBuilding, this);

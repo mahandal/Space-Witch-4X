@@ -1,7 +1,12 @@
 using UnityEngine;
+using UnityEngine.InputSystem; 
+using UnityEngine.UI;
 
 public class CursorManager : MonoBehaviour
 {
+    [Header("Build cursor")]
+    public Image buildCursor;
+
     [Header("Cursor Textures")]
     public Texture2D defaultCursor;
     public Texture2D inspectCursor;
@@ -49,9 +54,60 @@ public class CursorManager : MonoBehaviour
         Cursor.SetCursor(attackCursor, hotspot, CursorMode.Auto);
     }
     
-    
+    public void SetBuildCursor(string shipName)
+    {
+        // Get progenitor.
+        Ship progenitor = SpawnManager.I.GetProgenitor(shipName);
+
+        // Get image file path.
+        string imageFilePath = "Ships/" + progenitor.faction.ToString() + "/Ship - " + shipName;
+
+        // Load image.
+        Utility.LoadImage(buildCursor, imageFilePath);
+
+        // Activate.
+        buildCursor.gameObject.SetActive(true);
+
+        // Remember which cursor we have loaded.
+        currentBuildCursor = shipName;
+    }
+
+    // Hide the build cursor.
+    public void HideBuildCursor()
+    {
+        buildCursor.gameObject.SetActive(false);
+    }
+        
+    void Update()
+    {
+        FollowMouseWithBuildCursor();
+    }
+
+    private string currentBuildCursor = "";
+
+    // Update the build cursor to follow the mouse.
+    // Note: Gets called in Update, unlike UpdateCursor below!
+    public void FollowMouseWithBuildCursor()
+    {
+        // - Build cursor
+        if (GM.I.currentlyBuilding == "")
+        {
+            // Hide build cursor when not building.
+            HideBuildCursor();
+        } else {
+            // Set build cursor to whatever we're building.
+            if (!buildCursor.gameObject.activeSelf || 
+                currentBuildCursor != GM.I.currentlyBuilding)
+                SetBuildCursor(GM.I.currentlyBuilding);
+
+            // Have build cursor follow the mouse.
+            buildCursor.transform.position = Mouse.current.position.ReadValue();
+        
+        }
+    }
 
     // Update the cursor to match the currently hovered tile.
+    // Note: Gets called in Tile.Hover(), NOT in Update!
     public void UpdateCursor()
     {
         // Check if we are hovering anything!
