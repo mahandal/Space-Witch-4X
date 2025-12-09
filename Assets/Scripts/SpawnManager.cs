@@ -28,7 +28,10 @@ public class SpawnManager : MonoBehaviour
     public Tile p_Asteroids;
 
     [Header("Progenitors - Pack Ships")]
+    public Ship p_Raptor;
     public Ship p_Tarodactyl;
+    public Ship p_FireSpirit;
+    public Ship p_Shark;
 
     [Header("Progenitors - Coven Ships")]
     public Ship p_SpaceWitch;
@@ -65,7 +68,10 @@ public class SpawnManager : MonoBehaviour
         // - Ships
 
         // Pack
+        p_Raptor.gameObject.SetActive(false);
         p_Tarodactyl.gameObject.SetActive(false);
+        p_FireSpirit.gameObject.SetActive(false);
+        p_Shark.gameObject.SetActive(false);
 
         // Coven
         p_SpaceWitch.gameObject.SetActive(false);
@@ -258,8 +264,14 @@ public class SpawnManager : MonoBehaviour
     public Ship GetProgenitor(string shipName)
     {
         // Pack
-        if (shipName == "Tarodactyl")
+        if (shipName == "Raptor")
+            return p_Raptor;
+        else if (shipName == "Tarodactyl")
             return p_Tarodactyl;
+        else if (shipName == "Fire Spirit")
+            return p_FireSpirit;
+        else if (shipName == "Shark")
+            return p_Shark;
         // Coven
         else if (shipName == "Space Witch")
             return p_SpaceWitch;
