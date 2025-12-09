@@ -85,3 +85,9 @@ public enum TileType
     Asteroids,
     Planet
 }
+
+// Traits
+public enum Trait
+{
+    Aquatic
+}

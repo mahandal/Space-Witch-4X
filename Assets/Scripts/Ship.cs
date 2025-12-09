@@ -14,7 +14,7 @@ public class Ship : MonoBehaviour
 
     [Header("Traits")]
     // A list of this ship's special traits.
-    public List<string> traits = new List<string>();
+    public List<Trait> traits = new List<Trait>();
 
     [Header("Core")]
     public int manaCost = 0;

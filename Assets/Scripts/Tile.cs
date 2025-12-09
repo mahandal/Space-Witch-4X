@@ -103,7 +103,7 @@ public class Tile : MonoBehaviour
         {
             // Clear building selection.
             GM.I.ResetBuildOrder();
-            
+
             // Highlight movement and attack ranges.
             HighlightRanges();
 
@@ -405,7 +405,7 @@ public class Tile : MonoBehaviour
         // - Traits
 
         // Aquatic
-        if (myType == TileType.Water && incomingShip.traits.Contains("Aquatic"))
+        if (myType == TileType.Water && incomingShip.traits.Contains(Trait.Aquatic))
         {
             totalMoveCost = 1;
         }
