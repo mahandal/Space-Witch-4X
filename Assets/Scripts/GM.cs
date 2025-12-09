@@ -91,6 +91,12 @@ public class GM : MonoBehaviour
         if (neutralLeader != null) leaders[Faction.Neutral] = neutralLeader;
     }
 
+    // Start your engines!
+    void Start()
+    {
+        Tile.ClearSelection();
+    }
+
     // - Buttons
 
     // Called when the player clicks one of their ship blueprints in the top bar.
@@ -170,14 +176,16 @@ public class GM : MonoBehaviour
         // Spend mana.
         leader.SpendMana(newShip.manaCost);
 
-        // Reset currently building.
-        currentlyBuilding = "";
+        // Reset build order.
+        ResetBuildOrder();
     }
 
     // Stop building.
     public void ResetBuildOrder()
     {
         currentlyBuilding = "";
+
+        BuildButton.ClearAllBuildHighlights();
     }
 
     // End the current turn and go to the next one.

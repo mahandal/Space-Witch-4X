@@ -1,6 +1,8 @@
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System.Collections.Generic;
+using System.Collections;
 
 public class UI : MonoBehaviour
 {
@@ -14,13 +16,16 @@ public class UI : MonoBehaviour
 
     [Header("Top Bar")]
     public TMP_Text currentMana;
-    public Image toggleEdgePanning;
+    public List<BuildButton> buildButtons;
     public Button endTurnButton;
     public Button selectNextShipButton;
 
     [Header("Post Game")]
     public GameObject postGameParent;
     public Image postgameBackground;
+
+    [Header("Settings")]
+    public Image toggleEdgePanning;
 
     [Header("Tooltips")]
     // Parent object of our selection tooltips.

@@ -89,7 +89,6 @@ public class Tile : MonoBehaviour
 
 
     // Select this tile!
-    // TBD: Build a ship if currentlyBuilding != ""
     public void Select()
     {
         // Clear old previews.

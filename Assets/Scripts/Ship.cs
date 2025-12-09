@@ -135,6 +135,7 @@ public class Ship : MonoBehaviour
                 continue;
 
             // Calculate distance from this ship.
+            // TBD: Improve?
             int travelDistance = Utility.Distance(currentTile, potentialTile);
 
             // Calculate distance to our target.
