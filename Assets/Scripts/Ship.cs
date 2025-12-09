@@ -64,7 +64,7 @@ public partial class Ship : MonoBehaviour
     // - The target doesn't exist.
     // - The target is not an enemy.
     // - We can't get close enough.
-    public bool AttemptAttackMove(Ship target)
+    public bool AttemptAttackMove(Ship target, bool useAllAttacks = false)
     {
         // Check if we have attacks remaining.
         if (attacksRemaining <= 0)
@@ -98,6 +98,15 @@ public partial class Ship : MonoBehaviour
 
         // Attack!
         Attack(target);
+
+        // Use additional attacks?
+        if (useAllAttacks)
+        {
+            while (attacksRemaining > 0 && target.currentHealth > 0)
+            {
+                Attack(target);
+            }
+        }
 
         // Return successful.
         return true;

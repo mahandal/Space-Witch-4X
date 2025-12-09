@@ -49,7 +49,7 @@ public class Leader : Ship
                 }
                 
                 // Try to attack
-                bool attackSuccessful = ship.AttemptAttackMove(closestEnemy);
+                bool attackSuccessful = ship.AttemptAttackMove(closestEnemy, true);
                 
                 // If we couldn't attack, try to move closer
                 if (!attackSuccessful)
