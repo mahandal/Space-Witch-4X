@@ -253,8 +253,7 @@ public class GM : MonoBehaviour
         // Fade out overlay.
         UI.I.EndTurn(activeFaction);
         
-        // Wait for fade to complete.
-        // (also give each AI a second for their turn!)
+        // Give each AI a second to plan out their turn.
         yield return new WaitForSeconds(aiTurnTime);
         
         // Let the current leader end the turn for their faction.

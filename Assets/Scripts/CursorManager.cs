@@ -137,8 +137,8 @@ public class CursorManager : MonoBehaviour
                 SetAttackCursor();
             }
             // Check if we are hovering a movable tile.
-            else if (GM.I.hoveredTile.moveCostFromSelectedTile >= 0
-                && GM.I.hoveredTile.moveCostFromSelectedTile <= selectedShip.movementRemaining)
+            else if (GM.I.hoveredTile.moveCostFromCurrentTile >= 0
+                && GM.I.hoveredTile.moveCostFromCurrentTile <= selectedShip.movementRemaining)
             {
                 SetMoveCursor();
             }

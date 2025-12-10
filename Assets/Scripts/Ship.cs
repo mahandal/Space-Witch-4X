@@ -117,7 +117,7 @@ public partial class Ship : MonoBehaviour
         while (attacksRemaining > 0 && target.currentHealth > 0 && target.faction != faction)
         {
             // First, wait a bit to space out each attack.
-            yield return new WaitForSeconds(0.1f);
+            yield return new WaitForSeconds(0.2f);
 
             // Attack!
             Attack(target);
@@ -205,7 +205,7 @@ public partial class Ship : MonoBehaviour
             return false;
 
         // Check if tile is too far away.
-        if (newTile.moveCostFromSelectedTile > movementRemaining || newTile.moveCostFromSelectedTile < 0)
+        if (newTile.moveCostFromCurrentTile > movementRemaining || newTile.moveCostFromCurrentTile < 0)
             return false;
 
         // Delegate to Move!
@@ -432,7 +432,7 @@ public partial class Ship : MonoBehaviour
 
         // Spend movement.
         if (costMovement)
-            SpendMovement(newTile.moveCostFromSelectedTile);
+            SpendMovement(newTile.moveCostFromCurrentTile);
 
         // Update fog of war if player faction
         if (faction == GM.I.playerFaction)
@@ -916,5 +916,36 @@ public partial class Ship : MonoBehaviour
 
         // Get the percent.
         return friendlyTiles / 9f;
+    }
+
+    // Find the nearest neutral tile, within movement range.
+    // Returns null if there are no neutral tiles within movement range.
+    public Tile FindNearestNeutralTile()
+    {
+        // Get a set of all tiles we can move to.
+        HashSet<Tile> moveableTiles = currentTile.GetTilesInMovementRange();
+
+        // Track the best tile we've seen so far.
+        Tile bestTile = null;
+        int closestDistance = int.MaxValue;
+
+        // Loop through each tile.
+        foreach (Tile tile in moveableTiles)
+        {
+            // Check tile is neutral.
+            if (tile.faction == Faction.Neutral)
+            {
+                // Compare distance.
+                if (tile.moveCostFromCurrentTile < closestDistance)
+                {
+                    // Remember new best tile.
+                    bestTile = tile;
+                    closestDistance = tile.moveCostFromCurrentTile;
+                }
+            }
+        }
+
+        // Return!
+        return bestTile;
     }
 }

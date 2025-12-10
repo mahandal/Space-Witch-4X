@@ -22,7 +22,7 @@ public class Tile : MonoBehaviour
     public SpriteRenderer fogOverlay;
 
     [Header("Pathfinding")]
-    public int moveCostFromSelectedTile = -1;
+    public int moveCostFromCurrentTile = -1;
     public Tile previousTileInPath;
 
     [Header("Manual Machinery")]
@@ -81,7 +81,7 @@ public class Tile : MonoBehaviour
                 tile.ClearHighlight();
 
                 // Clear path trace.
-                tile.moveCostFromSelectedTile = -1;
+                tile.moveCostFromCurrentTile = -1;
                 tile.previousTileInPath = null;
             }
         }
@@ -224,7 +224,7 @@ public class Tile : MonoBehaviour
 
         // Reset current tile.
         costToReach[this] = 0;
-        moveCostFromSelectedTile = 0;
+        moveCostFromCurrentTile = 0;
         previousTileInPath = null;
 
         // Loop until we've explored the frontier!
@@ -287,7 +287,7 @@ public class Tile : MonoBehaviour
                             costToReach[neighbor] = moveCost;
 
                             // Remember how we got here.
-                            neighbor.moveCostFromSelectedTile = moveCost;
+                            neighbor.moveCostFromCurrentTile = moveCost;
                             neighbor.previousTileInPath = current;
 
                             // Add back to the frontier!
@@ -305,7 +305,7 @@ public class Tile : MonoBehaviour
                         costToReach[neighbor] = moveCost;
 
                         // Remember how we got here.
-                        neighbor.moveCostFromSelectedTile = moveCost;
+                        neighbor.moveCostFromCurrentTile = moveCost;
                         neighbor.previousTileInPath = current;
 
                         // Add to the frontier!
@@ -652,7 +652,7 @@ public class Tile : MonoBehaviour
         pathLine.sortingOrder = 1000;
 
         // Make sure we can actually move here.
-        if (moveCostFromSelectedTile < 0 || moveCostFromSelectedTile > GM.I.selectedTile.ship.speed || ship != null)
+        if (moveCostFromCurrentTile < 0 || moveCostFromCurrentTile > GM.I.selectedTile.ship.speed || ship != null)
         {
             ClearPathPreview();
             return;

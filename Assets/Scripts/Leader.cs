@@ -68,9 +68,28 @@ public class Leader : Ship
             } else {
                 // - No enemies sighted.
 
-                // Move randomly.
-                // TBD: Move intelligently!
-                ship.MoveShipRandomly();
+                // TBD: Refine AI, add personality
+
+                // For now, move toward nearest neutral tile.
+
+                // Move until we can't no mo!
+                while (movementRemaining > 0)
+                {
+                    // Find the nearest neutral tile.
+                    Tile destination = ship.FindNearestNeutralTile();
+
+                    // Check if there is one.
+                    if (destination != null)
+                    {
+                        // Move to destination.
+                        ship.MoveToward(destination);
+                    } else {
+                        // TBD: Attack? Defend?
+
+                        // For now, just rest.
+                        ship.AttemptRest();
+                    }
+                }
             }
 
             // Spend rest of movement and/or attacks resting.
