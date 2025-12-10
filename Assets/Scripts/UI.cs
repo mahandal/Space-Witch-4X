@@ -49,6 +49,9 @@ public class UI : MonoBehaviour
     public TMP_Text selectedShipDamage;
     public TMP_Text selectedShipArmor;
 
+    // Parent object of buttons only available for ships we own.
+    public GameObject selectedShipButtonsParent;
+
     // Parent object of our hover tooltips.
     public GameObject hoveredTooltipParent;
 
@@ -212,6 +215,10 @@ public class UI : MonoBehaviour
             // Activate!
             selectedShipParent.SetActive(true);
         }
+
+        // Check if we are selecting a friendly ship and should reveal behavior buttons.
+        selectedShipButtonsParent.SetActive(selectedShip.faction == GM.I.playerFaction);
+
 
         // Load faction icon.
         Utility.LoadFactionIcon(selectedShipFactionIcon, selectedShip.faction);
