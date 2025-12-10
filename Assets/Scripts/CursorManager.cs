@@ -15,7 +15,7 @@ public class CursorManager : MonoBehaviour
     public Texture2D attackCursor;
     
     [Header("Cursor Settings")]
-    public Vector2 hotspot = Vector2.zero; // Click point on cursor (usually center or tip)
+    public Vector2 hotspot = Vector2.zero;
     
     public static CursorManager I;
     
@@ -94,6 +94,9 @@ public class CursorManager : MonoBehaviour
         {
             // Hide build cursor when not building.
             HideBuildCursor();
+
+            // Reveal normal cursor when not building.
+            Cursor.visible = true;
         } else {
             // Set build cursor to whatever we're building.
             if (!buildCursor.gameObject.activeSelf || 
@@ -102,7 +105,9 @@ public class CursorManager : MonoBehaviour
 
             // Have build cursor follow the mouse.
             buildCursor.transform.position = Mouse.current.position.ReadValue();
-        
+
+            // Hide normal cursor.
+            Cursor.visible = false;
         }
     }
 

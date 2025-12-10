@@ -19807,6 +19807,7 @@ MonoBehaviour:
   selectedShipDamage: {fileID: 1288687689}
   selectedShipArmor: {fileID: 258988022}
   selectedShipButtonsParent: {fileID: 1024684562}
+  recycleShipButton: {fileID: 1850455181}
   hoveredTooltipParent: {fileID: 1809224799}
   hoveredTileName: {fileID: 1041676920}
   hoveredTileMoveCost: {fileID: 2104639231}
@@ -40542,7 +40543,7 @@ MonoBehaviour:
   selectCursor: {fileID: 2800000, guid: ba47244444f0cbd42a94d944863a38c0, type: 3}
   moveCursor: {fileID: 2800000, guid: 9501d8a20f042274b8784c4a3288807b, type: 3}
   attackCursor: {fileID: 2800000, guid: aa4c6470235fc854f98e6222afa8bab4, type: 3}
-  hotspot: {x: 0, y: 0}
+  hotspot: {x: 512, y: 512}
 --- !u!1 &1424621832
 GameObject:
   m_ObjectHideFlags: 0
