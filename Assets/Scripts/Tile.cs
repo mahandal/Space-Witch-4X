@@ -158,7 +158,7 @@ public class Tile : MonoBehaviour
 
                 // Assign booleans.
                 bool canMove = moveableTiles.Contains(otherTile) && otherTile.ship == null;
-                bool canAttack = distance <= ship.range;
+                bool canAttack = distance <= ship.range && otherTile.myType != TileType.Void;
 
                 // - Highlight!
                 if (canMove && canAttack)
