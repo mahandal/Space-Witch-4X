@@ -400,6 +400,9 @@ public partial class Ship : MonoBehaviour
             
         // Clean up object.
         Object.Destroy(gameObject);
+
+        // Reveal end turn button if our last ship just died.
+        UI.I.WhichButtonInTopRight();
     }
 
     // Move the ship to new coordinates.
