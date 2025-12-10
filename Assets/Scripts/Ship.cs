@@ -933,7 +933,7 @@ public partial class Ship : MonoBehaviour
         foreach (Tile tile in moveableTiles)
         {
             // Check tile is neutral.
-            if (tile.faction == Faction.Neutral)
+            if (tile.faction != Faction.Neutral)
                 continue;
 
             // Check tile is empty.
