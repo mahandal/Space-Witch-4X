@@ -100,7 +100,7 @@ public class Leader : Ship
         }
 
         // Build more ships!
-        Build();
+        yield return StartCoroutine(Build());
 
         // End our turn!
         GM.I.EndTurn();
@@ -311,14 +311,8 @@ public class Leader : Ship
 
     // Handle a turn of building for this leader.
     // Called once each turn by each AI.
-    // Wrapper of BuildCoroutine()
-    public void Build()
-    {
-        StartCoroutine(BuildCoroutine());
-    }
-
     // Try to build the most expensive ship we can at each planet we can.
-    public IEnumerator BuildCoroutine()
+    public IEnumerator Build()
     {
         // Go through each of our planets.
         List<Tile> myPlanets = GetMyPlanets();
