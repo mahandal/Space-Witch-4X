@@ -7966,7 +7966,7 @@ MonoBehaviour:
   damageOnUpkeep: 0
   isVisibleToPlayer: 0
   fogOverlay: {fileID: 229196687}
-  moveCostFromSelectedTile: -1
+  moveCostFromCurrentTile: -1
   previousTileInPath: {fileID: 0}
   typeImage: {fileID: 267693280}
   factionBG: {fileID: 2019915355}
@@ -12608,7 +12608,7 @@ MonoBehaviour:
   damageOnUpkeep: 0
   isVisibleToPlayer: 0
   fogOverlay: {fileID: 1692730429}
-  moveCostFromSelectedTile: -1
+  moveCostFromCurrentTile: -1
   previousTileInPath: {fileID: 0}
   typeImage: {fileID: 439786957}
   factionBG: {fileID: 1595680885}
@@ -40463,8 +40463,8 @@ MonoBehaviour:
   covenLeader: {fileID: 2021684153}
   syndicateLeader: {fileID: 1273853953}
   neutralLeader: {fileID: 1723135113}
-  gridWidth: 15
-  gridHeight: 10
+  gridWidth: 50
+  gridHeight: 30
   selectedTile: {fileID: 0}
   hoveredTile: {fileID: 0}
   lastSelectedShip: {fileID: 0}
@@ -40992,7 +40992,7 @@ MonoBehaviour:
   damageOnUpkeep: 0
   isVisibleToPlayer: 0
   fogOverlay: {fileID: 124180109}
-  moveCostFromSelectedTile: -1
+  moveCostFromCurrentTile: -1
   previousTileInPath: {fileID: 0}
   typeImage: {fileID: 1427534977}
   factionBG: {fileID: 797584963}
@@ -42215,7 +42215,7 @@ MonoBehaviour:
   damageOnUpkeep: 0
   isVisibleToPlayer: 0
   fogOverlay: {fileID: 1590857040}
-  moveCostFromSelectedTile: -1
+  moveCostFromCurrentTile: -1
   previousTileInPath: {fileID: 0}
   typeImage: {fileID: 1487250964}
   factionBG: {fileID: 848351497}
@@ -53038,7 +53038,7 @@ MonoBehaviour:
   damageOnUpkeep: 3
   isVisibleToPlayer: 0
   fogOverlay: {fileID: 2043798199}
-  moveCostFromSelectedTile: -1
+  moveCostFromCurrentTile: -1
   previousTileInPath: {fileID: 0}
   typeImage: {fileID: 1933718195}
   factionBG: {fileID: 916244329}
@@ -54253,7 +54253,7 @@ MonoBehaviour:
   damageOnUpkeep: 0
   isVisibleToPlayer: 0
   fogOverlay: {fileID: 1705398409}
-  moveCostFromSelectedTile: -1
+  moveCostFromCurrentTile: -1
   previousTileInPath: {fileID: 0}
   typeImage: {fileID: 1985196042}
   factionBG: {fileID: 258699528}

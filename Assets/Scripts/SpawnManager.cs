@@ -97,8 +97,8 @@ public class SpawnManager : MonoBehaviour
     void Start()
     {
         // Spawn a new map!
-        int width = Random.Range(10, 30);
-        int height = Random.Range(5, 20);
+        int width = Random.Range(10, 50);
+        int height = Random.Range(5, 30);
         GenerateNewMap(width, height);
     }
 
