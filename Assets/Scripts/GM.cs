@@ -99,6 +99,17 @@ public class GM : MonoBehaviour
 
     // - Buttons
 
+    // Recycle your currently selected ship into mana.
+    // Return 50% of a ship's worth!
+    public void Button_RecycleShip()
+    {
+        // Null check.
+        if (selectedTile == null || selectedTile.ship == null) return;
+
+        // Recycle the currently selected ship.
+        RecycleShip(selectedTile.ship);
+    }
+
     // Called when the player clicks one of their ship blueprints in the top bar.
     public void Button_BuildShip(string shipName)
     {
@@ -134,6 +145,37 @@ public class GM : MonoBehaviour
     }
 
     // - Functions
+
+    // Recycle a ship.
+    // Returns up to 90% of a ship's mana cost to its faction.
+    // - Scales linearly with ship's health percentage.
+    // - Scales linearly with # of friendly adjacent tiles.
+    public void RecycleShip(Ship ship)
+    {
+        // Null check.
+        if (ship == null) return;
+
+        // Get mana value.
+        // int manaReturned = ship.manaCost / 2;
+
+        // Get health percentage.
+        float healthPercent = ship.currentHealth / ship.maxHealth;
+
+        // Get tile multiplier.
+        float tileMultiplier = 0.1f * ship.CountFriendlyAdjacentTiles();
+
+        // Get total mana returned.
+        int manaReturned = (int)(ship.manaCost * healthPercent * tileMultiplier);
+
+        // Get faction leader.
+        Leader leader = leaders[ship.faction];
+
+        // Gain mana.
+        leader.GainMana(manaReturned);
+
+        // Clean up ship.
+        ship.Death();
+    }
 
     // Get the mana cost of a ship from its name.
     public int GetManaCost(string shipName)

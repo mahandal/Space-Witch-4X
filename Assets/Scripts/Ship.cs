@@ -338,7 +338,14 @@ public partial class Ship : MonoBehaviour
         // null
         if (killer == null)
         {
+            // Don't need to do anything here, just avoiding triggering faction abilities.
             Debug.Log("Killed by nothing! What a way to go...");
+        }
+        // Suicide
+        else if (killer == this)
+        {
+            // Don't need to do anything here, just avoiding triggering faction abilities.
+            Debug.Log("Suicide is badass!");
         }
         // Pack
         else if (killer.faction == Faction.Pack)
@@ -899,5 +906,15 @@ public partial class Ship : MonoBehaviour
 
         // No path found
         return null;
+    }
+
+    // Get the percent of adjacent tiles that are friendly.
+    public float GetPercentFriendlyAdjacentTiles()
+    {
+        // Get the number of friendly adjacent tiles.
+        float friendlyTiles = (float)CountFriendlyAdjacentTiles();
+
+        // Get the percent.
+        return friendlyTiles / 9f;
     }
 }

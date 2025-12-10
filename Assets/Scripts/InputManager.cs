@@ -64,8 +64,14 @@ public class InputManager : MonoBehaviour
     // OR clear our selection if we click on nothing.
     public void HandleLeftClick()
     {
+        // Ignore clicks on UI
+        // (buttons are handled separately)
+        if (UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject())
+            return;
+
         // Check for left click.
-        if (Mouse.current.leftButton.wasPressedThisFrame)
+        // if (Mouse.current.leftButton.wasPressedThisFrame)
+        if (Mouse.current.leftButton.wasReleasedThisFrame)
         {
             // Check if we have a tile?
             if (GM.I.hoveredTile != null)
@@ -90,7 +96,8 @@ public class InputManager : MonoBehaviour
     public void HandleRightClick()
     {
         // Did we just right click?
-        if (!Mouse.current.rightButton.wasPressedThisFrame) return;
+        // if (!Mouse.current.rightButton.wasPressedThisFrame) return;
+        if (!Mouse.current.rightButton.wasReleasedThisFrame) return;
 
         // Clear our building selection, if we were thinking of building something.
         GM.I.ResetBuildOrder();
