@@ -120,14 +120,6 @@ public class UI : MonoBehaviour
             // endTurnButton.gameObject.SetActive(true);
     }
 
-    // Handle the UI for ending a turn for a given faction.
-    public void EndTurn(Faction faction)
-    {
-        // Fade out the screen
-        // if (faction == GM.I.playerFaction)
-        //     FadeOverlay(true, fadeTime);
-    }
-
     // Set up the UI for a newly hovered tile.
     public void HoverTile(Tile hoveredTile)
     {

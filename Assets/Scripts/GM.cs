@@ -250,9 +250,6 @@ public class GM : MonoBehaviour
     // Note: Waits a second first to give AI time to think!
     private IEnumerator EndTurnCoroutine()
     {
-        // Fade out overlay.
-        UI.I.EndTurn(activeFaction);
-        
         // Give each AI a second to plan out their turn.
         yield return new WaitForSeconds(aiTurnTime);
         
