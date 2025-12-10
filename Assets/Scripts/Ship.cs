@@ -934,14 +934,18 @@ public partial class Ship : MonoBehaviour
         {
             // Check tile is neutral.
             if (tile.faction == Faction.Neutral)
+                continue;
+
+            // Check tile is empty.
+            if (tile.ship != null)
+                continue;
+
+            // Compare distance.
+            if (tile.moveCostFromCurrentTile < closestDistance)
             {
-                // Compare distance.
-                if (tile.moveCostFromCurrentTile < closestDistance)
-                {
-                    // Remember new best tile.
-                    bestTile = tile;
-                    closestDistance = tile.moveCostFromCurrentTile;
-                }
+                // Remember new best tile.
+                bestTile = tile;
+                closestDistance = tile.moveCostFromCurrentTile;
             }
         }
 
