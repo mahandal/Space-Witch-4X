@@ -36,7 +36,7 @@ public class InputManager : MonoBehaviour
         HandleEdgePanning();
         HandleCameraZoom();
 
-        HandleBuildHotkeys();
+        HandleHotkeys();
     }
 
     // Handle hovering over tiles.
@@ -268,25 +268,70 @@ public class InputManager : MonoBehaviour
 
 
     // Handle hotkeys for building ships (1-4)
-    public void HandleBuildHotkeys()
+    // public void HandleBuildHotkeys()
+    // {
+    //     // Only allow building during player's turn
+    //     if (GM.I.activeFaction != GM.I.playerFaction) return;
+
+    //     // Check number keys 1-4
+    //     if (Keyboard.current.digit1Key.wasPressedThisFrame)
+    //     {
+    //         UI.I.buildButtons[0].Button_Pressed();
+    //     }
+    //     else if (Keyboard.current.digit2Key.wasPressedThisFrame)
+    //     {
+    //         UI.I.buildButtons[1].Button_Pressed();
+    //     }
+    //     else if (Keyboard.current.digit3Key.wasPressedThisFrame)
+    //     {
+    //         UI.I.buildButtons[2].Button_Pressed();
+    //     }
+    //     else if (Keyboard.current.digit4Key.wasPressedThisFrame)
+    //     {
+    //         UI.I.buildButtons[3].Button_Pressed();
+    //     }
+    // }
+
+    // Handle hotkeys.
+    // TBD: Allow hotkeys to be edited.
+    public void HandleHotkeys()
     {
-        // Only allow building during player's turn
+        // Ignore inputs during other factions' turns.
         if (GM.I.activeFaction != GM.I.playerFaction) return;
 
+        // - Next ship
+        // (and End Turn)
+        if (Keyboard.current.spaceKey.wasReleasedThisFrame)
+        {
+            // Check if we have another ship to select.
+            if (UI.I.selectNextShipButton.gameObject.activeSelf)
+            {
+                GM.I.Button_SelectNextShip();
+            }
+            // Otherwise check for End Turn button
+            else if (UI.I.endTurnButton.gameObject.activeSelf)
+            {
+                GM.I.Button_EndTurn();
+            }
+        }
+
+
+        // - Build hotkeys
+
         // Check number keys 1-4
-        if (Keyboard.current.digit1Key.wasPressedThisFrame)
+        if (Keyboard.current.digit1Key.wasReleasedThisFrame)
         {
             UI.I.buildButtons[0].Button_Pressed();
         }
-        else if (Keyboard.current.digit2Key.wasPressedThisFrame)
+        else if (Keyboard.current.digit2Key.wasReleasedThisFrame)
         {
             UI.I.buildButtons[1].Button_Pressed();
         }
-        else if (Keyboard.current.digit3Key.wasPressedThisFrame)
+        else if (Keyboard.current.digit3Key.wasReleasedThisFrame)
         {
             UI.I.buildButtons[2].Button_Pressed();
         }
-        else if (Keyboard.current.digit4Key.wasPressedThisFrame)
+        else if (Keyboard.current.digit4Key.wasReleasedThisFrame)
         {
             UI.I.buildButtons[3].Button_Pressed();
         }
