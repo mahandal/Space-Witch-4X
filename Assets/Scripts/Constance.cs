@@ -6,6 +6,15 @@ using System.Collections.Generic;
 // You can trust her, don't worry!
 public static class Constance
 {
+    // A dictionary mapping faction names to their Faction type.
+    public static Dictionary<string, Faction> factions = new Dictionary<string, Faction>()
+    {
+        {"Pack", Faction.Pack},
+        {"Coven", Faction.Coven},
+        {"Syndicate", Faction.Syndicate},
+        {"Neutral", Faction.Neutral}
+    };
+
     // How big our tiles are.
     public static int tileSize = 1;
 
@@ -29,39 +38,6 @@ public static class Constance
 
         return c;
     }
-
-    // - Ship Types
-    public static List<string> GetShipTypesForFaction(Faction faction)
-    {
-        // Initialize a list.
-        List<string> shipTypes = new List<string>();
-
-        // Pack
-        if (faction == Faction.Pack)
-        {
-            shipTypes.Add("Tarodactyl");
-        }
-        // Coven
-        else if (faction == Faction.Coven)
-        {
-            shipTypes.Add("Space Witch");
-        }
-        // Syndicate
-        else if (faction == Faction.Syndicate)
-        {
-            shipTypes.Add("Flybot");
-        }
-        // Neutral
-        else
-        {
-            shipTypes.Add("Sky Pirate");
-        }
-
-        return shipTypes;
-    }
-
-    // Pack
-    public static List<string> packShipTypes = new List<string>();
 }
 
 // - Enums

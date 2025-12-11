@@ -25,6 +25,10 @@ public class InputManager : MonoBehaviour
     // Update!
     void Update()
     {
+        // Wait for game to begin.
+        if (GM.I == null || GM.I.gameState < 1)
+            return;
+        
         HandleHovering();
         HandleLeftClick();
         HandleRightClick();

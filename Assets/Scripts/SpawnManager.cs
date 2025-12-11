@@ -94,13 +94,13 @@ public class SpawnManager : MonoBehaviour
     }
 
     // Start your engines!
-    void Start()
-    {
-        // Spawn a new map!
-        int width = Random.Range(10, 50);
-        int height = Random.Range(5, 30);
-        GenerateNewMap(width, height);
-    }
+    // void Start()
+    // {
+    //     // Spawn a new map!
+    //     int width = Random.Range(10, 50);
+    //     int height = Random.Range(5, 30);
+    //     GenerateNewMap(width, height);
+    // }
 
     // Procedurally generate a new map.
     public void GenerateNewMap(int width, int height)

@@ -31,4 +31,14 @@ public class Settings : MonoBehaviour
 
         GM.I.UpdateFogOfWar();
     }
+
+    // Choose your faction.
+    public void Button_SelectFaction(string factionName)
+    {
+        // Get the faction from its name.
+        Faction faction = Constance.factions[factionName];
+
+        // Set the player's faction.
+        GM.I.playerFaction = faction;
+    }
 }

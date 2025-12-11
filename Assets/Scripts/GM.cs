@@ -92,19 +92,37 @@ public class GM : MonoBehaviour
     }
 
     // Start your engines!
-    void Start()
+    // void Start()
+    // {
+    //     // Clear all selections to begin with.
+    //     Tile.ClearSelection();
+
+    //     // Initialize UI.
+    //     UI.I.SetUp();
+    // }
+
+    // Set up what we need for a battle.
+    // Called once at the beginning of each battle.
+    public void BeginBattle()
     {
-        // Clear all selections to begin with.
+        // Set up new map.
+        int width = Random.Range(10, 50);
+        int height = Random.Range(5, 30);
+        SpawnManager.I.GenerateNewMap(width, height);
+
+        // Clear tile selection to begin with (?)
         Tile.ClearSelection();
 
         // Initialize UI.
         UI.I.SetUp();
+
+        // Set game state.
+        gameState = 1;
     }
 
     // - Buttons
 
     // Recycle your currently selected ship into mana.
-    // Return 50% of a ship's worth!
     public void Button_RecycleShip()
     {
         // Null check.
@@ -159,18 +177,6 @@ public class GM : MonoBehaviour
         // Null check.
         if (ship == null) return;
 
-        // Get mana value.
-        // int manaReturned = ship.manaCost / 2;
-
-        // // Get health percentage.
-        // float healthPercent = ship.currentHealth / ship.maxHealth;
-
-        // // Get tile multiplier.
-        // float tileMultiplier = 0.1f * ship.CountFriendlyAdjacentTiles();
-
-        // // Get total mana returned.
-        // int manaReturned = (int)(ship.manaCost * healthPercent * tileMultiplier);
-
         // Get mana returned.
         int manaReturned = ship.GetRecycleValue();
 
@@ -215,10 +221,6 @@ public class GM : MonoBehaviour
                 " at tile: " + home.myType + " (" + home.x + ", " + home.y + ")");
             return;
         }
-
-        // Drain of all actions.
-        // newShip.SetMovementRemaining(0);
-        // newShip.SetAttacksRemaining(0);
 
         // Update action indicators.
         newShip.SetMovementRemaining(newShip.movementRemaining);

@@ -6,12 +6,23 @@ public class MenuManager : MonoBehaviour
     [Header("Manual Machinery")]
     public InputManager inputManager;
     public GameObject settingsMenu;
+    public GameObject ggg;
 
     // Awaken!
     void Awake()
     {
         // Disable what should not be.
         settingsMenu.SetActive(false);
+    }
+
+    // Close Granga's Guide to the Galaxy and begin a battle.
+    public void Button_Play()
+    {
+        // Begin a new battle.
+        GM.I.BeginBattle();
+
+        // Hide Granga's Guide to the Galaxy.
+        ggg.SetActive(false);
     }
 
     // Open the settings menu.
