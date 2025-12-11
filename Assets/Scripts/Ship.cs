@@ -446,7 +446,7 @@ public partial class Ship : MonoBehaviour
     }
 
     // Refreshes this ship's movement and attacks.
-    // Should be called once at the beginning of each turn.
+    // Should be called once at the end of each turn.
     public void Refresh()
     {
         // Refresh movement.
@@ -658,12 +658,15 @@ public partial class Ship : MonoBehaviour
     // Should be called once at the beginning of each turn, by this ship's leader.
     public void Upkeep()
     {
-
         // Tile damage!
         ReceiveDamage(currentTile.damageOnUpkeep);
 
         // Reveal movement and attacks remaining.
         RevealMovementAndAttacks();
+
+        // Wake up from guard mode?
+        if (autoPilot == "Guard")
+            Guard();
     }
 
     // Attempt to rest.
@@ -751,32 +754,32 @@ public partial class Ship : MonoBehaviour
     }
 
 
-    // Get all enemy ships within vision range.
+    // Get a list of all enemy ships within vision range.
     public List<Ship> GetVisibleEnemies()
     {
         List<Ship> visibleEnemies = new List<Ship>();
         
-        // Check all tiles within vision range
+        // Check all tiles within vision range.
         for (int dx = -vision; dx <= vision; dx++)
         {
             for (int dy = -vision; dy <= vision; dy++)
             {
-                // Get the tile
+                // Get the tile.
                 Tile tile = GM.I.GetTile(x + dx, y + dy);
                 
-                // Skip if tile doesn't exist
+                // Skip if tile doesn't exist.
                 if (tile == null) continue;
                 
-                // Skip if no ship on tile
+                // Skip if no ship on tile.
                 if (tile.ship == null) continue;
                 
-                // Skip if ship is friendly
+                // Skip if ship is friendly.
                 if (tile.ship.faction == faction) continue;
                 
-                // Calculate actual distance
+                // Calculate actual distance.
                 int distance = Utility.Distance(currentTile, tile);
                 
-                // Check if within vision range
+                // Check if within vision range.
                 if (distance <= vision)
                 {
                     visibleEnemies.Add(tile.ship);
@@ -785,6 +788,42 @@ public partial class Ship : MonoBehaviour
         }
         
         return visibleEnemies;
+    }
+
+    // Get a list of all enemy ships within attack range.
+    public List<Ship> GetEnemiesInAttackRange()
+    {
+        List<Ship> attackableEnemies = new List<Ship>();
+        
+        // Check all tiles within vision range.
+        for (int dx = -vision; dx <= vision; dx++)
+        {
+            for (int dy = -vision; dy <= vision; dy++)
+            {
+                // Get the tile.
+                Tile tile = GM.I.GetTile(x + dx, y + dy);
+                
+                // Skip if tile doesn't exist.
+                if (tile == null) continue;
+                
+                // Skip if no ship on tile.
+                if (tile.ship == null) continue;
+                
+                // Skip if ship is friendly.
+                if (tile.ship.faction == faction) continue;
+                
+                // Calculate actual distance.
+                int distance = Utility.Distance(currentTile, tile);
+                
+                // Check if within attack range.
+                if (distance <= range)
+                {
+                    attackableEnemies.Add(tile.ship);
+                }
+            }
+        }
+        
+        return attackableEnemies;
     }
 
 

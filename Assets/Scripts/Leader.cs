@@ -174,6 +174,12 @@ public class Leader : Ship
     // --- (Not hidden like a secret, just so you can see which faction is active currently easier)
     public void EndTurn()
     {
+        // Handle auto-pilots.
+        foreach (Ship ship in fleet)
+        {
+            ship.AutoPilot();
+        }
+
         // Refresh our fleet!
         RefreshFleet();
 
@@ -275,7 +281,7 @@ public class Leader : Ship
         // Iterate through our whole fleet.
         foreach (Ship ship in fleet)
         {
-            if (ship.movementRemaining > 0 || ship.attacksRemaining > 0)
+            if (ship.autoPilot == "Off" && (ship.movementRemaining > 0 || ship.attacksRemaining > 0))
                 return true;
         }
 

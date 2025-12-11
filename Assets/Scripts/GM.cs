@@ -374,8 +374,12 @@ public class GM : MonoBehaviour
     }
 
     // Select the next ship in your fleet.
+    // Note: Ignores ships on auto pilot.
     public void Button_SelectNextShip()
     {
+        // Allow clicking the next button as a backup to re-check if the End Turn button should be revealed.
+        UI.I.WhichButtonInTopRight();
+
         // Get player's leader
         Leader playerLeader = leaders[playerFaction];
 
@@ -399,22 +403,26 @@ public class GM : MonoBehaviour
                 startIndex = startIndex % fleetList.Count;
         }
 
-        // Search for next available ship
+        // Search for next available ship.
         for (int i = 0; i < fleetList.Count; i++)
         {
+            // Index into our fleet using our starting index.
             int index = (startIndex + i) % fleetList.Count;
             Ship ship = fleetList[index];
             
-            // Skip dead ships
+            // Skip dead ships.
             if (ship == null || ship.currentHealth <= 0) continue;
+
+            // Skip ships on auto pilot.
+            if (ship.autoPilot != "Off") continue;
             
-            // Check if ship has actions remaining
+            // Check if ship has actions remaining.
             if (ship.movementRemaining > 0 || ship.attacksRemaining > 0)
             {
-                // Select this ship
+                // Select this ship.
                 ship.currentTile.Select();
                 
-                // Move camera to center on it
+                // Move camera to center on it.
                 Utility.MoveCamera(ship.currentTile);
 
                 // Done!
