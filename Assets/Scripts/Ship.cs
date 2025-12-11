@@ -667,6 +667,10 @@ public partial class Ship : MonoBehaviour
         // Wake up from guard mode?
         if (autoPilot == "Guard")
             Guard();
+
+        // Wake up from rest mode?
+        if (autoPilot == "Rest" && currentHealth >= maxHealth)
+            SetAutoPilot("Off");
     }
 
     // Attempt to rest.
@@ -963,12 +967,13 @@ public partial class Ship : MonoBehaviour
         return friendlyTiles / 9f;
     }
 
-    // Find the nearest neutral tile, within movement range.
-    // Returns null if there are no neutral tiles within movement range.
+    // Find the nearest neutral tile.
+    // Returns null if there are no neutral tiles remaining.
     public Tile FindNearestNeutralTile()
     {
         // Get a set of all tiles we can move to.
-        HashSet<Tile> moveableTiles = currentTile.GetTilesInMovementRange();
+        HashSet<Tile> moveableTiles = currentTile.GetAllConnectedTiles();
+        // HashSet<Tile> moveableTiles = currentTile.GetTilesInMovementRange();
 
         // Track the best tile we've seen so far.
         Tile bestTile = null;

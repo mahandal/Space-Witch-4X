@@ -36,10 +36,23 @@ public partial class Ship : MonoBehaviour
             FullAutoPilot();
     }
 
-    // TBD!
+    // Explore the stars!
+    // Find the nearest neutral tile and move toward it!
+    // Returns to manual control if no neutral tiles remain.
     public void Explore()
     {
+        // Find the nearest neutral tile
+        Tile destination = FindNearestNeutralTile();
 
+        // Return to manual control if no neutral tiles remain.
+        if (destination == null)
+        {
+            autoPilot = "Off";
+            return;
+        }
+
+        // Move toward our destination!
+        MoveToward(destination);
     }
 
     // Guard an area, waking up upon seeing an enemy within attack range.

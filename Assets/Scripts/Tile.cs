@@ -203,7 +203,7 @@ public class Tile : MonoBehaviour
         return bestTileYet;
     }
 
-    // Get a set of all tiles the ship on this tile can move to.
+    // Get a set of all tiles the ship on this tile can move to with its current movement.
     public HashSet<Tile> GetTilesInMovementRange()
     {
         // Make sure we have a ship!
@@ -319,6 +319,97 @@ public class Tile : MonoBehaviour
         return reachable;
     }
 
+
+    // Return a set of all tiles that are connected to this tile.
+    // I.E. generally will return the full mainland, but will NOT include islands (or void!)
+    // Note: Also finds the movement cost it would take to get to each tile from here.
+    public HashSet<Tile> GetAllConnectedTiles()
+    {
+        // Remember all tiles that are reachable, to be returned at the end.
+        HashSet<Tile> reachable = new HashSet<Tile>();
+
+        // Remember the cost to reach each tile.
+        Dictionary<Tile, int> costToReach = new Dictionary<Tile, int>();
+
+        // Queue of tiles to be examined.
+        Queue<Tile> frontier = new Queue<Tile>();
+
+        // Start from current tile.
+        frontier.Enqueue(this);
+        reachable.Add(this);
+        costToReach[this] = 0;
+        moveCostFromCurrentTile = 0;
+        previousTileInPath = null;
+
+        // Loop until we've explored the frontier!
+        while (frontier.Count > 0)
+        {
+            // Get the next tile up.
+            Tile current = frontier.Dequeue();
+
+            // Get its neighbors.
+            List<Tile> neighbors = new List<Tile>();
+            Tile leftNeighbor = GM.I.GetTile(current.x - 1, current.y);
+            Tile rightNeighbor = GM.I.GetTile(current.x + 1, current.y);
+            Tile downNeighbor = GM.I.GetTile(current.x, current.y - 1);
+            Tile upNeighbor = GM.I.GetTile(current.x, current.y + 1);
+
+            // Respect boundaries and ignore void tiles.
+            if (leftNeighbor != null && leftNeighbor.myType != TileType.Void)
+                neighbors.Add(leftNeighbor);
+            if (rightNeighbor != null && rightNeighbor.myType != TileType.Void)
+                neighbors.Add(rightNeighbor);
+            if (downNeighbor != null && downNeighbor.myType != TileType.Void)
+                neighbors.Add(downNeighbor);
+            if (upNeighbor != null && upNeighbor.myType != TileType.Void)
+                neighbors.Add(upNeighbor);
+
+            // Travel through each neighboring tile.
+            foreach (Tile neighbor in neighbors)
+            {
+                // Get total move cost for this neighbor.
+                int moveCost = costToReach[current] + neighbor.GetMovementCost(current.ship);
+
+                // Check if we already know a path to this tile.
+                if (costToReach.ContainsKey(neighbor))
+                {
+                    // Check if we've found a better path!
+                    if (moveCost < costToReach[neighbor])
+                    {
+                        // Set new cost to reach.
+                        costToReach[neighbor] = moveCost;
+
+                        // Remember how we got here.
+                        neighbor.moveCostFromCurrentTile = moveCost;
+                        neighbor.previousTileInPath = current;
+
+                        // Add back to the frontier!
+                        frontier.Enqueue(neighbor);
+                    }
+                } else {
+                    // First path here!
+                    // So it has to be the best!
+
+                    // Add to reachable tiles.
+                    reachable.Add(neighbor);
+
+                    // Set new cost to reach.
+                    costToReach[neighbor] = moveCost;
+
+                    // Remember how we got here.
+                    neighbor.moveCostFromCurrentTile = moveCost;
+                    neighbor.previousTileInPath = current;
+
+                    // Add to the frontier!
+                    frontier.Enqueue(neighbor);
+                }
+            }
+        }
+
+        // Return all tiles potentially reachable from this tile.
+        return reachable;
+    }
+
     // Get a set of all tiles the ship on this tile can see.
     public HashSet<Tile> GetTilesInVisionRange()
     {
@@ -401,9 +492,13 @@ public class Tile : MonoBehaviour
         // Default.
         int totalMoveCost = moveCost;
 
+        // Hypothetically, it's that simple!
+        if (incomingShip == null)
+            return totalMoveCost;
+
 
         // - Traits
-
+            
         // Aquatic
         if (myType == TileType.Water && incomingShip.traits.Contains(Trait.Aquatic))
         {
