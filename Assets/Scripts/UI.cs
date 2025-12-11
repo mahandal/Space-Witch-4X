@@ -6,14 +6,6 @@ using System.Collections;
 
 public class UI : MonoBehaviour
 {
-    [Header("Fade in/out")]
-    public float fadeTime = 1f;
-    public Image overlayBG;
-    public Image packOverlay;
-    public Image covenOverlay;
-    public Image syndicateOverlay;
-    public Image neutralOverlay;
-
     [Header("Top Bar")]
     public TMP_Text currentMana;
     public List<BuildButton> buildButtons;
@@ -53,6 +45,8 @@ public class UI : MonoBehaviour
     public TMP_Text selectedShipDamage;
     public TMP_Text selectedShipArmor;
 
+    [Header("Selected Ship Buttons")]
+
     // Parent object of behavior buttons, only available for ships we own.
     public GameObject selectedShipButtonsParent;
 
@@ -61,6 +55,13 @@ public class UI : MonoBehaviour
 
     // The text object displaying how much mana you'll gain from recycling a ship.
     public TMP_Text recycleMana;
+
+    // - Auto pilot
+    public Image autoPilotOffIcon;
+    public Image autoPilotExploreIcon;
+    public Image autoPilotRestIcon;
+    public Image autoPilotGuardIcon;
+    public Image autoPilotFullIcon;
 
     [Header("Tooltips - Hover")]
     // Parent object of our hover tooltips.
@@ -100,54 +101,12 @@ public class UI : MonoBehaviour
 
         // Disable what should not be.
         ClearSelection();
-
-        packOverlay.gameObject.SetActive(false);
-        covenOverlay.gameObject.SetActive(false);
-        syndicateOverlay.gameObject.SetActive(false);
-        neutralOverlay.gameObject.SetActive(false);
-
         postGameParent.SetActive(false);
-
-        // Fade in from black.
-        overlayBG.color = new Color(0f, 0f, 0f, 1f);
     }
 
-    // Set up the UI for a new battle.
-    public void SetUp()
-    {
-        // Load build buttons.
-        for (int i = 0; i < buildButtons.Count; i++)
-        {
-            // Get the player's leader.
-            Leader leader = GM.I.leaders[GM.I.playerFaction];
+    
 
-            // Get blueprint
-            Ship blueprint = null;
-            if (i < leader.blueprints.Count)
-                blueprint = leader.blueprints[i];
-
-            // Load blueprint into button.
-            buildButtons[i].LoadShip(blueprint);
-        }
-    }
-
-    // Set up the UI for a new turn for the given faction.
-    public void NewTurn(Faction faction)
-    {
-        // Get the faction's leader.
-        Leader leader = GM.I.leaders[faction];
-
-        // Set mana text.
-        // currentMana.text = leader.mana.ToString();
-
-        // Move camera to leader's position.
-        Utility.MoveCamera(leader.currentTile);
-
-        // Reveal select ship button for the player.
-        if (faction == GM.I.playerFaction)
-            selectNextShipButton.gameObject.SetActive(true);
-            // endTurnButton.gameObject.SetActive(true);
-    }
+    // - Selection & Hovering
 
     // Set up the UI for a newly hovered tile.
     public void HoverTile(Tile hoveredTile)
@@ -249,6 +208,9 @@ public class UI : MonoBehaviour
         // Display current recycle value.
         recycleMana.text = selectedShip.GetRecycleValue().ToString();
 
+        // Highlight the currently active auto pilot mode.
+        HighlightAutoPilot();
+
         // Load faction icon.
         Utility.LoadFactionIcon(selectedShipFactionIcon, selectedShip.faction);
 
@@ -272,6 +234,37 @@ public class UI : MonoBehaviour
         selectedTooltipParent.SetActive(true);
     }
 
+    // Highlight the currently active auto pilot mode.
+    public void HighlightAutoPilot()
+    {
+        // Check we are selecting a ship.
+        if (GM.I.selectedTile == null || GM.I.selectedTile.ship == null) return;
+
+        // First, unhighlight all of them.
+        autoPilotOffIcon.color = new Color (0.5f, 0.5f, 0.5f, 0.5f);
+        autoPilotExploreIcon.color = new Color (0.5f, 0.5f, 0.5f, 0.5f);
+        autoPilotRestIcon.color = new Color (0.5f, 0.5f, 0.5f, 0.5f);
+        autoPilotGuardIcon.color = new Color (0.5f, 0.5f, 0.5f, 0.5f);
+        autoPilotFullIcon.color = new Color (0.5f, 0.5f, 0.5f, 0.5f);
+
+        // Get the currently selected ship.
+        Ship ship = GM.I.selectedTile.ship;
+
+        // Activate the right one.
+        if (ship.autoPilot == "Off")
+            autoPilotOffIcon.color = new Color(1f, 1f, 1f, 1f);
+        else if (ship.autoPilot == "Explore")
+            autoPilotExploreIcon.color = new Color(1f, 1f, 1f, 1f);
+        else if (ship.autoPilot == "Rest")
+            autoPilotRestIcon.color = new Color(1f, 1f, 1f, 1f);
+        else if (ship.autoPilot == "Guard")
+            autoPilotGuardIcon.color = new Color(1f, 1f, 1f, 1f);
+        else if (ship.autoPilot == "Full")
+            autoPilotFullIcon.color = new Color(1f, 1f, 1f, 1f);
+        else
+            Debug.LogError("ERROR! Ship " + ship.myName + " has unknown auto pilot mode: " + ship.autoPilot);
+    }
+
     // Clear the selection UI.
     public void ClearSelection()
     {
@@ -282,11 +275,40 @@ public class UI : MonoBehaviour
         selectedShipParent.SetActive(false);
     }
 
-    // Fade the overlay in or out.
-    public void FadeOverlay(bool fadeIn = false, float duration = 0.5f)
+
+    // - Turn Management
+
+    // Set up the UI for a new battle.
+    public void SetUp()
     {
-        float targetAlpha = fadeIn ? 1f : 0f;
-        Utility.FadeImage(overlayBG, targetAlpha, duration);
+        // Load build buttons.
+        for (int i = 0; i < buildButtons.Count; i++)
+        {
+            // Get the player's leader.
+            Leader leader = GM.I.leaders[GM.I.playerFaction];
+
+            // Get blueprint
+            Ship blueprint = null;
+            if (i < leader.blueprints.Count)
+                blueprint = leader.blueprints[i];
+
+            // Load blueprint into button.
+            buildButtons[i].LoadShip(blueprint);
+        }
+    }
+
+    // Set up the UI for a new turn for the given faction.
+    public void NewTurn(Faction faction)
+    {
+        // Get the faction's leader.
+        Leader leader = GM.I.leaders[faction];
+
+        // Move camera to leader's position.
+        Utility.MoveCamera(leader.currentTile);
+
+        // Reveal select ship button for the player.
+        if (faction == GM.I.playerFaction)
+            selectNextShipButton.gameObject.SetActive(true);
     }
 
     // Check whether we should display the Select Next Ship button, End Turn button, or neither.

@@ -91,16 +91,6 @@ public class GM : MonoBehaviour
         if (neutralLeader != null) leaders[Faction.Neutral] = neutralLeader;
     }
 
-    // Start your engines!
-    // void Start()
-    // {
-    //     // Clear all selections to begin with.
-    //     Tile.ClearSelection();
-
-    //     // Initialize UI.
-    //     UI.I.SetUp();
-    // }
-
     // Set up what we need for a battle.
     // Called once at the beginning of each battle.
     public void BeginBattle()
@@ -121,6 +111,15 @@ public class GM : MonoBehaviour
     }
 
     // - Buttons
+
+    public void Button_AutoPilot(string autoPilotMode)
+    {
+        // Null check.
+        if (selectedTile == null || selectedTile.ship == null) return;
+
+        // Set the auto pilot mode for the currently selected ship.
+        selectedTile.ship.SetAutoPilot(autoPilotMode);
+    }
 
     // Recycle your currently selected ship into mana.
     public void Button_RecycleShip()
@@ -299,10 +298,6 @@ public class GM : MonoBehaviour
     // Start a new turn for the given faction.
     public void NewTurn(Faction faction)
     {
-        // Fade in if it is the player's turn.
-        if (faction == playerFaction)
-            UI.I.FadeOverlay(false, 1f);
-
         // Set new active faction.
         activeFaction = faction;
 

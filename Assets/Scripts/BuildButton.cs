@@ -20,6 +20,9 @@ public class BuildButton : MonoBehaviour
     // Called when this button is pressed.
     public void Button_Pressed()
     {
+        // Avoid being pressed by hotkeys.
+        if (!gameObject.activeSelf) return;
+        
         // Clear prior unit selection.
         Tile.ClearSelection();
 

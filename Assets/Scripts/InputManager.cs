@@ -35,6 +35,8 @@ public class InputManager : MonoBehaviour
         HandleCameraDragging();
         HandleEdgePanning();
         HandleCameraZoom();
+
+        HandleBuildHotkeys();
     }
 
     // Handle hovering over tiles.
@@ -261,6 +263,32 @@ public class InputManager : MonoBehaviour
             
             // Clamp to min/max zoom
             cam.orthographicSize = Mathf.Clamp(newSize, minZoom, maxZoom);
+        }
+    }
+
+
+    // Handle hotkeys for building ships (1-4)
+    public void HandleBuildHotkeys()
+    {
+        // Only allow building during player's turn
+        if (GM.I.activeFaction != GM.I.playerFaction) return;
+
+        // Check number keys 1-4
+        if (Keyboard.current.digit1Key.wasPressedThisFrame)
+        {
+            UI.I.buildButtons[0].Button_Pressed();
+        }
+        else if (Keyboard.current.digit2Key.wasPressedThisFrame)
+        {
+            UI.I.buildButtons[1].Button_Pressed();
+        }
+        else if (Keyboard.current.digit3Key.wasPressedThisFrame)
+        {
+            UI.I.buildButtons[2].Button_Pressed();
+        }
+        else if (Keyboard.current.digit4Key.wasPressedThisFrame)
+        {
+            UI.I.buildButtons[3].Button_Pressed();
         }
     }
 }
