@@ -36,6 +36,9 @@ public class Leader : Ship
         {
             // Skip if ship is dead
             if (ship == null || ship.currentHealth <= 0) continue;
+
+            // Center camera on ship.
+            Utility.MoveCamera(ship.currentTile);
             
             // Get visible enemies
             List<Ship> visibleEnemies = ship.GetVisibleEnemies();
@@ -101,7 +104,7 @@ public class Leader : Ship
             ship.AttemptRest();
 
             // Wait a bit, give each ship their moment.
-            yield return new WaitForSeconds(0.1f);
+            yield return new WaitForSeconds(0.5f);
         }
 
         // Build more ships!
@@ -179,11 +182,11 @@ public class Leader : Ship
     // --- (Not hidden like a secret, just so you can see which faction is active currently easier)
     public void EndTurn()
     {
-        // Handle auto-pilots.
-        foreach (Ship ship in fleet)
-        {
-            ship.AutoPilot();
-        }
+        // // Handle auto-pilots.
+        // foreach (Ship ship in fleet)
+        // {
+        //     ship.AutoPilot();
+        // }
 
         // Refresh our fleet!
         RefreshFleet();
@@ -329,6 +332,9 @@ public class Leader : Ship
         List<Tile> myPlanets = GetMyPlanets();
         foreach (Tile planet in myPlanets)
         {
+             // Center camera on planet.
+            Utility.MoveCamera(planet);
+
             // Get the name of the biggest ship we can afford to build.
             string shipName = GetBiggestShip();
 
@@ -338,10 +344,10 @@ public class Leader : Ship
                 // Build it!
                 GM.I.BuildShip(shipName, planet);
 
-                yield return new WaitForSeconds(0.2f);
+                yield return new WaitForSeconds(0.5f);
             }
 
-            yield return new WaitForSeconds(0.1f);
+            yield return new WaitForSeconds(0.2f);
         }
     }
 

@@ -258,11 +258,20 @@ public class GM : MonoBehaviour
     // Note: Waits a second first to give AI time to think!
     private IEnumerator EndTurnCoroutine()
     {
-        // Give each AI a second to plan out their turn.
-        yield return new WaitForSeconds(aiTurnTime);
+        // Get the current leader.
+        Leader currentLeader = leaders[activeFaction];
+
+        // Handle auto-pilots.
+        foreach (Ship ship in currentLeader.fleet)
+        {
+            yield return ship.StartCoroutine(ship.AutoPilot());
+        }
         
         // Let the current leader end the turn for their faction.
-        leaders[activeFaction].EndTurn();
+        currentLeader.EndTurn();
+
+        // Give each AI a second to plan out their turn.
+        yield return new WaitForSeconds(aiTurnTime);
 
         // Increment turn index.
         turnIndex++;

@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 using System.Collections.Generic;
 
 public partial class Ship : MonoBehaviour
@@ -20,27 +21,40 @@ public partial class Ship : MonoBehaviour
     }
 
     // Perform this ship's turn, decided by its auto pilot.
-    public void AutoPilot()
+    public IEnumerator AutoPilot()
     {
         // Auto-Pilot mode: Off
         if (autoPilot == "Off")
-            return;
+            yield break;
 
-        else if (autoPilot == "Explore")
-            Explore();
+        // Center camera on ship.
+        Utility.MoveCamera(currentTile);
+
+        // Give each ship a first moment on screen.
+        yield return new WaitForSeconds(0.3f);
+
+        if (autoPilot == "Explore")
+            yield return Explore();
         else if (autoPilot == "Rest")
             AttemptRest();
         else if (autoPilot == "Guard")
             Guard();
         else if (autoPilot == "Full")
-            FullAutoPilot();
+            yield return FullAutoPilot();
+
+        // Give each ship a last moment on screen.
+        yield return new WaitForSeconds(0.3f);
     }
 
     // Explore the stars!
     // Find the nearest neutral tile and move toward it!
     // Returns to manual control if no neutral tiles remain.
-    public void Explore()
+    public IEnumerator Explore()
     {
+        // Follow our ships exploring around!
+        Utility.MoveCamera(currentTile);
+        yield return new WaitForSeconds(0.3f);
+
         // Find the nearest neutral tile
         Tile destination = FindNearestNeutralTile();
 
@@ -48,18 +62,19 @@ public partial class Ship : MonoBehaviour
         if (destination == null)
         {
             autoPilot = "Off";
-            return;
+            yield break;
         }
 
         // Check if we have enough movement to get to our destination.
         if (destination.moveCostFromCurrentTile > movementRemaining)
-            return;
+            yield break;
 
         // Move toward our destination!
-        MoveToward(destination);
+        bool successfullyMoved = MoveToward(destination);
 
         // Keep going?
-        Explore();
+        if (successfullyMoved)
+            yield return Explore();
     }
 
     // Guard an area, waking up upon seeing an enemy within attack range.
@@ -77,8 +92,9 @@ public partial class Ship : MonoBehaviour
     }
 
     // TBD!
-    public void FullAutoPilot()
+    public IEnumerator FullAutoPilot()
     {
-
+        // Full auto pilot takes a moment to think?
+        yield return new WaitForSeconds(0.1f);
     }
 }

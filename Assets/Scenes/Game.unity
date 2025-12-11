@@ -53198,7 +53198,7 @@ MonoBehaviour:
   vision: 5
   attacks: 1
   currentHealth: 10
-  movementRemaining: 5
+  movementRemaining: 0
   attacksRemaining: 0
   sr: {fileID: 61606889}
   healthBar: {fileID: 884697448}
