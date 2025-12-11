@@ -2197,7 +2197,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &59441674
 RectTransform:
   m_ObjectHideFlags: 0
@@ -24462,14 +24462,14 @@ MonoBehaviour:
   currentTile: {fileID: 0}
   traits: 
   manaCost: 50
-  maxHealth: 50
-  damage: 20
+  maxHealth: 100
+  damage: 50
   armor: 5
   speed: 2
   range: 1
   vision: 1
   attacks: 1
-  currentHealth: 25
+  currentHealth: 50
   movementRemaining: 0
   attacksRemaining: 0
   sr: {fileID: 1194880051}
@@ -40459,7 +40459,7 @@ MonoBehaviour:
   gameState: 0
   aiTurnTime: 0.1
   activeFaction: 1
-  playerFaction: 0
+  playerFaction: 2
   round: 1
   turnOrder: 01000000020000000300000000000000
   packLeader: {fileID: 653616652}

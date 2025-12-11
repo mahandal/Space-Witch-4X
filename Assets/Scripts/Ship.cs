@@ -597,7 +597,9 @@ public partial class Ship : MonoBehaviour
         if (thisAsLeader != null)
         {
             // Convert all of our fleet.
-            foreach (Ship ship in thisAsLeader.fleet)
+            // (make a copy of our fleet so we don't edit what we're iterating over)
+            List<Ship> fleetCopy = new List<Ship>(thisAsLeader.fleet);
+            foreach (Ship ship in fleetCopy)
             {
                 // Don't loop infinitely on ourself!
                 if (ship != this)
