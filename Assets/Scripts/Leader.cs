@@ -73,7 +73,7 @@ public class Leader : Ship
                 // For now, move toward nearest neutral tile.
 
                 // Move until we can't no mo!
-                while (movementRemaining > 0)
+                while (ship.movementRemaining > 0)
                 {
                     // Find the nearest neutral tile.
                     Tile destination = ship.FindNearestNeutralTile();
