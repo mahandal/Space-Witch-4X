@@ -102,6 +102,25 @@ public class UI : MonoBehaviour
         overlayBG.color = new Color(0f, 0f, 0f, 1f);
     }
 
+    // Set up the UI for a new battle.
+    public void SetUp()
+    {
+        // Load build buttons.
+        for (int i = 0; i < buildButtons.Count; i++)
+        {
+            // Get the player's leader.
+            Leader leader = GM.I.leaders[GM.I.playerFaction];
+
+            // Get blueprint
+            Ship blueprint = null;
+            if (i < leader.blueprints.Count)
+                blueprint = leader.blueprints[i];
+
+            // Load blueprint into button.
+            buildButtons[i].LoadShip(blueprint);
+        }
+    }
+
     // Set up the UI for a new turn for the given faction.
     public void NewTurn(Faction faction)
     {

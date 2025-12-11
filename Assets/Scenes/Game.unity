@@ -2651,6 +2651,7 @@ MonoBehaviour:
   shipName: Fairy
   image: {fileID: 1668678970}
   highlight: {fileID: 357236406}
+  manaCost: {fileID: 1272563738}
 --- !u!114 &79453181
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8293,6 +8294,7 @@ MonoBehaviour:
   shipName: Treant
   image: {fileID: 1621260703}
   highlight: {fileID: 1415861713}
+  manaCost: {fileID: 1308760574}
 --- !u!114 &283899948
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -24266,6 +24268,7 @@ MonoBehaviour:
   shipName: Space Witch
   image: {fileID: 580558998}
   highlight: {fileID: 961305257}
+  manaCost: {fileID: 2095570322}
 --- !u!114 &829959172
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -40456,7 +40459,7 @@ MonoBehaviour:
   gameState: 0
   aiTurnTime: 0.1
   activeFaction: 1
-  playerFaction: 2
+  playerFaction: 0
   round: 1
   turnOrder: 01000000020000000300000000000000
   packLeader: {fileID: 653616652}
@@ -56572,6 +56575,7 @@ MonoBehaviour:
   shipName: Squirrel
   image: {fileID: 1183954108}
   highlight: {fileID: 491997103}
+  manaCost: {fileID: 1222152158}
 --- !u!1 &2065512461
 GameObject:
   m_ObjectHideFlags: 0

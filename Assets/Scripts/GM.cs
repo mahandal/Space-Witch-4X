@@ -94,7 +94,11 @@ public class GM : MonoBehaviour
     // Start your engines!
     void Start()
     {
+        // Clear all selections to begin with.
         Tile.ClearSelection();
+
+        // Initialize UI.
+        UI.I.SetUp();
     }
 
     // - Buttons
