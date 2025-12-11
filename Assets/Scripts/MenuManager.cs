@@ -13,6 +13,9 @@ public class MenuManager : MonoBehaviour
     {
         // Disable what should not be.
         settingsMenu.SetActive(false);
+
+        // Enable what should be.
+        ggg.SetActive(true);
     }
 
     // Close Granga's Guide to the Galaxy and begin a battle.
