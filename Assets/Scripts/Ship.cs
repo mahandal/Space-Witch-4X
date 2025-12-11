@@ -879,7 +879,11 @@ public partial class Ship : MonoBehaviour
             Tile nextTile = path[pathIndex];
 
             // Move to the next tile.
-            AttemptMove(nextTile);
+            bool successfullyMoved = AttemptMove(nextTile);
+
+            // Return false if we fail to move for whatever reason.
+            if (!successfullyMoved)
+                return false;
 
             // Increment our path index.
             pathIndex++;
