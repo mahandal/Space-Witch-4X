@@ -40,5 +40,7 @@ public class Settings : MonoBehaviour
 
         // Set the player's faction.
         GM.I.playerFaction = faction;
+
+        GGG.I.HighlightCurrentFactionChoice();
     }
 }

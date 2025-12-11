@@ -13700,12 +13700,12 @@ MonoBehaviour:
   maxHealth: 30
   damage: 30
   armor: 0
-  speed: 3
+  speed: 5
   range: 3
   vision: 3
   attacks: 1
-  currentHealth: 10
-  movementRemaining: 0
+  currentHealth: 30
+  movementRemaining: 5
   attacksRemaining: 0
   sr: {fileID: 1477031877}
   healthBar: {fileID: 1874283763}
@@ -45286,6 +45286,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1596511038}
+  - component: {fileID: 1596511039}
   m_Layer: 5
   m_Name: Granga's Guide to the Galaxy
   m_TagString: Untagged
@@ -45320,6 +45321,22 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 1920, y: 1080}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1596511039
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1596511037}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 05d63157adec27248a818e48c46b5339, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GGG
+  selectThePack: {fileID: 1685931522}
+  selectTheCoven: {fileID: 2126206453}
+  selectTheSyndicate: {fileID: 910092151}
+  selectNeutral: {fileID: 30193189}
 --- !u!1 &1599992094
 GameObject:
   m_ObjectHideFlags: 0
