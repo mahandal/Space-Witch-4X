@@ -51,8 +51,15 @@ public partial class Ship : MonoBehaviour
             return;
         }
 
+        // Check if we have enough movement to get to our destination.
+        if (destination.moveCostFromCurrentTile > movementRemaining)
+            return;
+
         // Move toward our destination!
         MoveToward(destination);
+
+        // Keep going?
+        Explore();
     }
 
     // Guard an area, waking up upon seeing an enemy within attack range.
