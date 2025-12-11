@@ -162,14 +162,17 @@ public class GM : MonoBehaviour
         // Get mana value.
         // int manaReturned = ship.manaCost / 2;
 
-        // Get health percentage.
-        float healthPercent = ship.currentHealth / ship.maxHealth;
+        // // Get health percentage.
+        // float healthPercent = ship.currentHealth / ship.maxHealth;
 
-        // Get tile multiplier.
-        float tileMultiplier = 0.1f * ship.CountFriendlyAdjacentTiles();
+        // // Get tile multiplier.
+        // float tileMultiplier = 0.1f * ship.CountFriendlyAdjacentTiles();
 
-        // Get total mana returned.
-        int manaReturned = (int)(ship.manaCost * healthPercent * tileMultiplier);
+        // // Get total mana returned.
+        // int manaReturned = (int)(ship.manaCost * healthPercent * tileMultiplier);
+
+        // Get mana returned.
+        int manaReturned = ship.GetRecycleValue();
 
         // Get faction leader.
         Leader leader = leaders[ship.faction];

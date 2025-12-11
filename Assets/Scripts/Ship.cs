@@ -597,7 +597,8 @@ public partial class Ship : MonoBehaviour
         if (thisAsLeader != null)
         {
             // Convert all of our fleet.
-            // (make a copy of our fleet so we don't edit what we're iterating over)
+
+            // Make a copy of our fleet so we don't edit what we're iterating over.
             List<Ship> fleetCopy = new List<Ship>(thisAsLeader.fleet);
             foreach (Ship ship in fleetCopy)
             {
@@ -956,5 +957,21 @@ public partial class Ship : MonoBehaviour
 
         // Return!
         return bestTile;
+    }
+
+    // Get the amount of mana that could be gained from recycling this ship as-is.
+    public int GetRecycleValue()
+    {
+        // Get health percent
+        float healthPercent = currentHealth / maxHealth;
+
+        // Get tile multiplier.
+        float tileMultiplier = 0.1f * CountFriendlyAdjacentTiles();
+
+        // Get total mana returned.
+        int manaReturned = (int)(manaCost * healthPercent * tileMultiplier);
+
+        // Return!
+        return manaReturned;
     }
 }

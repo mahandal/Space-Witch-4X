@@ -27,15 +27,19 @@ public class UI : MonoBehaviour
     [Header("Settings")]
     public Image toggleEdgePanning;
 
-    [Header("Tooltips")]
+    // [Header("Tooltips")]
+
+    [Header("Tooltips - Selection")]
     // Parent object of our selection tooltips.
     public GameObject selectedTooltipParent;
 
+    [Header("Selected Tile")]
     // Selected tile.
     public TMP_Text selectedTileName;
     public TMP_Text selectedTileMoveCost;
     public TMP_Text selectedTileArmor;
 
+    [Header("Selected Ship")]
     // Selected ship.
     public GameObject selectedShipParent;
     public Image selectedShipFactionIcon;
@@ -55,14 +59,20 @@ public class UI : MonoBehaviour
     // The button to recycle a ship, hidden for your leader.
     public GameObject recycleShipButton;
 
+    // The text object displaying how much mana you'll gain from recycling a ship.
+    public TMP_Text recycleMana;
+
+    [Header("Tooltips - Hover")]
     // Parent object of our hover tooltips.
     public GameObject hoveredTooltipParent;
 
+    [Header("Hovered Tile")]
     // Hovered tile.
     public TMP_Text hoveredTileName;
     public TMP_Text hoveredTileMoveCost;
     public TMP_Text hoveredTileArmor;
 
+    [Header("Hovered Ship")]
     // Hovered ship.
     public GameObject hoveredShipParent;
     public Image hoveredShipFactionIcon;
@@ -235,6 +245,9 @@ public class UI : MonoBehaviour
 
         // Check if we are selecting our leader and should hide the recycle button.
         recycleShipButton.SetActive(selectedShip != GM.I.leaders[GM.I.playerFaction]);
+
+        // Display current recycle value.
+        recycleMana.text = selectedShip.GetRecycleValue().ToString();
 
         // Load faction icon.
         Utility.LoadFactionIcon(selectedShipFactionIcon, selectedShip.faction);
