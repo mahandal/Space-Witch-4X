@@ -93,15 +93,6 @@ public class SpawnManager : MonoBehaviour
         p_SkyPirate.gameObject.SetActive(false);
     }
 
-    // Start your engines!
-    // void Start()
-    // {
-    //     // Spawn a new map!
-    //     int width = Random.Range(10, 50);
-    //     int height = Random.Range(5, 30);
-    //     GenerateNewMap(width, height);
-    // }
-
     // Procedurally generate a new map.
     public void GenerateNewMap(int width, int height)
     {
@@ -134,20 +125,50 @@ public class SpawnManager : MonoBehaviour
             // Note: Also moves them into a random position.
             leader.Init();
 
-            // Terraform spawn position to be a planet.
-            leader.currentTile.Terraform(TileType.Planet);
+            // // Terraform spawn position to be a planet.
+            // leader.currentTile.Terraform(TileType.Planet);
         }
 
+        // --- Terraform map
+
+        // - Connect spawns.
+
+        // Go through each leader.
         foreach (Leader leader in GM.I.leaders.Values)
         {
             // Clear a path from each leader to each other.
             foreach (Leader otherLeader in GM.I.leaders.Values)
             {
-                TerraformPath(leader, otherLeader);
+                TerraformPath(leader, otherLeader.currentTile);
             }
         }
 
-        // - Begin the game by starting a new turn for the pack!
+        // - Clear islands
+
+        // Get the player's spawn as our starting tile.
+        Leader playerLeader = GM.I.leaders[GM.I.playerFaction];
+
+        // Get a set of all tiles not connected to the player's spawn.
+        HashSet<Tile> islandTiles = playerLeader.currentTile.GetIslandTiles();
+
+        // Terraform each of them to void.
+        foreach (Tile tile in islandTiles)
+        {
+            tile.Terraform(TileType.Void);
+        }
+
+        // - Planets
+
+        // Spawns
+        foreach (Leader leader in GM.I.leaders.Values)
+        {
+            leader.currentTile.Terraform(TileType.Planet);
+        }
+
+        
+        // - Begin game!
+
+        // Begin the game by starting a new turn for the pack!
         GM.I.NewTurn(Faction.Pack);
     }
 
@@ -313,11 +334,11 @@ public class SpawnManager : MonoBehaviour
         }
     }
 
-    // Terraform a path between the two ships.
-    public void TerraformPath(Ship incomingShip, Ship targetShip)
+    // Terraform a path from the ship to the tile.
+    public void TerraformPath(Ship incomingShip, Tile targetTile)
     {
         // Find the shortest path between them.
-        List<Tile> shortestPath = incomingShip.FindPathTo(targetShip.currentTile);
+        List<Tile> shortestPath = incomingShip.FindPathTo(targetTile);
 
         // Find any void tiles in the path and terraform them to air.
         foreach (Tile tile in shortestPath)

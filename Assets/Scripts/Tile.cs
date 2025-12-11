@@ -410,6 +410,54 @@ public class Tile : MonoBehaviour
         return reachable;
     }
 
+    // Get a set of all tiles NOT connected to this tile.
+    // I.E. returns all tiles on islands, isolated and unreachable by normal means.
+    // Note: Delegates to GetAllConnectedTiles()
+    public HashSet<Tile> GetIslandTiles()
+    {
+        // Delegate to GetAllConnectedTiles for heavy lifting.
+        HashSet<Tile> connectedTiles = GetAllConnectedTiles();
+
+        // Remember island tiles.
+        HashSet<Tile> islandTiles = new HashSet<Tile>();
+
+        // Invert set manually by going through each tile and checking if it is connected.
+        foreach (Tile tile in GetAllTiles())
+        {
+            // Check tile is NOT connected!
+            if (!connectedTiles.Contains(tile))
+                islandTiles.Add(tile); // Add to set!
+        }
+
+        // Return!
+        return islandTiles;
+    }
+
+    // Get a set of ALL tiles in the grid.
+    // Shorthand so we don't have to keep writing nested for loop.
+    public static HashSet<Tile> GetAllTiles()
+    {
+        // Remember ALL tiles.
+        HashSet<Tile> tiles = new HashSet<Tile>();
+
+        // Loop through horizontally.
+        for (int i = 0; i < GM.I.gridWidth; i++)
+        {
+            // Loop through vertically.
+            for (int j = 0; j < GM.I.gridHeight; j++)
+            {
+                // Get tile.
+                Tile tile = GM.I.grid[i, j];
+
+                // Add to set.
+                tiles.Add(tile);
+            }
+        }
+
+        // Return.
+        return tiles;
+    }
+
     // Get a set of all tiles the ship on this tile can see.
     public HashSet<Tile> GetTilesInVisionRange()
     {
