@@ -265,6 +265,7 @@ public class UI : MonoBehaviour
         {
             selectNextShipButton.gameObject.SetActive(false);
             endTurnButton.gameObject.SetActive(false);
+            return;
         }
 
         // Get the player's leader.
