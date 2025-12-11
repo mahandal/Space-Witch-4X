@@ -860,16 +860,16 @@ public partial class Ship : MonoBehaviour
     }
 
      // Move a ship toward a target tile.
-    public void MoveToward(Tile targetTile)
+    public bool MoveToward(Tile targetTile)
     {
         // Skip if no movement remaining
-        if (movementRemaining <= 0) return;
+        if (movementRemaining <= 0) return false;
         
         // Find a path to the target tile.
         List<Tile> path = FindPathTo(targetTile);
 
         // Check if we found a path
-        if (path == null) return;
+        if (path == null) return false;
 
         // Move along path until we are out of movement or we reach our target.
         int pathIndex = 1;
@@ -886,8 +886,11 @@ public partial class Ship : MonoBehaviour
 
             // Check if we've reached the end?
             if (pathIndex >= path.Count)
-                return;
+                return true;
         }
+
+        // Failed to get all the way there.
+        return false;
     }
 
     // Find the shortest path from this ship's current tile to the target tile.

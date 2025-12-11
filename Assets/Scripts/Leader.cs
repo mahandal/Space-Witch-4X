@@ -82,7 +82,12 @@ public class Leader : Ship
                     if (destination != null)
                     {
                         // Move to destination.
-                        ship.MoveToward(destination);
+                        bool successfullyMoved = ship.MoveToward(destination);
+
+                        // Failed to move toward destination for some reason. Rest?
+                        if (!successfullyMoved)
+                            ship.AttemptRest();
+                        // ship.MoveToward(destination);
                     } else {
                         // TBD: Attack? Defend?
 
