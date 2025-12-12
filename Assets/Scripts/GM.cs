@@ -277,6 +277,60 @@ public class GM : MonoBehaviour
         yield return new WaitForSeconds(aiTurnTime);
 
         // Increment turn index.
+        IncrementTurnIndex();
+        // turnIndex++;
+
+        // // Check if each faction has had a turn.
+        // if (turnIndex >= turnOrder.Length)
+        // {
+        //     // Reset to beginning.
+        //     turnIndex = 0;
+
+        //     // Start a new round!
+        //     round++;
+        // }
+
+        // Get the next faction.
+        Faction nextFaction = turnOrder[turnIndex];
+
+        // Get the leader of the next faction.
+        Leader nextLeader = leaders[nextFaction];
+
+        // Check if the next faction is still active.
+        while (nextLeader == null ||
+            nextLeader.currentHealth <= 0 ||
+            nextLeader.faction != nextFaction)
+        {
+            // Increment the turn index.
+            IncrementTurnIndex();
+
+            // Get the next faction.
+            nextFaction = turnOrder[turnIndex];
+
+            // Get the leader of the next faction.
+            nextLeader = leaders[nextFaction];
+        }
+
+        // Start a new turn for the next faction.
+        NewTurn(nextFaction);
+
+        // // If the next faction's leader is gone, skip them!
+        // if (nextLeader == null ||
+        //     nextLeader.currentHealth <= 0 ||
+        //     nextLeader.faction != nextFaction)
+        // {
+        //     EndTurn();
+        // } else {
+        //     // Start a new turn for the next faction.
+        //     NewTurn(nextFaction);   
+        // }
+    }
+
+    // Increment the turn index.
+    // Starts a new round after each faction has had a turn.
+    public void IncrementTurnIndex()
+    {
+        // Increment the turn index.
         turnIndex++;
 
         // Check if each faction has had a turn.
@@ -287,23 +341,6 @@ public class GM : MonoBehaviour
 
             // Start a new round!
             round++;
-        }
-
-        // Get the next faction.
-        Faction nextFaction = turnOrder[turnIndex];
-
-        // Get the leader of the next faction.
-        Leader nextLeader = leaders[nextFaction];
-
-        // If the next faction's leader is gone, skip them!
-        if (nextLeader == null ||
-            nextLeader.currentHealth <= 0 ||
-            nextLeader.faction != nextFaction)
-        {
-            EndTurn();
-        } else {
-            // Start a new turn for the next faction.
-            NewTurn(nextFaction);   
         }
     }
 
