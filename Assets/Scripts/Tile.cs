@@ -67,26 +67,38 @@ public class Tile : MonoBehaviour
     }
 
     // Clear ALL highlighting for ALL tiles.
+    // Note: Also clears all path traces!
     public static void ClearAllHighlights()
     {
-        // Loop through columns.
-        for (int i = 0; i < GM.I.gridWidth; i++)
+        // Go through each tile.
+        foreach (Tile tile in GetAllTiles())
         {
-            // Loop through rows.
-            for (int j = 0; j < GM.I.gridHeight; j++)
-            {
-                // Get tile.
-                Tile tile = GM.I.grid[i, j];
+            // Clear the highlight for this tile.
+            tile.ClearHighlight();
 
-                // Clear highlight.
-                tile.ClearHighlight();
-
-                // Clear path trace.
-                tile.moveCostFromCurrentTile = -1;
-                tile.previousTileInPath = null;
-                tile.nextTileInPath = null;
-            }
+            // Clear the path trace for this tile.
+            tile.ClearPathTrace();
         }
+    }
+
+    // Clear all traces of all previous pathfinding!
+    public static void ClearAllPathTraces()
+    {
+        // Go through each tile.
+        foreach (Tile tile in GetAllTiles())
+        {
+            // Clear the tile's trace.
+            tile.ClearPathTrace();
+        }
+    }
+
+    // Clear the path trace for this tile.
+    public void ClearPathTrace()
+    {
+        // Reset path trace!
+        moveCostFromCurrentTile = -1;
+        previousTileInPath = null;
+        nextTileInPath = null;
     }
 
 
@@ -211,6 +223,9 @@ public class Tile : MonoBehaviour
         // Make sure we have a ship!
         if (ship == null) return null;
 
+        // Clear all prior path traces first.
+        ClearAllPathTraces();
+
         // Remember all tiles that are reachable, to be returned at the end.
         HashSet<Tile> reachable = new HashSet<Tile>();
 
@@ -330,6 +345,9 @@ public class Tile : MonoBehaviour
     // Note: Also finds the movement cost it would take to get to each tile from here.
     public HashSet<Tile> GetAllConnectedTiles()
     {
+        // Clear all prior path traces first.
+        ClearAllPathTraces();
+
         // Remember all tiles that are reachable, to be returned at the end.
         HashSet<Tile> reachable = new HashSet<Tile>();
 
