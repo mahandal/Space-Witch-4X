@@ -345,6 +345,10 @@ public class Leader : Ship
     // Try to build the most expensive ship we can at each planet we can.
     public IEnumerator Build()
     {
+        // Avoid pirate's building for now.
+        // (soon will add space worm ritual!)
+        if (faction == Faction.Neutral) yield break;
+
         // Go through each of our planets.
         List<Tile> myPlanets = GetMyPlanets();
         foreach (Tile planet in myPlanets)
