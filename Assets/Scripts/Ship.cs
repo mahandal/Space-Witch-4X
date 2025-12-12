@@ -878,6 +878,12 @@ public partial class Ship : MonoBehaviour
             // Get the next tile in our path.
             Tile nextTile = path[pathIndex];
 
+            // Check if we need to move through friendly ships.
+            while (nextTile.ship != null)
+            {
+                nextTile = nextTile.nextTileInPath;
+            }
+
             // Move to the next tile.
             bool successfullyMoved = AttemptMove(nextTile);
 
@@ -953,8 +959,13 @@ public partial class Ship : MonoBehaviour
                 
                 if (!costToReach.ContainsKey(neighbor) || newCost < costToReach[neighbor])
                 {
+                    // Remember how we got here.
                     costToReach[neighbor] = newCost;
                     cameFrom[neighbor] = current.tile;
+                    neighbor.previousTileInPath = current.tile;
+                    current.tile.nextTileInPath = neighbor;
+
+                    // Add neighbor to frontier.
                     frontier.Add((neighbor, newCost));
                 }
             }

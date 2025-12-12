@@ -51,10 +51,6 @@ public partial class Ship : MonoBehaviour
     // Returns to manual control if no neutral tiles remain.
     public IEnumerator Explore()
     {
-        // Follow our ships exploring around!
-        Utility.MoveCamera(currentTile);
-        yield return new WaitForSeconds(0.3f);
-
         // Find the nearest neutral tile
         Tile destination = FindNearestNeutralTile();
 
@@ -66,11 +62,15 @@ public partial class Ship : MonoBehaviour
         }
 
         // Check if we have enough movement to get to our destination.
-        if (destination.moveCostFromCurrentTile > movementRemaining)
-            yield break;
+        // if (destination.moveCostFromCurrentTile > movementRemaining)
+        //     yield break;
 
         // Move toward our destination!
         bool successfullyMoved = MoveToward(destination);
+
+        // Follow our ships exploring around!
+        Utility.MoveCamera(currentTile);
+        yield return new WaitForSeconds(0.3f);
 
         // Keep going?
         if (successfullyMoved)

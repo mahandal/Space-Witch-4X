@@ -24,6 +24,7 @@ public class Tile : MonoBehaviour
     [Header("Pathfinding")]
     public int moveCostFromCurrentTile = -1;
     public Tile previousTileInPath;
+    public Tile nextTileInPath;
 
     [Header("Manual Machinery")]
     // The sprite showing this tile's type.
@@ -83,6 +84,7 @@ public class Tile : MonoBehaviour
                 // Clear path trace.
                 tile.moveCostFromCurrentTile = -1;
                 tile.previousTileInPath = null;
+                tile.nextTileInPath = null;
             }
         }
     }
@@ -226,6 +228,7 @@ public class Tile : MonoBehaviour
         costToReach[this] = 0;
         moveCostFromCurrentTile = 0;
         previousTileInPath = null;
+        nextTileInPath = null;
 
         // Loop until we've explored the frontier!
         while (frontier.Count > 0)
@@ -289,6 +292,7 @@ public class Tile : MonoBehaviour
                             // Remember how we got here.
                             neighbor.moveCostFromCurrentTile = moveCost;
                             neighbor.previousTileInPath = current;
+                            current.nextTileInPath = neighbor;
 
                             // Add back to the frontier!
                             frontier.Enqueue(neighbor);
@@ -307,6 +311,7 @@ public class Tile : MonoBehaviour
                         // Remember how we got here.
                         neighbor.moveCostFromCurrentTile = moveCost;
                         neighbor.previousTileInPath = current;
+                        current.nextTileInPath = neighbor;
 
                         // Add to the frontier!
                         frontier.Enqueue(neighbor);
@@ -340,6 +345,7 @@ public class Tile : MonoBehaviour
         costToReach[this] = 0;
         moveCostFromCurrentTile = 0;
         previousTileInPath = null;
+        nextTileInPath = null;
 
         // Loop until we've explored the frontier!
         while (frontier.Count > 0)
@@ -368,7 +374,7 @@ public class Tile : MonoBehaviour
             foreach (Tile neighbor in neighbors)
             {
                 // Get total move cost for this neighbor.
-                int moveCost = costToReach[current] + neighbor.GetMovementCost(current.ship);
+                int moveCost = costToReach[current] + neighbor.GetMovementCost(ship);
 
                 // Check if we already know a path to this tile.
                 if (costToReach.ContainsKey(neighbor))
@@ -382,6 +388,7 @@ public class Tile : MonoBehaviour
                         // Remember how we got here.
                         neighbor.moveCostFromCurrentTile = moveCost;
                         neighbor.previousTileInPath = current;
+                        current.nextTileInPath = neighbor;
 
                         // Add back to the frontier!
                         frontier.Enqueue(neighbor);
@@ -399,6 +406,7 @@ public class Tile : MonoBehaviour
                     // Remember how we got here.
                     neighbor.moveCostFromCurrentTile = moveCost;
                     neighbor.previousTileInPath = current;
+                    current.nextTileInPath = neighbor;
 
                     // Add to the frontier!
                     frontier.Enqueue(neighbor);
