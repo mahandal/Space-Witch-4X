@@ -8581,6 +8581,7 @@ MonoBehaviour:
   fogOverlay: {fileID: 229196687}
   moveCostFromCurrentTile: -1
   previousTileInPath: {fileID: 0}
+  nextTileInPath: {fileID: 0}
   typeImage: {fileID: 267693280}
   factionBG: {fileID: 2019915355}
   bg: {fileID: 1323879897}
@@ -13471,6 +13472,7 @@ MonoBehaviour:
   fogOverlay: {fileID: 1692730429}
   moveCostFromCurrentTile: -1
   previousTileInPath: {fileID: 0}
+  nextTileInPath: {fileID: 0}
   typeImage: {fileID: 439786957}
   factionBG: {fileID: 1595680885}
   bg: {fileID: 175386179}
@@ -28109,7 +28111,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -700, y: -200}
+  m_AnchoredPosition: {x: -300, y: 200}
   m_SizeDelta: {x: 300, y: 300}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &910092150
@@ -42980,6 +42982,7 @@ MonoBehaviour:
   fogOverlay: {fileID: 124180109}
   moveCostFromCurrentTile: -1
   previousTileInPath: {fileID: 0}
+  nextTileInPath: {fileID: 0}
   typeImage: {fileID: 1427534977}
   factionBG: {fileID: 797584963}
   bg: {fileID: 1189676131}
@@ -44128,6 +44131,7 @@ MonoBehaviour:
   fogOverlay: {fileID: 1590857040}
   moveCostFromCurrentTile: -1
   previousTileInPath: {fileID: 0}
+  nextTileInPath: {fileID: 0}
   typeImage: {fileID: 1487250964}
   factionBG: {fileID: 848351497}
   bg: {fileID: 1204787611}
@@ -46435,7 +46439,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1596511038
 RectTransform:
   m_ObjectHideFlags: 0
@@ -49461,7 +49465,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -700, y: 200}
+  m_AnchoredPosition: {x: -700, y: -200}
   m_SizeDelta: {x: 300, y: 300}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1685931521
@@ -55653,6 +55657,7 @@ MonoBehaviour:
   fogOverlay: {fileID: 2043798199}
   moveCostFromCurrentTile: -1
   previousTileInPath: {fileID: 0}
+  nextTileInPath: {fileID: 0}
   typeImage: {fileID: 1933718195}
   factionBG: {fileID: 916244329}
   bg: {fileID: 876010255}
@@ -56908,6 +56913,7 @@ MonoBehaviour:
   fogOverlay: {fileID: 1705398409}
   moveCostFromCurrentTile: -1
   previousTileInPath: {fileID: 0}
+  nextTileInPath: {fileID: 0}
   typeImage: {fileID: 1985196042}
   factionBG: {fileID: 258699528}
   bg: {fileID: 1818405150}
@@ -61566,7 +61572,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -300, y: 200}
+  m_AnchoredPosition: {x: -700, y: 200}
   m_SizeDelta: {x: 300, y: 300}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2126206452

@@ -117,14 +117,14 @@ public class Leader : Ship
     // - Core
 
     // Initialize this leader:
-    // - Move it to a random position.
+    // - Move to its corner of the map.
     // - Heal it to full health.
     // - Refresh its movement and attacks.
     // - Reset mana to 0.
     // - Clear any previous ships in its fleet.
     public void Init()
     {
-        // Move to a random starting location.
+        // Move to its corner of the map.
         MoveToStartingLocation();
 
         // Heal to full.
@@ -157,23 +157,28 @@ public class Leader : Ship
         HideMovementAndAttacks();
     }
 
-    // Move this leader to a random position as its starting location.
-    // Note: DOES spend movement so make sure to refresh after!
+    // Move this leader to its corner of the map as its starting location.
+    // TBD: Scale! Improve! Or maybe just keep it if it's fun enough!
     public void MoveToStartingLocation()
     {
-        // Get random coordinates.
-        int spawnX = Random.Range(0, GM.I.gridWidth);
-        int spawnY = Random.Range(0, GM.I.gridHeight);
+        // Initialize to (0, 0) cause why not?
+        // (keep it for the Pack!)
+        Tile corner = GM.I.GetTile(0, 0);
 
-        // Make sure coordinates are empty.
-        while (GM.I.grid[spawnX, spawnY].ship != null)
-        {
-            spawnX = Random.Range(0, GM.I.gridWidth);
-            spawnY = Random.Range(0, GM.I.gridHeight);
-        }
+        // Get the Coven's corner.
+        if (faction == Faction.Coven)
+            corner = GM.I.GetTile(0, GM.I.gridHeight - 1);
 
-        // Move!
-        Move(spawnX, spawnY, false);
+        // Get the Syndicate's corner.
+        if (faction == Faction.Syndicate)
+            corner = GM.I.GetTile(GM.I.gridWidth - 1, GM.I.gridHeight - 1);
+
+        // Get the Neutral corner.
+        if (faction == Faction.Neutral)
+            corner = GM.I.GetTile(GM.I.gridWidth - 1, 0);
+
+        // Move to corner.
+        Move(corner, false);
     }
 
     // Handle ending a turn for this leader's faction.

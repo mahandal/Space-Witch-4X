@@ -405,6 +405,13 @@ public partial class Ship : MonoBehaviour
         UI.I.WhichButtonInTopRight();
     }
 
+    // Move the ship to a new tile.
+    // Delegates to below!
+    public void Move(Tile newTile, bool costMovement = true)
+    {
+        Move(newTile.x, newTile.y, costMovement);
+    }
+
     // Move the ship to new coordinates.
     // Note: Does NOT error check!
     public void Move(int newX, int newY, bool costMovement = true)
