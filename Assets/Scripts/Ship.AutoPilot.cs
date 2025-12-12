@@ -97,4 +97,23 @@ public partial class Ship : MonoBehaviour
         // Full auto pilot takes a moment to think?
         yield return new WaitForSeconds(0.1f);
     }
+
+    // Reveal this ship's vision to the player.
+    public void ShowVision()
+    {
+        // Get a set of tiles this ship can see.
+        HashSet<Tile> visibleTiles = currentTile.GetTilesInVisionRange();
+
+        // Go through every tile.
+        foreach (Tile tile in Tile.GetAllTiles())
+        {
+            // Check if tile should be visible.
+            if (visibleTiles.Contains(tile))
+            {
+                tile.RevealFromFog();
+            } else {
+                tile.HideInFog();
+            }
+        }
+    }
 }

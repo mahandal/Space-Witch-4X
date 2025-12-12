@@ -39,6 +39,12 @@ public class Leader : Ship
 
             // Center camera on ship.
             Utility.MoveCamera(ship.currentTile);
+
+            // Reveal ship's vision.
+            ship.ShowVision();
+
+            // Wait a bit, give each ship their moment.
+            yield return new WaitForSeconds(0.5f);
             
             // Get visible enemies
             List<Ship> visibleEnemies = ship.GetVisibleEnemies();
@@ -102,6 +108,12 @@ public class Leader : Ship
 
             // Spend rest of movement and/or attacks resting.
             ship.AttemptRest();
+
+            // Center camera on ship.
+            Utility.MoveCamera(ship.currentTile);
+
+            // Reveal ship's vision.
+            ship.ShowVision();
 
             // Wait a bit, give each ship their moment.
             yield return new WaitForSeconds(0.5f);
@@ -340,6 +352,9 @@ public class Leader : Ship
              // Center camera on planet.
             Utility.MoveCamera(planet);
 
+            // Show planet to player.
+            planet.RevealFromFog();
+
             // Get the name of the biggest ship we can afford to build.
             string shipName = GetBiggestShip();
 
@@ -353,6 +368,9 @@ public class Leader : Ship
             }
 
             yield return new WaitForSeconds(0.2f);
+
+            // Hide planet to player.
+            planet.HideInFog();
         }
     }
 

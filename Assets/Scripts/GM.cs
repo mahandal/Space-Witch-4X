@@ -161,6 +161,9 @@ public class GM : MonoBehaviour
         // Hide end turn button.
         UI.I.endTurnButton.gameObject.SetActive(false);
 
+        // Clear your current selection
+        Tile.ClearSelection();
+
         // End the current turn.
         EndTurn();
     }
