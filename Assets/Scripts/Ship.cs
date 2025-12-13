@@ -406,6 +406,9 @@ public partial class Ship : MonoBehaviour
     // Note: Does NOT error check!
     public IEnumerator Move(Tile destination, bool costMovement = true)
     {
+        Debug.Log(myName + " is moving into tile (" + 
+            destination.x + ", " + destination.y + ").");
+        
         // Remove from old tile.
         if (currentTile != null)
             currentTile.ship = null;
@@ -593,13 +596,25 @@ public partial class Ship : MonoBehaviour
     // Grey yourself out!
     public void GoGrey()
     {
+        // Set sprite color.
         sr.color = new Color(0.5f, 0.5f, 0.5f, 0.9f);
+
+        // Set health bar color
+        Color c = healthBar.color;
+        c.a = 0.5f;
+        healthBar.color = c;
     }
 
     // Ungrey yourself!
     public void UnGrey()
     {
+        // Set sprite color.
         sr.color = new Color(1f, 1f, 1f, 1f);
+
+        // Set health bar color.
+        Color c = healthBar.color;
+        c.a = 1f;
+        healthBar.color = c;
     }
 
     // Hide movement and attack remaining indicators.
