@@ -2,16 +2,28 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
+// Traits
+public enum AutoPilotMode
+{
+    Off,
+    Explore,
+    Rest,
+    Guard,
+    Hunt,
+    Full
+}
+
 public partial class Ship : MonoBehaviour
 {
     [Header("AUTO-PILOT")]
-    public string autoPilot = "Off";
+    // public string autoPilot = "Off";
+    public AutoPilotMode autoPilotMode = AutoPilotMode.Off;
 
     // Set the auto pilot mode.
-    public void SetAutoPilot(string newAutoPilotMode)
+    public void SetAutoPilot(AutoPilotMode newAutoPilotMode)
     {
         // Set new auto pilot mode.
-        autoPilot = newAutoPilotMode;
+        autoPilotMode = newAutoPilotMode;
 
         // Highlight new auto pilot mode.
         UI.I.HighlightAutoPilot();
@@ -24,7 +36,7 @@ public partial class Ship : MonoBehaviour
     public IEnumerator AutoPilot()
     {
         // Auto-Pilot mode: Off
-        if (autoPilot == "Off")
+        if (autoPilotMode == AutoPilotMode.Off)
             yield break;
 
         // Center camera on ship.
@@ -33,13 +45,15 @@ public partial class Ship : MonoBehaviour
         // Give each ship a first moment on screen.
         yield return new WaitForSeconds(0.3f);
 
-        if (autoPilot == "Explore")
+        if (autoPilotMode == AutoPilotMode.Explore)
             yield return Explore();
-        else if (autoPilot == "Rest")
+        else if (autoPilotMode == AutoPilotMode.Rest)
             AttemptRest();
-        else if (autoPilot == "Guard")
+        else if (autoPilotMode == AutoPilotMode.Guard)
             Guard();
-        else if (autoPilot == "Full")
+        else if (autoPilotMode == AutoPilotMode.Hunt)
+            Hunt();
+        else if (autoPilotMode == AutoPilotMode.Full)
             yield return FullAutoPilot();
 
         // Give each ship a last moment on screen.
@@ -57,13 +71,12 @@ public partial class Ship : MonoBehaviour
         // Return to manual control if no neutral tiles remain.
         if (destination == null)
         {
-            autoPilot = "Off";
+            autoPilotMode = AutoPilotMode.Off;
             yield break;
         }
 
-        // Check if we have enough movement to get to our destination.
-        // if (destination.moveCostFromCurrentTile > movementRemaining)
-        //     yield break;
+        Debug.Log(myName + " is exploring and found tile (" + destination.x + ", "
+            + destination.y + ") as their destination.");
 
         // Move toward our destination!
         bool successfullyMoved = MoveToward(destination);
@@ -87,8 +100,15 @@ public partial class Ship : MonoBehaviour
         if (enemiesInAttackRange.Count > 0)
         {
             // Wake up!
-            autoPilot = "Off";
+            SetAutoPilot(AutoPilotMode.Off);
         }
+    }
+
+    // Hunt
+    // TBD!
+    public void Hunt()
+    {
+        
     }
 
     // TBD!

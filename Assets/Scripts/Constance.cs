@@ -15,6 +15,17 @@ public static class Constance
         {"Neutral", Faction.Neutral}
     };
 
+    // A dictionary mapping auto pilot names to their AutoPilotMode type.
+    public static Dictionary<string, AutoPilotMode> autoPilotModes = new Dictionary<string, AutoPilotMode>()
+    {
+        {"Off", AutoPilotMode.Off},
+        {"Explore", AutoPilotMode.Explore},
+        {"Rest", AutoPilotMode.Rest},
+        {"Guard", AutoPilotMode.Guard},
+        {"Hunt", AutoPilotMode.Hunt},
+        {"Full", AutoPilotMode.Full}
+    };
+
     // How big our tiles are.
     public static int tileSize = 1;
 

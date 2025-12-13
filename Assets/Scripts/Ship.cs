@@ -672,12 +672,12 @@ public partial class Ship : MonoBehaviour
         RevealMovementAndAttacks();
 
         // Wake up from guard mode?
-        if (autoPilot == "Guard")
+        if (autoPilotMode == AutoPilotMode.Guard)
             Guard();
 
         // Wake up from rest mode?
-        if (autoPilot == "Rest" && currentHealth >= maxHealth)
-            SetAutoPilot("Off");
+        if (autoPilotMode == AutoPilotMode.Rest && currentHealth >= maxHealth)
+            SetAutoPilot(AutoPilotMode.Off);
     }
 
     // Attempt to rest.

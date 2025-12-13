@@ -169,7 +169,7 @@ public class SpawnManager : MonoBehaviour
         // - Begin game!
 
         // Begin the game by starting a new turn for the pack!
-        GM.I.NewTurn(Faction.Pack);
+        // GM.I.NewTurn(Faction.Pack);
     }
 
     // Spawn a random tile at the given coordinates.

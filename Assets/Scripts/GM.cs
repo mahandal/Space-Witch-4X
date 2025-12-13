@@ -92,9 +92,11 @@ public class GM : MonoBehaviour
     }
 
     // Set up what we need for a battle.
-    // Called once at the beginning of each battle.
+    // Called once at the beginning of each battle (from the button pressed in GGG).
     public void BeginBattle()
     {
+        // - Prepare
+
         // Set up new map.
         int width = Random.Range(10, 50);
         int height = Random.Range(5, 30);
@@ -108,6 +110,11 @@ public class GM : MonoBehaviour
 
         // Set game state.
         gameState = 1;
+
+        // - Begin game!
+
+        // Begin the game by starting a new turn for the pack!
+        StartCoroutine(NewTurn(Faction.Pack));
     }
 
     // - Buttons
@@ -117,8 +124,10 @@ public class GM : MonoBehaviour
         // Null check.
         if (selectedTile == null || selectedTile.ship == null) return;
 
+        AutoPilotMode apm = Constance.autoPilotModes[autoPilotMode];
+
         // Set the auto pilot mode for the currently selected ship.
-        selectedTile.ship.SetAutoPilot(autoPilotMode);
+        selectedTile.ship.SetAutoPilot(apm);
     }
 
     // Recycle your currently selected ship into mana.
@@ -165,7 +174,8 @@ public class GM : MonoBehaviour
         Tile.ClearSelection();
 
         // End the current turn.
-        EndTurn();
+        // EndTurn();
+        StartCoroutine(EndTurn());
     }
 
     // - Functions
@@ -248,47 +258,36 @@ public class GM : MonoBehaviour
 
     // End the current turn and go to the next one.
     // Delegates to a coroutine so we can let AI have some time to think.
-    public void EndTurn()
-    {
-        // Stop once the game is over.
-        if (gameState > 1) return;
+    // public void EndTurn()
+    // {
+    //     // Stop once the game is over.
+    //     if (gameState > 1) return;
 
-        // Start the coroutine!
-        StartCoroutine(EndTurnCoroutine());
-    }
+    //     // Start the coroutine!
+    //     StartCoroutine(EndTurnCoroutine());
+    // }
 
     // Handle ending a turn.
     // Note: Waits a second first to give AI time to think!
-    private IEnumerator EndTurnCoroutine()
+    private IEnumerator EndTurn()
     {
+        // Stop once the game is over.
+        if (gameState > 1) yield break;
+
         // Get the current leader.
         Leader currentLeader = leaders[activeFaction];
 
         // Handle auto-pilots.
         foreach (Ship ship in currentLeader.fleet)
         {
-            yield return ship.StartCoroutine(ship.AutoPilot());
+            yield return ship.AutoPilot();
         }
         
         // Let the current leader end the turn for their faction.
-        currentLeader.EndTurn();
-
-        // Give each AI a second to plan out their turn.
-        yield return new WaitForSeconds(aiTurnTime);
+        yield return currentLeader.EndTurn();
 
         // Increment turn index.
         IncrementTurnIndex();
-        // turnIndex++;
-
-        // // Check if each faction has had a turn.
-        // if (turnIndex >= turnOrder.Length)
-        // {
-        //     // Reset to beginning.
-        //     turnIndex = 0;
-
-        //     // Start a new round!
-        //     round++;
-        // }
 
         // Get the next faction.
         Faction nextFaction = turnOrder[turnIndex];
@@ -312,18 +311,7 @@ public class GM : MonoBehaviour
         }
 
         // Start a new turn for the next faction.
-        NewTurn(nextFaction);
-
-        // // If the next faction's leader is gone, skip them!
-        // if (nextLeader == null ||
-        //     nextLeader.currentHealth <= 0 ||
-        //     nextLeader.faction != nextFaction)
-        // {
-        //     EndTurn();
-        // } else {
-        //     // Start a new turn for the next faction.
-        //     NewTurn(nextFaction);   
-        // }
+        yield return NewTurn(nextFaction);
     }
 
     // Increment the turn index.
@@ -345,7 +333,7 @@ public class GM : MonoBehaviour
     }
 
     // Start a new turn for the given faction.
-    public void NewTurn(Faction faction)
+    public IEnumerator NewTurn(Faction faction)
     {
         // Set new active faction.
         activeFaction = faction;
@@ -364,7 +352,7 @@ public class GM : MonoBehaviour
 
         // AI?
         if (activeFaction != playerFaction)
-            leader.AITurn();
+            yield return leader.AITurn();
     }
 
     // Return the tile in our grid located at position (x, y)
@@ -422,7 +410,7 @@ public class GM : MonoBehaviour
         }
     }
 
-    // Select the next ship in your fleet.
+    // Select a random available ship in your fleet.
     // Note: Ignores ships on auto pilot.
     public void Button_SelectNextShip()
     {
@@ -432,52 +420,54 @@ public class GM : MonoBehaviour
         // Get player's leader
         Leader playerLeader = leaders[playerFaction];
 
-        // Convert fleet to list to loop through.
-        List<Ship> fleetList = new List<Ship>(playerLeader.fleet);
+        playerLeader.GetRandomAvailableShip(true);
 
-        // Initialize our starting index.
-        int startIndex = 0;
+        // // Convert fleet to list to loop through.
+        // List<Ship> fleetList = new List<Ship>(playerLeader.fleet);
 
-        // Check if we can start from our last selected ship.
-        if (lastSelectedShip != null && fleetList.Contains(lastSelectedShip))
-        {
-            // Get the index of our selected ship.
-            startIndex = fleetList.IndexOf(lastSelectedShip);
+        // // Initialize our starting index.
+        // int startIndex = 0;
 
-            // Increment to get the next one!
-            startIndex++;
+        // // Check if we can start from our last selected ship.
+        // if (lastSelectedShip != null && fleetList.Contains(lastSelectedShip))
+        // {
+        //     // Get the index of our selected ship.
+        //     startIndex = fleetList.IndexOf(lastSelectedShip);
 
-            // Overflow!
-            if (startIndex >= fleetList.Count)
-                startIndex = startIndex % fleetList.Count;
-        }
+        //     // Increment to get the next one!
+        //     startIndex++;
 
-        // Search for next available ship.
-        for (int i = 0; i < fleetList.Count; i++)
-        {
-            // Index into our fleet using our starting index.
-            int index = (startIndex + i) % fleetList.Count;
-            Ship ship = fleetList[index];
+        //     // Overflow!
+        //     if (startIndex >= fleetList.Count)
+        //         startIndex = startIndex % fleetList.Count;
+        // }
+
+        // // Search for next available ship.
+        // for (int i = 0; i < fleetList.Count; i++)
+        // {
+        //     // Index into our fleet using our starting index.
+        //     int index = (startIndex + i) % fleetList.Count;
+        //     Ship ship = fleetList[index];
             
-            // Skip dead ships.
-            if (ship == null || ship.currentHealth <= 0) continue;
+        //     // Skip dead ships.
+        //     if (ship == null || ship.currentHealth <= 0) continue;
 
-            // Skip ships on auto pilot.
-            if (ship.autoPilot != "Off") continue;
+        //     // Skip ships on auto pilot.
+        //     if (ship.autoPilotMode != AutoPilotMode.Off) continue;
             
-            // Check if ship has actions remaining.
-            if (ship.movementRemaining > 0 || ship.attacksRemaining > 0)
-            {
-                // Select this ship.
-                ship.currentTile.Select();
+        //     // Check if ship has actions remaining.
+        //     if (ship.movementRemaining > 0 || ship.attacksRemaining > 0)
+        //     {
+        //         // Select this ship.
+        //         ship.currentTile.Select();
                 
-                // Move camera to center on it.
-                Utility.MoveCamera(ship.currentTile);
+        //         // Move camera to center on it.
+        //         Utility.MoveCamera(ship.currentTile);
 
-                // Done!
-                return;
-            }
-        }
+        //         // Done!
+        //         return;
+        //     }
+        // }
     }
 
 

@@ -61,6 +61,7 @@ public class UI : MonoBehaviour
     public Image autoPilotExploreIcon;
     public Image autoPilotRestIcon;
     public Image autoPilotGuardIcon;
+    public Image autoPilotHuntIcon;
     public Image autoPilotFullIcon;
 
     [Header("Tooltips - Hover")]
@@ -245,24 +246,27 @@ public class UI : MonoBehaviour
         autoPilotExploreIcon.color = new Color (0.5f, 0.5f, 0.5f, 0.5f);
         autoPilotRestIcon.color = new Color (0.5f, 0.5f, 0.5f, 0.5f);
         autoPilotGuardIcon.color = new Color (0.5f, 0.5f, 0.5f, 0.5f);
+        autoPilotHuntIcon.color = new Color (0.5f, 0.5f, 0.5f, 0.5f);
         autoPilotFullIcon.color = new Color (0.5f, 0.5f, 0.5f, 0.5f);
 
         // Get the currently selected ship.
         Ship ship = GM.I.selectedTile.ship;
 
         // Activate the right one.
-        if (ship.autoPilot == "Off")
+        if (ship.autoPilotMode == AutoPilotMode.Off)
             autoPilotOffIcon.color = new Color(1f, 1f, 1f, 1f);
-        else if (ship.autoPilot == "Explore")
+        else if (ship.autoPilotMode == AutoPilotMode.Explore)
             autoPilotExploreIcon.color = new Color(1f, 1f, 1f, 1f);
-        else if (ship.autoPilot == "Rest")
+        else if (ship.autoPilotMode == AutoPilotMode.Rest)
             autoPilotRestIcon.color = new Color(1f, 1f, 1f, 1f);
-        else if (ship.autoPilot == "Guard")
+        else if (ship.autoPilotMode == AutoPilotMode.Guard)
             autoPilotGuardIcon.color = new Color(1f, 1f, 1f, 1f);
-        else if (ship.autoPilot == "Full")
+        else if (ship.autoPilotMode == AutoPilotMode.Hunt)
+            autoPilotHuntIcon.color = new Color(1f, 1f, 1f, 1f);
+        else if (ship.autoPilotMode == AutoPilotMode.Full)
             autoPilotFullIcon.color = new Color(1f, 1f, 1f, 1f);
         else
-            Debug.LogError("ERROR! Ship " + ship.myName + " has unknown auto pilot mode: " + ship.autoPilot);
+            Debug.LogError("ERROR! Ship " + ship.myName + " has unknown auto pilot mode: " + ship.autoPilotMode);
     }
 
     // Clear the selection UI.

@@ -12,119 +12,154 @@ public class Leader : Ship
     // The list of ship types we know how to build.
     public List<Ship> blueprints;
 
-    // A set of all our ships.
-    public HashSet<Ship> fleet = new HashSet<Ship>();
+    // A list of all our ships.
+    public List<Ship> fleet = new List<Ship>();
 
     // - AI
 
     // Start running a turn for an AI.
     // Wrapper of AITurnCoroutine
-    public void AITurn()
+    // public void AITurn()
+    // {
+    //     // Start coroutine.
+    //     StartCoroutine(AITurnCoroutine());
+    // }
+
+    // Handle running an AI's turn.
+    public IEnumerator AITurn()
     {
-        // Start coroutine.
-        StartCoroutine(AITurnCoroutine());
+        // Center camera on leader.
+        Utility.MoveCamera(currentTile);
+
+        // Reveal ship's vision.
+        ShowVision();
+
+        Debug.Log(myName + " is thinking...");
+
+        // Wait a bit, to think.
+        yield return new WaitForSeconds(0.5f);
+
+        Debug.Log(myName + " is going now!");
+
+        // Loop until we are out of actions.
+        while (CanFleetAct() || CanBuild())
+        {
+            // TBD:
+            // Get next ship.
+            Ship ship = GetRandomAvailableShip();
+
+            // Check if we have a ship available.
+            // If we do, let it auto pilot.
+            if (ship != null)
+                yield return ship.AutoPilot();
+                
+
+            // Check if we can build.
+            if (CanBuild())
+                yield return Build();
+        }
     }
 
     // Handle running an AI's turn.
-    public IEnumerator AITurnCoroutine()
-    {
-        // Make a copy of the fleet list to avoid modification during iteration
-        List<Ship> fleetList = new List<Ship>(fleet);
+    // public IEnumerator AITurnCoroutine()
+    // {
+    //     // Make a copy of the fleet list to avoid modification during iteration
+    //     List<Ship> fleetList = new List<Ship>(fleet);
         
-        // Loop through each ship in our fleet
-        foreach (Ship ship in fleetList)
-        {
-            // Skip if ship is dead
-            if (ship == null || ship.currentHealth <= 0) continue;
+    //     // Loop through each ship in our fleet
+    //     foreach (Ship ship in fleetList)
+    //     {
+    //         // Skip if ship is dead
+    //         if (ship == null || ship.currentHealth <= 0) continue;
 
-            // Center camera on ship.
-            Utility.MoveCamera(ship.currentTile);
+    //         // Center camera on ship.
+    //         Utility.MoveCamera(ship.currentTile);
 
-            // Reveal ship's vision.
-            ship.ShowVision();
+    //         // Reveal ship's vision.
+    //         ship.ShowVision();
 
-            // Wait a bit, give each ship their moment.
-            yield return new WaitForSeconds(0.5f);
+    //         // Wait a bit, give each ship their moment.
+    //         yield return new WaitForSeconds(0.5f);
             
-            // Get visible enemies
-            List<Ship> visibleEnemies = ship.GetVisibleEnemies();
+    //         // Get visible enemies
+    //         List<Ship> visibleEnemies = ship.GetVisibleEnemies();
             
-            // Check if we can see any enemies
-            if (visibleEnemies.Count > 0)
-            {
-                // Attack the closest enemy
-                Ship closestEnemy = null;
-                int shortestDistance = int.MaxValue;
+    //         // Check if we can see any enemies
+    //         if (visibleEnemies.Count > 0)
+    //         {
+    //             // Attack the closest enemy
+    //             Ship closestEnemy = null;
+    //             int shortestDistance = int.MaxValue;
                 
-                foreach (Ship enemy in visibleEnemies)
-                {
-                    int distance = Utility.Distance(ship.currentTile, enemy.currentTile);
-                    if (distance < shortestDistance)
-                    {
-                        shortestDistance = distance;
-                        closestEnemy = enemy;
-                    }
-                }
+    //             foreach (Ship enemy in visibleEnemies)
+    //             {
+    //                 int distance = Utility.Distance(ship.currentTile, enemy.currentTile);
+    //                 if (distance < shortestDistance)
+    //                 {
+    //                     shortestDistance = distance;
+    //                     closestEnemy = enemy;
+    //                 }
+    //             }
                 
-                // Try to attack
-                bool attackSuccessful = ship.AttemptAttackMove(closestEnemy, true);
+    //             // Try to attack
+    //             bool attackSuccessful = ship.AttemptAttackMove(closestEnemy, true);
                 
-                // If we couldn't attack, try to move closer
-                if (!attackSuccessful)
-                {
-                    ship.MoveToward(closestEnemy.currentTile);
-                }
-            } else {
-                // - No enemies sighted.
+    //             // If we couldn't attack, try to move closer
+    //             if (!attackSuccessful)
+    //             {
+    //                 ship.MoveToward(closestEnemy.currentTile);
+    //             }
+    //         } else {
+    //             // - No enemies sighted.
 
-                // TBD: Refine AI, add personality
+    //             // TBD: Refine AI, add personality
 
-                // For now, move toward nearest neutral tile.
+    //             // For now, move toward nearest neutral tile.
 
-                // Move until we can't no mo!
-                while (ship.movementRemaining > 0)
-                {
-                    // Find the nearest neutral tile.
-                    Tile destination = ship.FindNearestNeutralTile();
+    //             // Move until we can't no mo!
+    //             while (ship.movementRemaining > 0)
+    //             {
+    //                 // Find the nearest neutral tile.
+    //                 Tile destination = ship.FindNearestNeutralTile();
 
-                    // Check if there is one.
-                    if (destination != null)
-                    {
-                        // Move to destination.
-                        bool successfullyMoved = ship.MoveToward(destination);
+    //                 // Check if there is one.
+    //                 if (destination != null)
+    //                 {
+    //                     // Move to destination.
+    //                     bool successfullyMoved = ship.MoveToward(destination);
 
-                        // Failed to move toward destination for some reason. Rest?
-                        if (!successfullyMoved)
-                            ship.AttemptRest();
-                        // ship.MoveToward(destination);
-                    } else {
-                        // TBD: Attack? Defend?
+    //                     // Failed to move toward destination for some reason. Rest?
+    //                     if (!successfullyMoved)
+    //                         ship.AttemptRest();
+    //                     // ship.MoveToward(destination);
+    //                 } else {
+    //                     // TBD: Attack? Defend?
 
-                        // For now, just rest.
-                        ship.AttemptRest();
-                    }
-                }
-            }
+    //                     // For now, just rest.
+    //                     ship.AttemptRest();
+    //                 }
+    //             }
+    //         }
 
-            // Spend rest of movement and/or attacks resting.
-            ship.AttemptRest();
+    //         // Spend rest of movement and/or attacks resting.
+    //         ship.AttemptRest();
 
-            // Center camera on ship.
-            Utility.MoveCamera(ship.currentTile);
+    //         // Center camera on ship.
+    //         Utility.MoveCamera(ship.currentTile);
 
-            // Reveal ship's vision.
-            ship.ShowVision();
+    //         // Reveal ship's vision.
+    //         ship.ShowVision();
 
-            // Wait a bit, give each ship their moment.
-            yield return new WaitForSeconds(0.5f);
-        }
+    //         // Wait a bit, give each ship their moment.
+    //         yield return new WaitForSeconds(0.5f);
+    //     }
 
-        // Build more ships!
-        yield return StartCoroutine(Build());
+    //     // Build more ships!
+    //     yield return StartCoroutine(Build());
 
-        // End our turn!
-        GM.I.EndTurn();
-    }
+    //     // End our turn!
+    //     GM.I.EndTurn();
+    // }
 
     // - Core
 
@@ -159,7 +194,7 @@ public class Leader : Ship
         }
 
         // Reset fleet list.
-        fleet = new HashSet<Ship>();
+        fleet = new List<Ship>();
         fleet.Add(this);
 
         // Set health bar color.
@@ -197,7 +232,7 @@ public class Leader : Ship
     // - Refreshes all ships in our fleet.
     // - Hides movement and attacks remaining for all ships.
     // --- (Not hidden like a secret, just so you can see which faction is active currently easier)
-    public void EndTurn()
+    public IEnumerator EndTurn()
     {
         // // Handle auto-pilots.
         // foreach (Ship ship in fleet)
@@ -210,6 +245,9 @@ public class Leader : Ship
 
         // Hide movement and attacks remaining for all ships in our fleet.
         HideFleetMovementAndAttacks();
+
+        // Have to return from an ienumerator for w/e reason
+        yield return new WaitForSeconds(0.1f);
     }
 
     // Handle starting a turn for this leader's faction.
@@ -247,7 +285,10 @@ public class Leader : Ship
                     if (tile.myType == TileType.Planet)
                     {
                         // Gain mana equal to the current round.
-                        GainMana(GM.I.round);
+                        // GainMana(GM.I.round);
+
+                        // Gain 1 mana.
+                        GainMana(1);
                     } else {
                         // Gain 1 mana.
                         GainMana(1);
@@ -279,6 +320,43 @@ public class Leader : Ship
 
     // - Fleet management
 
+    // Get a random available ship in your fleet.
+    public Ship GetRandomAvailableShip(bool clickedByPlayer = false)
+    {
+            
+    }
+
+
+/*
+
+        // Search for next available ship.
+        for (int i = 0; i < fleetList.Count; i++)
+        {
+            // Index into our fleet using our starting index.
+            int index = (startIndex + i) % fleetList.Count;
+            Ship ship = fleetList[index];
+            
+            // Skip dead ships.
+            if (ship == null || ship.currentHealth <= 0) continue;
+
+            // Skip ships on auto pilot.
+            if (ship.autoPilotMode != AutoPilotMode.Off) continue;
+            
+            // Check if ship has actions remaining.
+            if (ship.movementRemaining > 0 || ship.attacksRemaining > 0)
+            {
+                // Select this ship.
+                ship.currentTile.Select();
+                
+                // Move camera to center on it.
+                Utility.MoveCamera(ship.currentTile);
+
+                // Done!
+                return;
+            }
+        }
+    }
+*/
     // Your fleet abandons.
     // All ships are destroyed.
     // Called when a leader dies.
@@ -306,13 +384,43 @@ public class Leader : Ship
         // Iterate through our whole fleet.
         foreach (Ship ship in fleet)
         {
-            if (ship.autoPilot == "Off" && (ship.movementRemaining > 0 || ship.attacksRemaining > 0))
+            if (ship.autoPilotMode == AutoPilotMode.Off && 
+                (ship.movementRemaining > 0 || ship.attacksRemaining > 0))
                 return true;
         }
 
         // Not a single action remaining in our whole fleet.
         // Return false!
         return false;
+    }
+
+    // Check if we are able to build any ships.
+    // Returns true if we have a planet available and enough mana for a ship.
+    // Returns false if we don't have a planet available, or enough mana for a ship.
+    public bool CanBuild()
+    {
+        bool planetAvailable = false;
+        bool enoughMana = false;
+
+        // Iterate through each of our planets.
+        foreach (Tile planet in GetMyPlanets())
+        {
+            // Check if it is available!
+            if (planet.ship == null)
+                planetAvailable = true;
+        }
+
+        // Iterate through each of our blueprints.
+        foreach (Ship blueprint in blueprints)
+        {
+            // Check if we have enough mana to build it!
+            if (blueprint.manaCost <= mana)
+                enoughMana = true;
+        }
+
+        // Return!
+        bool canBuild = planetAvailable && enoughMana;
+        return canBuild;
     }
 
     // Refresh all ships that fly under this leader's banner.
@@ -359,8 +467,8 @@ public class Leader : Ship
             // Show planet to player.
             planet.RevealFromFog();
 
-            // Get the name of the biggest ship we can afford to build.
-            string shipName = GetBiggestShip();
+            // Get the name of the biggest blueprint we can afford to build.
+            string shipName = GetBiggestBlueprint();
 
             // Check we have a valid ship to build, and a valid planet to build it on.
             if (shipName != "" && planet.ship == null)
@@ -406,8 +514,8 @@ public class Leader : Ship
         return myPlanets;
     }
 
-    // Return the highest costing ship this leader can build.
-    public string GetBiggestShip()
+    // Return the highest costing blueprint this leader can build.
+    public string GetBiggestBlueprint()
     {
         // Remember the biggest ship.
         string biggestShip = "";
