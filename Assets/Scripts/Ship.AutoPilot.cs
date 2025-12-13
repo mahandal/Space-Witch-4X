@@ -63,7 +63,7 @@ public partial class Ship : MonoBehaviour
     // Explore the stars!
     // Find the nearest neutral tile and move toward it!
     // Returns to manual control if no neutral tiles remain.
-    public IEnumerator Explore()
+    public IEnumerator Explore(bool fullAuto = false)
     {
         // Find the nearest neutral tile
         Tile destination = FindNearestNeutralTile();
@@ -93,7 +93,12 @@ public partial class Ship : MonoBehaviour
         {
             Debug.Log(myName + " successfully reached to ("
                 + destination.x + ", " + destination.y + ").");
-            yield return Explore();
+
+            // Should we return to full auto pilot mode?
+            if (fullAuto)
+                yield return FullAutoPilot();
+            else
+                yield return Explore();
         }
         else
         {
@@ -299,14 +304,22 @@ public partial class Ship : MonoBehaviour
         return closestEnemyTile;
     }
 
-    // TBD!
+    // Full auto pilot:
+    // - Prioritizes fighting an enemy if we can see one.
+    // - Otherwise, explore!
     public IEnumerator FullAutoPilot()
     {
         // Full auto pilot takes a moment to think?
         yield return new WaitForSeconds(0.1f);
 
-        // For now just hunt!
-        yield return Hunt();
+        // Find all visible enemies.
+        List<Ship> visibleEnemies = GetVisibleEnemies();
+
+        // Hunt if we see an enemy.
+        if (visibleEnemies.Count > 0)
+            yield return Hunt();
+        else
+            yield return Explore(true);
     }
 
     // Reveal this ship's vision to the player.

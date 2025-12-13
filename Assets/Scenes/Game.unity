@@ -1620,7 +1620,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de4ab1d67c32f1f4d9a8ed5cc035b185, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Ship
-  autoPilotMode: 0
+  autoPilotMode: 5
   myName: Shark
   faction: 1
   x: 0
@@ -7413,7 +7413,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de4ab1d67c32f1f4d9a8ed5cc035b185, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Ship
-  autoPilotMode: 0
+  autoPilotMode: 5
   myName: Driller
   faction: 3
   x: 0
@@ -12670,7 +12670,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de4ab1d67c32f1f4d9a8ed5cc035b185, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Ship
-  autoPilotMode: 0
+  autoPilotMode: 5
   myName: Fairy
   faction: 2
   x: 0
@@ -14243,7 +14243,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de4ab1d67c32f1f4d9a8ed5cc035b185, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Ship
-  autoPilotMode: 0
+  autoPilotMode: 5
   myName: Fire Spirit
   faction: 1
   x: 0
@@ -19403,7 +19403,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f93498f3940d28546915f8b2b31d433b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Leader
-  autoPilotMode: 4
+  autoPilotMode: 5
   myName: Thousand Flowers
   faction: 1
   x: 0
@@ -26273,7 +26273,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de4ab1d67c32f1f4d9a8ed5cc035b185, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Ship
-  autoPilotMode: 0
+  autoPilotMode: 5
   myName: Treant
   faction: 2
   x: 0
@@ -31483,7 +31483,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de4ab1d67c32f1f4d9a8ed5cc035b185, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Ship
-  autoPilotMode: 0
+  autoPilotMode: 5
   myName: Squirrel
   faction: 2
   x: 0
@@ -32424,7 +32424,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de4ab1d67c32f1f4d9a8ed5cc035b185, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Ship
-  autoPilotMode: 0
+  autoPilotMode: 5
   myName: Raptor
   faction: 1
   x: 0
@@ -33908,7 +33908,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de4ab1d67c32f1f4d9a8ed5cc035b185, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Ship
-  autoPilotMode: 0
+  autoPilotMode: 5
   myName: Banker
   faction: 3
   x: 0
@@ -38635,7 +38635,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f93498f3940d28546915f8b2b31d433b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Leader
-  autoPilotMode: 4
+  autoPilotMode: 5
   myName: Aeradril
   faction: 3
   x: 0
@@ -44203,7 +44203,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de4ab1d67c32f1f4d9a8ed5cc035b185, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Ship
-  autoPilotMode: 0
+  autoPilotMode: 5
   myName: Tarodactyl
   faction: 1
   x: 0
@@ -47819,7 +47819,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de4ab1d67c32f1f4d9a8ed5cc035b185, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Ship
-  autoPilotMode: 0
+  autoPilotMode: 5
   myName: Space Witch
   faction: 2
   x: 0
@@ -48700,7 +48700,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de4ab1d67c32f1f4d9a8ed5cc035b185, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Ship
-  autoPilotMode: 0
+  autoPilotMode: 5
   myName: Soldier
   faction: 3
   x: 0
@@ -51223,7 +51223,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f93498f3940d28546915f8b2b31d433b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Leader
-  autoPilotMode: 4
+  autoPilotMode: 5
   myName: Greybeard
   faction: 0
   x: 0
@@ -53590,7 +53590,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de4ab1d67c32f1f4d9a8ed5cc035b185, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Ship
-  autoPilotMode: 0
+  autoPilotMode: 5
   myName: Flybot
   faction: 3
   x: 0
@@ -56250,7 +56250,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de4ab1d67c32f1f4d9a8ed5cc035b185, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Ship
-  autoPilotMode: 0
+  autoPilotMode: 5
   myName: Sky Pirate
   faction: 0
   x: 0
@@ -58178,7 +58178,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f93498f3940d28546915f8b2b31d433b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Leader
-  autoPilotMode: 4
+  autoPilotMode: 5
   myName: Granga
   faction: 2
   x: 0
