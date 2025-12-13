@@ -316,5 +316,8 @@ public partial class Ship : MonoBehaviour
 
         // Center the camera.
         Utility.MoveCamera(currentTile);
+
+        // Select the current tile.
+        currentTile.Select();
     }
 }

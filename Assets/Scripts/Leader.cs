@@ -246,8 +246,8 @@ public class Leader : Ship
         Ship selectedShip = availableShips[randomIndex];
         
         // Select and focus on the ship.
-        selectedShip.currentTile.Select();
-        Utility.MoveCamera(selectedShip.currentTile);
+        // selectedShip.currentTile.Select();
+        selectedShip.ShowVision();
         
         // Return the selected ship.
         return selectedShip;
