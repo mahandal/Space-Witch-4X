@@ -21002,6 +21002,7 @@ MonoBehaviour:
   autoPilotHuntIcon: {fileID: 794233372}
   autoPilotFullIcon: {fileID: 1839149691}
   hoveredTooltipParent: {fileID: 1809224799}
+  hoveredTileParent: {fileID: 1651116218}
   hoveredTileName: {fileID: 1041676920}
   hoveredTileMoveCost: {fileID: 2104639231}
   hoveredTileArmor: {fileID: 796747609}

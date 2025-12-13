@@ -1,8 +1,10 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class BuildButton : MonoBehaviour
+
+public class BuildButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     [Header("Build Button")]
     public string shipName = "";
@@ -16,6 +18,33 @@ public class BuildButton : MonoBehaviour
 
     // The text object displaying how much mana this button costs to press.
     public TMP_Text manaCost;
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        Hover();
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        Unhover();
+    }
+
+    public void Hover()
+    {
+        Debug.Log("Hovering build button with blueprint: " + shipName);
+
+        // Get the progenitor for this button's blueprint.
+        Ship progenitor = SpawnManager.I.GetProgenitor(shipName);
+
+        // Put the progenitor's stats in the hover tooltip
+        UI.I.HoverShip(progenitor, true);
+    }
+
+    public void Unhover()
+    {
+        Debug.Log("Unhovering build button with blueprint: " + shipName);
+        
+    }
 
     // Called when this button is pressed.
     public void Button_Pressed()

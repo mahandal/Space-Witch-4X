@@ -70,6 +70,7 @@ public class UI : MonoBehaviour
 
     [Header("Hovered Tile")]
     // Hovered tile.
+    public GameObject hoveredTileParent;
     public TMP_Text hoveredTileName;
     public TMP_Text hoveredTileMoveCost;
     public TMP_Text hoveredTileArmor;
@@ -122,6 +123,7 @@ public class UI : MonoBehaviour
         } else {
             // Make sure tooltip is visible!
             hoveredTooltipParent.SetActive(true);
+            hoveredTileParent.SetActive(true);
         }
 
         // Set up tooltip.
@@ -131,6 +133,16 @@ public class UI : MonoBehaviour
 
         // - Ship
         Ship hoveredShip = hoveredTile.ship;
+        HoverShip(hoveredShip);
+    }
+
+    // Hover the given ship
+    public void HoverShip(Ship hoveredShip, bool hideTileTooltip = false)
+    {
+        // Hide the tile tooltip?
+        // (for hovering blueprints)
+        if (hideTileTooltip)
+            hoveredTileParent.SetActive(false);
 
         // Clear if selecting nothing.
         if (hoveredShip == null)
