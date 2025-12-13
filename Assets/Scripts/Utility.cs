@@ -176,7 +176,24 @@ public class Utility : MonoBehaviour
     {
         // Get new position.
         Vector3 newCameraPos = tileToFocusOn.transform.position;
-        newCameraPos.z = Camera.main.transform.position.z; // Keep camera's Z position
+
+        // Keep camera's Z position.
+        newCameraPos.z = Camera.main.transform.position.z; 
+
+        // Set new position.
+        Camera.main.transform.position = newCameraPos;
+    }
+
+    // Move the main camera to focus on the given ship.
+    public static void MoveCamera(Ship shipToFocusOn)
+    {
+        // Get new position.
+        Vector3 newCameraPos = shipToFocusOn.transform.position;
+
+        // Keep camera's z position.
+        newCameraPos.z = Camera.main.transform.position.z; 
+
+        // Set new position.
         Camera.main.transform.position = newCameraPos;
     }
 }

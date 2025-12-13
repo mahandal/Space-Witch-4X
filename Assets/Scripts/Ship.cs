@@ -418,10 +418,6 @@ public partial class Ship : MonoBehaviour
         currentTile = destination;
         currentTile.ship = this;
 
-        // Move physically.
-        // transform.position = destination.transform.position;
-        
-
         // Claim for your faction!
         destination.Claim(faction);
 
@@ -449,7 +445,6 @@ public partial class Ship : MonoBehaviour
     }
 
     // Physically move this ship from its current tile to the destination tile.
-    // 
     public IEnumerator PhysicallyMove(Tile destination)
     {
         // Remember our starting position.
@@ -462,11 +457,22 @@ public partial class Ship : MonoBehaviour
         float elapsed = 0f;
         float duration = 0.3f;
         
+        // Last duration seconds.
         while (elapsed < duration)
         {
+            // Count time.
             elapsed += Time.deltaTime;
+
+            // Get percent complete.
             float t = elapsed / duration;
+
+            // Set position using lerp.
             transform.position = Vector3.Lerp(startPosition, endPosition, t);
+
+            // Move camera to follow.
+            Utility.MoveCamera(this);
+
+            // Wait a frame.
             yield return null;
         }
 
