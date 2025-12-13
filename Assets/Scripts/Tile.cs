@@ -96,7 +96,7 @@ public class Tile : MonoBehaviour
     public void ClearPathTrace()
     {
         // Reset path trace!
-        moveCostFromCurrentTile = -1;
+        moveCostFromCurrentTile = int.MaxValue;
         previousTileInPath = null;
         nextTileInPath = null;
     }
