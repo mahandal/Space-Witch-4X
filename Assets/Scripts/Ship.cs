@@ -907,7 +907,6 @@ public partial class Ship : MonoBehaviour
                 // Can't make it through!
                 if (nextTile == null)
                     return false;
-
             }
 
             // Move to the next tile.
@@ -942,6 +941,9 @@ public partial class Ship : MonoBehaviour
     public List<Tile> FindPathTo(Tile targetTile)
     {
         if (targetTile == null) return null;
+
+        // First clear all prior path traces.
+        Tile.ClearAllPathTraces();
         
         // Track tiles we've visited and the cost to reach them
         Dictionary<Tile, int> costToReach = new Dictionary<Tile, int>();
