@@ -64,7 +64,7 @@ public partial class Ship : MonoBehaviour
     // - It's not our turn.
     // - The target doesn't exist.
     // - The target is not an enemy.
-    // - We can't get close enough.
+    // Note: If we are not able to get close enough to attack, we just move as close as we can.
     public IEnumerator AttemptAttackMove(Ship target, bool useAllAttacks = false)
     {
         // Check if we have attacks remaining.
@@ -95,7 +95,7 @@ public partial class Ship : MonoBehaviour
         }
 
         // Move to our vantage point.
-        yield return Move(bestTile);
+        yield return MoveToward(bestTile);
 
         // Attack!
         Attack(target);
@@ -122,6 +122,8 @@ public partial class Ship : MonoBehaviour
     }
 
     // Find the closest tile to us that we can attack our target from.
+    // If we can't get close enough to the target tile to attack it,
+    // finds the closest tile to the target tile that we can move to.
     public Tile FindVantagePoint(Tile targetTile)
     {
         // Measure distance apart.
@@ -159,18 +161,14 @@ public partial class Ship : MonoBehaviour
             // Calculate distance to our target.
             int attackDistance = Utility.Distance(potentialTile, targetTile);
 
-            // Check if we're in range.
-            if (attackDistance <= range)
+            // Check if it's a new best.
+            if (travelDistance < shortestTravelDistance)
             {
-                // Check if it's a new best.
-                if (travelDistance < shortestTravelDistance)
-                {
-                    // Remember this as our new best tile.
-                    bestTile = potentialTile;
+                // Remember this as our new best tile.
+                bestTile = potentialTile;
 
-                    // Remember this as our new shortest distance.
-                    shortestTravelDistance = travelDistance;
-                }
+                // Remember this as our new shortest distance.
+                shortestTravelDistance = travelDistance;
             }
         }
 
