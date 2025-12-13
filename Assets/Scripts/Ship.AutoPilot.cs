@@ -128,8 +128,22 @@ public partial class Ship : MonoBehaviour
         // Check if we there are any enemies in sight.
         if (visibleEnemies.Count > 0 && attacksRemaining > 0)
         {
+            // Remember our movement and attacks remaining to see if we use any.
+            int priorMovementRemaining = movementRemaining;
+            int priorAttacksRemaining = attacksRemaining;
+
             // If there is an enemy in sight, attack move toward them!
             yield return AttackNearestEnemy();
+
+            // Check if we used any movement or attacks.
+            if (priorMovementRemaining == movementRemaining &&
+                priorAttacksRemaining == attacksRemaining)
+            {
+                // Didn't move or attack.
+
+                // Rest?
+                AttemptRest();
+            }
         }
         else
         {
