@@ -899,9 +899,6 @@ public partial class Ship : MonoBehaviour
             // Get the next tile in our path.
             Tile nextTile = path[pathIndex];
 
-            Debug.Log(myName + " is attempting to move to tile (" + 
-                nextTile.x + ", " + nextTile.y + ").");
-
             // Check if we need to move through friendly ships.
             while (nextTile.ship != null)
             {
@@ -909,21 +906,20 @@ public partial class Ship : MonoBehaviour
 
                 // Can't make it through!
                 if (nextTile == null)
-                {
-                    Debug.Log(myName + " failed to find a valid path. Blocked by friendlies!");
                     return false;
-                }
+
             }
 
             // Move to the next tile.
             bool successfullyMoved = AttemptMove(nextTile);
 
-            // Return false if we fail to move for whatever reason.
-            if (!successfullyMoved)
-            {
-                Debug.Log(myName + " failed to move...");
-                return false;
-            }
+
+            if (successfullyMoved)
+                // Recalculate tile movement costs.
+                // Note: Recalculates movement cost for ALL tiles. Could be optimized!
+                currentTile.GetAllConnectedTiles();
+            else
+                return false; // Return false if we fail to move for whatever reason.
 
             // Increment our path index.
             pathIndex++;
@@ -998,6 +994,7 @@ public partial class Ship : MonoBehaviour
                 {
                     // Remember how we got here.
                     costToReach[neighbor] = newCost;
+                    neighbor.moveCostFromCurrentTile = newCost;
                     cameFrom[neighbor] = current.tile;
                     neighbor.previousTileInPath = current.tile;
                     current.tile.nextTileInPath = neighbor;
