@@ -167,9 +167,6 @@ public class GM : MonoBehaviour
     // Error checks then delegates to EndTurn().
     public void Button_EndTurn()
     {
-        // Don't double up!
-        if (!UI.I.endTurnButton.gameObject.activeSelf) return;
-
         // Hide end turn button.
         UI.I.endTurnButton.gameObject.SetActive(false);
 
@@ -284,6 +281,10 @@ public class GM : MonoBehaviour
         // Get the current leader.
         Leader currentLeader = leaders[activeFaction];
 
+        // Prevent ending your turn more than once per turn.
+        if (currentLeader.hasEndedTurn) yield break;
+        currentLeader.hasEndedTurn = true;
+
         // Handle auto-pilots.
         // foreach (Ship ship in currentLeader.fleet)
         foreach (Ship ship in currentLeader.GetAvailableShips())
@@ -356,7 +357,7 @@ public class GM : MonoBehaviour
         Leader leader = leaders[faction];
 
         // Let the leader start their faction's turn.
-        leader.StartTurn();
+        yield return leader.StartTurn();
 
         // Set up UI.
         UI.I.NewTurn(faction);

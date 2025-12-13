@@ -15,15 +15,12 @@ public class Leader : Ship
     // A list of all our ships.
     public List<Ship> fleet = new List<Ship>();
 
-    // - AI
+    // A boolean tracking whether this leader has ended their turn.
+    // Used to prevent ending your turn twice.
+    // Seems like it shouldn't be necessary tbh, but other options didn't work so w/e.
+    public bool hasEndedTurn;
 
-    // Start running a turn for an AI.
-    // Wrapper of AITurnCoroutine
-    // public void AITurn()
-    // {
-    //     // Start coroutine.
-    //     StartCoroutine(AITurnCoroutine());
-    // }
+    // - AI
 
     // Handle running an AI's turn.
     public IEnumerator AITurn()
@@ -143,8 +140,11 @@ public class Leader : Ship
     // Handle starting a turn for this leader's faction.
     // - Harvest 1 mana per tile owned.
     // - Handle upkeep for each ship (e.g. burning in fire!)
-    public void StartTurn()
+    public IEnumerator StartTurn()
     {
+        // Bools.
+        hasEndedTurn = false;
+
         // Harvest mana.
         HarvestMana();
 
@@ -153,6 +153,9 @@ public class Leader : Ship
         {
             ship.Upkeep();
         }
+
+        // ienumerators have to return something
+        yield return new WaitForSeconds(0.1f);
     }
 
     // - Mana
