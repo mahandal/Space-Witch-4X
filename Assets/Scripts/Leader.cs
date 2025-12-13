@@ -149,7 +149,9 @@ public class Leader : Ship
         HarvestMana();
 
         // Handle upkeep for each ship in our fleet!
-        foreach (Ship ship in fleet)
+        // (make a temp list in case any die throughout)
+        List<Ship> fleetCopy = new List<Ship>(fleet);
+        foreach (Ship ship in fleetCopy)
         {
             ship.Upkeep();
         }

@@ -132,7 +132,8 @@ public class InputManager : MonoBehaviour
                     GM.I.hoveredTile.ship.faction != selectedShip.faction)
                 {
                     // Try moving toward the enemy ship and attacking them.
-                    selectedShip.AttemptAttackMove(GM.I.hoveredTile.ship);
+                    // selectedShip.AttemptAttackMove(GM.I.hoveredTile.ship);
+                    StartCoroutine(selectedShip.AttemptAttackMove(GM.I.hoveredTile.ship));
                 } else {
                     // Try to move the ship to the target tile.
                     selectedShip.AttemptMove(GM.I.hoveredTile.x, GM.I.hoveredTile.y);

@@ -65,21 +65,21 @@ public partial class Ship : MonoBehaviour
     // - The target doesn't exist.
     // - The target is not an enemy.
     // - We can't get close enough.
-    public bool AttemptAttackMove(Ship target, bool useAllAttacks = false)
+    public IEnumerator AttemptAttackMove(Ship target, bool useAllAttacks = false)
     {
         // Check if we have attacks remaining.
         if (attacksRemaining <= 0)
-            return false;
+            yield break;
 
         // Check if it's our turn.
         if (GM.I.activeFaction != faction)
-            return false;
+            yield break;
 
         // Make sure target exists.
-        if (target == null) return false;
+        if (target == null) yield break;
 
         // Make sure target is an enemy.
-        if (target.faction == faction) return false;
+        if (target.faction == faction) yield break;
 
         // Get the target's tile.
         Tile targetTile = target.currentTile;
@@ -91,7 +91,7 @@ public partial class Ship : MonoBehaviour
         if (bestTile == null)
         {
             // Can't get close enough.
-            return false;
+            yield break;
         }
 
         // Move to our vantage point.
@@ -103,11 +103,8 @@ public partial class Ship : MonoBehaviour
         // Use additional attacks?
         if (useAllAttacks)
         {
-            StartCoroutine(FireEverything(target));
+            yield return FireEverything(target);
         }
-
-        // Return successful.
-        return true;
     }
 
     // FIRE EVERYTHING!
@@ -779,36 +776,24 @@ public partial class Ship : MonoBehaviour
     // Get a list of all enemy ships within vision range.
     public List<Ship> GetVisibleEnemies()
     {
+        // Get a list of all tiles this ship can see.
+        HashSet<Tile> visibleTiles = currentTile.GetTilesInVisionRange();
+
+        // Keep a list of all enemies in this ship's vision range.
         List<Ship> visibleEnemies = new List<Ship>();
-        
-        // Check all tiles within vision range.
-        for (int dx = -vision; dx <= vision; dx++)
+
+        // Look through each tile.
+        foreach (Tile tile in visibleTiles)
         {
-            for (int dy = -vision; dy <= vision; dy++)
-            {
-                // Get the tile.
-                Tile tile = GM.I.GetTile(x + dx, y + dy);
-                
-                // Skip if tile doesn't exist.
-                if (tile == null) continue;
-                
-                // Skip if no ship on tile.
-                if (tile.ship == null) continue;
-                
-                // Skip if ship is friendly.
-                if (tile.ship.faction == faction) continue;
-                
-                // Calculate actual distance.
-                int distance = Utility.Distance(currentTile, tile);
-                
-                // Check if within vision range.
-                if (distance <= vision)
-                {
-                    visibleEnemies.Add(tile.ship);
-                }
-            }
+            // Get the ship on this tile (if there is one).
+            Ship ship = tile.ship;
+
+            // If there is an enemy ship, add it to the list.
+            if (ship != null && ship.faction != faction)
+                visibleEnemies.Add(ship);
         }
-        
+
+        // Return.
         return visibleEnemies;
     }
 

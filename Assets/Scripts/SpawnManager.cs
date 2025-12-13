@@ -119,7 +119,7 @@ public class SpawnManager : MonoBehaviour
         foreach (Leader leader in GM.I.leaders.Values)
         {
             // Initialize each leader.
-            // Note: Also moves them into a random position.
+            // Note: Also moves them to their starting position.
             leader.Init();
         }
 
@@ -151,12 +151,16 @@ public class SpawnManager : MonoBehaviour
             tile.Terraform(TileType.Void);
         }
 
-        // - Planets
+        // - Spawns
 
-        // Spawns
+        // Go through each leader.
         foreach (Leader leader in GM.I.leaders.Values)
         {
+            // Make their spawn a planet.
             leader.currentTile.Terraform(TileType.Planet);
+
+            // Claim their spawn for their faction.
+            leader.currentTile.Claim(leader.faction, false);
         }
 
         

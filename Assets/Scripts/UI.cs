@@ -319,7 +319,9 @@ public class UI : MonoBehaviour
     public void WhichButtonInTopRight()
     {
         // If it is not our turn, then show neither.
-        if (GM.I.leaders[GM.I.playerFaction].hasEndedTurn)
+        if (GM.I == null ||
+            GM.I.leaders[GM.I.playerFaction] == null ||
+            GM.I.leaders[GM.I.playerFaction].hasEndedTurn)
         {
             selectNextShipButton.gameObject.SetActive(false);
             endTurnButton.gameObject.SetActive(false);

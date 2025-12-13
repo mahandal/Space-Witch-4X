@@ -19403,7 +19403,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f93498f3940d28546915f8b2b31d433b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Leader
-  autoPilotMode: 1
+  autoPilotMode: 4
   myName: Thousand Flowers
   faction: 1
   x: 0
@@ -19435,6 +19435,7 @@ MonoBehaviour:
   - {fileID: 486794269}
   - {fileID: 23869443}
   fleet: []
+  hasEndedTurn: 0
 --- !u!1 &658008530
 GameObject:
   m_ObjectHideFlags: 0
@@ -33819,7 +33820,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: Guard
+          m_StringArgument: Hunt
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &1135581711
@@ -38634,7 +38635,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f93498f3940d28546915f8b2b31d433b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Leader
-  autoPilotMode: 1
+  autoPilotMode: 4
   myName: Aeradril
   faction: 3
   x: 0
@@ -38666,6 +38667,7 @@ MonoBehaviour:
   - {fileID: 1666079435}
   - {fileID: 1136089917}
   fleet: []
+  hasEndedTurn: 0
 --- !u!1 &1275063320
 GameObject:
   m_ObjectHideFlags: 0
@@ -51221,7 +51223,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f93498f3940d28546915f8b2b31d433b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Leader
-  autoPilotMode: 1
+  autoPilotMode: 4
   myName: Greybeard
   faction: 0
   x: 0
@@ -51250,6 +51252,7 @@ MonoBehaviour:
   blueprints:
   - {fileID: 1944378898}
   fleet: []
+  hasEndedTurn: 0
 --- !u!1 &1730924550
 GameObject:
   m_ObjectHideFlags: 0
@@ -58175,7 +58178,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f93498f3940d28546915f8b2b31d433b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Leader
-  autoPilotMode: 1
+  autoPilotMode: 4
   myName: Granga
   faction: 2
   x: 0
@@ -58207,6 +58210,7 @@ MonoBehaviour:
   - {fileID: 430146182}
   - {fileID: 833653602}
   fleet: []
+  hasEndedTurn: 0
 --- !u!1 &2021711876
 GameObject:
   m_ObjectHideFlags: 0

@@ -776,7 +776,7 @@ public class Tile : MonoBehaviour
 
 
     // Set this tile's faction.
-    public void Claim(Faction newFaction)
+    public void Claim(Faction newFaction, bool claimAllTilesInPath = true)
     {
         // Neutrals don't claim tiles.
         if (newFaction == Faction.Neutral) return;
@@ -791,7 +791,7 @@ public class Tile : MonoBehaviour
         factionBG.color = Constance.FactionColor(newFaction, 0.5f);
 
         // Claim other tiles in path!
-        if (previousTileInPath != null)
+        if (claimAllTilesInPath && previousTileInPath != null)
             previousTileInPath.Claim(newFaction);
     }
 
