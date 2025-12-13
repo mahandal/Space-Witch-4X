@@ -195,18 +195,29 @@ public partial class Ship : MonoBehaviour
     {
         // Check if it's our turn.
         if (GM.I.activeFaction != faction)
+        {
+            Debug.Log(myName + " failed to move. Not our turn!");
             return false;
+        }
 
         // Get new tile.
         Tile newTile = GM.I.grid[newX, newY];
 
         // Check if tile is empty.
         if (newTile.ship != null)
+        {
+            Debug.Log(myName + " failed to move. Target tile has a ship already!");
             return false;
+        }
 
         // Check if tile is too far away.
         if (newTile.moveCostFromCurrentTile > movementRemaining || newTile.moveCostFromCurrentTile < 0)
+        {
+            Debug.Log(myName + " failed to move. Not enough movement remaining!"
+                + " movement remaining: " + movementRemaining
+                + ". tile movement cost: " + newTile.moveCostFromCurrentTile);
             return false;
+        }
 
         // Delegate to Move!
         Move(newX, newY);
@@ -869,6 +880,9 @@ public partial class Ship : MonoBehaviour
      // Move a ship toward a target tile.
     public bool MoveToward(Tile targetTile)
     {
+        Debug.Log(myName + " is attempting to move toward destination (" + 
+            targetTile.x + ", " + targetTile.y + ").");
+
         // Skip if no movement remaining
         if (movementRemaining <= 0) return false;
         
@@ -885,10 +899,20 @@ public partial class Ship : MonoBehaviour
             // Get the next tile in our path.
             Tile nextTile = path[pathIndex];
 
+            Debug.Log(myName + " is attempting to move to tile (" + 
+                nextTile.x + ", " + nextTile.y + ").");
+
             // Check if we need to move through friendly ships.
             while (nextTile.ship != null)
             {
                 nextTile = nextTile.nextTileInPath;
+
+                // Can't make it through!
+                if (nextTile == null)
+                {
+                    Debug.Log(myName + " failed to find a valid path. Blocked by friendlies!");
+                    return false;
+                }
             }
 
             // Move to the next tile.
@@ -896,7 +920,10 @@ public partial class Ship : MonoBehaviour
 
             // Return false if we fail to move for whatever reason.
             if (!successfullyMoved)
+            {
+                Debug.Log(myName + " failed to move...");
                 return false;
+            }
 
             // Increment our path index.
             pathIndex++;
@@ -905,6 +932,9 @@ public partial class Ship : MonoBehaviour
             if (pathIndex >= path.Count)
                 return true;
         }
+
+        Debug.Log(myName + " failed to reach destination (" + 
+            targetTile.x + ", " + targetTile.y + ").");
 
         // Failed to get all the way there.
         return false;

@@ -312,7 +312,7 @@ public class UI : MonoBehaviour
 
         // Reveal select ship button for the player.
         if (faction == GM.I.playerFaction)
-            selectNextShipButton.gameObject.SetActive(true);
+            WhichButtonInTopRight();
     }
 
     // Check whether we should display the Select Next Ship button, End Turn button, or neither.

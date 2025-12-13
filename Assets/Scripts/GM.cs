@@ -167,6 +167,9 @@ public class GM : MonoBehaviour
     // Error checks then delegates to EndTurn().
     public void Button_EndTurn()
     {
+        // Don't double up!
+        if (!UI.I.endTurnButton.gameObject.activeSelf) return;
+
         // Hide end turn button.
         UI.I.endTurnButton.gameObject.SetActive(false);
 
@@ -174,7 +177,6 @@ public class GM : MonoBehaviour
         Tile.ClearSelection();
 
         // End the current turn.
-        // EndTurn();
         StartCoroutine(EndTurn());
     }
 

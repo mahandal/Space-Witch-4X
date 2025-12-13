@@ -40,7 +40,8 @@ public partial class Ship : MonoBehaviour
             yield break;
 
         // Center camera on ship.
-        Utility.MoveCamera(currentTile);
+        // Utility.MoveCamera(currentTile);
+        ShowVision();
 
         // Give each ship a first moment on screen.
         yield return new WaitForSeconds(0.3f);
@@ -87,9 +88,19 @@ public partial class Ship : MonoBehaviour
 
         // Keep going?
         if (successfullyMoved)
+        {
+            Debug.Log(myName + " successfully reached to ("
+                + destination.x + ", " + destination.y + ").");
             yield return Explore();
+        }
         else
+        {
+            Debug.Log(myName + " failed to reach ("
+                + destination.x + ", " + destination.y + ")"
+                + " and is going to rest with " + movementRemaining
+                + " movement remaining.");
             AttemptRest();
+        }
     }
 
     // Guard an area, waking up upon seeing an enemy within attack range.
