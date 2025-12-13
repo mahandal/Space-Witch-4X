@@ -95,7 +95,7 @@ public partial class Ship : MonoBehaviour
         }
 
         // Move to our vantage point.
-        Move(bestTile.x, bestTile.y);
+        Move(bestTile);
 
         // Attack!
         Attack(target);
@@ -177,18 +177,12 @@ public partial class Ship : MonoBehaviour
         return bestTile;
     }
 
-    // Attempt to move the ship to the target tile.
-    public bool AttemptMove(Tile targetTile)
-    {
-        return AttemptMove(targetTile.x, targetTile.y);
-    }
-
     // Attempt to move the ship to the new coordinates.
     // Fails if
     // - it's not our turn.
     // - the tile is too far away.
     // - there is already a ship there.
-    public bool AttemptMove(int newX, int newY)
+    public bool AttemptMove(Tile destination)
     {
         // Check if it's our turn.
         if (GM.I.activeFaction != faction)
@@ -197,27 +191,24 @@ public partial class Ship : MonoBehaviour
             return false;
         }
 
-        // Get new tile.
-        Tile newTile = GM.I.grid[newX, newY];
-
         // Check if tile is empty.
-        if (newTile.ship != null)
+        if (destination.ship != null)
         {
             Debug.Log(myName + " failed to move. Target tile has a ship already!");
             return false;
         }
 
         // Check if tile is too far away.
-        if (newTile.moveCostFromCurrentTile > movementRemaining || newTile.moveCostFromCurrentTile < 0)
+        if (destination.moveCostFromCurrentTile > movementRemaining || destination.moveCostFromCurrentTile < 0)
         {
             Debug.Log(myName + " failed to move. Not enough movement remaining!"
                 + " movement remaining: " + movementRemaining
-                + ". tile movement cost: " + newTile.moveCostFromCurrentTile);
+                + ". tile movement cost: " + destination.moveCostFromCurrentTile);
             return false;
         }
 
         // Delegate to Move!
-        Move(newX, newY);
+        Move(destination);
 
         // Return true!
         return true;
@@ -413,51 +404,42 @@ public partial class Ship : MonoBehaviour
         UI.I.WhichButtonInTopRight();
     }
 
-    // Move the ship to a new tile.
-    // Delegates to below!
-    public void Move(Tile newTile, bool costMovement = true)
-    {
-        Move(newTile.x, newTile.y, costMovement);
-    }
 
-    // Move the ship to new coordinates.
+    // Move the ship to a destination tile.
     // Note: Does NOT error check!
-    public void Move(int newX, int newY, bool costMovement = true)
+    public void Move(Tile destination, bool costMovement = true)
     {
-        // Get new tile.
-        Tile newTile = GM.I.grid[newX, newY];
-
         // Remove from old tile.
         if (currentTile != null)
             currentTile.ship = null;
 
         // Set coordinates.
-        x = newX;
-        y = newY;
+        x = destination.x;
+        y = destination.y;
 
         // Set new tile
-        currentTile = newTile;
+        currentTile = destination;
         currentTile.ship = this;
 
         // Move physically.
-        transform.position = newTile.transform.position;
+        transform.position = destination.transform.position;
 
         // Claim for your faction!
-        newTile.Claim(faction);
+        destination.Claim(faction);
 
         // Hide path preview.
-        newTile.ClearPathPreview();
+        destination.ClearPathPreview();
 
         // Spend movement.
         if (costMovement)
-            SpendMovement(newTile.moveCostFromCurrentTile);
+            SpendMovement(destination.moveCostFromCurrentTile);
 
         // Update fog of war if player faction
         if (faction == GM.I.playerFaction)
             GM.I.UpdateFogOfWar();
 
         // Call tile's OnEnter function.
-        newTile.OnEnter(this);
+        destination.OnEnter(this);
     }
 
     // Refreshes this ship's movement and attacks.
@@ -859,65 +841,69 @@ public partial class Ship : MonoBehaviour
         Tile randomTile = validTiles[randomIndex];
         
         // Move there
-        AttemptMove(randomTile.x, randomTile.y);
+        AttemptMove(randomTile);
     }
 
      // Move a ship toward a target tile.
-    public bool MoveToward(Tile targetTile)
+    public IEnumerator MoveToward(Tile targetTile)
     {
         Debug.Log(myName + " is attempting to move toward destination (" + 
             targetTile.x + ", " + targetTile.y + ").");
 
         // Skip if no movement remaining
-        if (movementRemaining <= 0) return false;
+        if (movementRemaining <= 0) yield break;
         
         // Find a path to the target tile.
         List<Tile> path = FindPathTo(targetTile);
 
         // Check if we found a path
-        if (path == null) return false;
+        if (path == null) yield break;
 
         // Move along path until we are out of movement or we reach our target.
         int pathIndex = 1;
         while (movementRemaining > 0 && currentTile != targetTile)
         {
             // Get the next tile in our path.
-            Tile nextTile = path[pathIndex];
+            Tile destination = path[pathIndex];
 
             // Check if we need to move through friendly ships.
-            while (nextTile.ship != null)
+            while (destination.ship != null)
             {
-                nextTile = nextTile.nextTileInPath;
+                destination = destination.nextTileInPath;
 
                 // Can't make it through!
-                if (nextTile == null)
-                    return false;
+                if (destination == null)
+                    yield break;
             }
 
             // Move to the next tile.
-            bool successfullyMoved = AttemptMove(nextTile);
+            yield return AttemptMove(destination);
 
+            // Follow this ship's progress.
+            ShowVision();
 
+            // Wait a moment on each tile.
+            yield return new WaitForSeconds(0.3f);
+
+            // Check if we moved successfully.
+            bool successfullyMoved = (destination == currentTile);
             if (successfullyMoved)
                 // Recalculate tile movement costs.
                 // Note: Recalculates movement cost for ALL tiles. Could be optimized!
                 currentTile.GetAllConnectedTiles();
             else
-                return false; // Return false if we fail to move for whatever reason.
+                yield break; // Return false if we fail to move for whatever reason.
 
             // Increment our path index.
             pathIndex++;
 
             // Check if we've reached the end?
             if (pathIndex >= path.Count)
-                return true;
+                yield break;
         }
 
         Debug.Log(myName + " failed to reach destination (" + 
             targetTile.x + ", " + targetTile.y + ").");
-
-        // Failed to get all the way there.
-        return false;
     }
 
     // Find the shortest path from this ship's current tile to the target tile.

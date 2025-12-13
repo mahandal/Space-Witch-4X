@@ -278,7 +278,7 @@ public class SpawnManager : MonoBehaviour
             newShip.transform.SetParent(syndicateShipParent);
 
         // Set new position.
-        newShip.Move(x, y, false);
+        newShip.Move(tile, false);
 
         // Set auto pilot to full.
         newShip.autoPilotMode = AutoPilotMode.Full;

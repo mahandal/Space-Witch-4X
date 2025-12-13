@@ -78,8 +78,11 @@ public partial class Ship : MonoBehaviour
         Debug.Log(myName + " is exploring and found tile (" + destination.x + ", "
             + destination.y + ") as their destination.");
 
-        // Move toward our destination!
-        bool successfullyMoved = MoveToward(destination);
+        // Move toward our destination.
+        yield return MoveToward(destination);
+
+        // Check if we moved successfully.
+        bool successfullyMoved = (destination == currentTile);
 
         // Follow our ships exploring around!
         ShowVision();
@@ -185,7 +188,10 @@ public partial class Ship : MonoBehaviour
             + destination.x + ", " + destination.y + ")");
 
         // Move toward our destination.
-        bool successfullyMoved = MoveToward(destination);
+        yield return MoveToward(destination);
+
+        // Check if we moved successfully.
+        bool successfullyMoved = (destination == currentTile);
 
         if (successfullyMoved)
             Debug.Log(myName + " thinks she has successfully moved toward her destination!");
@@ -220,7 +226,7 @@ public partial class Ship : MonoBehaviour
     {
         // Check if we have attacks remaining.
         if (attacksRemaining <= 0) return false;
-        
+
         // Get a list of enemy ships in this ship's vision range.
         List<Ship> visibleEnemies = GetVisibleEnemies();
 
