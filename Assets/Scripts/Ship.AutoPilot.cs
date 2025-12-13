@@ -82,12 +82,14 @@ public partial class Ship : MonoBehaviour
         bool successfullyMoved = MoveToward(destination);
 
         // Follow our ships exploring around!
-        Utility.MoveCamera(currentTile);
+        ShowVision();
         yield return new WaitForSeconds(0.3f);
 
         // Keep going?
         if (successfullyMoved)
             yield return Explore();
+        else
+            AttemptRest();
     }
 
     // Guard an area, waking up upon seeing an enemy within attack range.
@@ -106,9 +108,9 @@ public partial class Ship : MonoBehaviour
 
     // Hunt
     // TBD!
-    public void Hunt()
+    public IEnumerator Hunt()
     {
-        
+        yield return new WaitForSeconds(0.1f);
     }
 
     // TBD!
@@ -116,9 +118,13 @@ public partial class Ship : MonoBehaviour
     {
         // Full auto pilot takes a moment to think?
         yield return new WaitForSeconds(0.1f);
+
+        // For now just explore!
+        yield return Explore();
     }
 
     // Reveal this ship's vision to the player.
+    // Also centers the camera on this ship's tile.
     public void ShowVision()
     {
         // Get a set of tiles this ship can see.
@@ -135,5 +141,8 @@ public partial class Ship : MonoBehaviour
                 tile.HideInFog();
             }
         }
+
+        // Center the camera.
+        Utility.MoveCamera(currentTile);
     }
 }

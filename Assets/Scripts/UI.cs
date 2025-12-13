@@ -334,7 +334,7 @@ public class UI : MonoBehaviour
             return; 
 
         // Check if our fleet has any actions remaining.
-        bool fleetCanAct = leader.CanFleetAct();
+        bool fleetCanAct = leader.CanFleetAct(true);
 
         // If our fleet has any actions remaining...
         if (fleetCanAct)

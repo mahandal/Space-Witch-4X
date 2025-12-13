@@ -99,7 +99,7 @@ public class GM : MonoBehaviour
 
         // Set up new map.
         int width = Random.Range(10, 50);
-        int height = Random.Range(5, 30);
+        int height = Random.Range(10, 30);
         SpawnManager.I.GenerateNewMap(width, height);
 
         // Clear tile selection to begin with (?)
@@ -221,7 +221,7 @@ public class GM : MonoBehaviour
 
     // Build the given ship at the given tile.
     // Note: Automatically detects faction from ship name.
-    public void BuildShip(string shipName, Tile home)
+    public Ship BuildShip(string shipName, Tile home)
     {
         // Instantiate the new ship.
         Ship newShip = SpawnManager.I.SpawnShip(shipName, home.x, home.y);
@@ -231,7 +231,7 @@ public class GM : MonoBehaviour
         {
             Debug.LogError("Failed to build ship of type: " + shipName +
                 " at tile: " + home.myType + " (" + home.x + ", " + home.y + ")");
-            return;
+            return null;
         }
 
         // Update action indicators.
@@ -246,6 +246,9 @@ public class GM : MonoBehaviour
 
         // Reset build order.
         ResetBuildOrder();
+
+        // Return the new ship.
+        return newShip;
     }
 
     // Stop building.
@@ -267,9 +270,11 @@ public class GM : MonoBehaviour
     //     StartCoroutine(EndTurnCoroutine());
     // }
 
+    // Handle ending the player's turn.
+
     // Handle ending a turn.
     // Note: Waits a second first to give AI time to think!
-    private IEnumerator EndTurn()
+    public IEnumerator EndTurn()
     {
         // Stop once the game is over.
         if (gameState > 1) yield break;
@@ -278,13 +283,20 @@ public class GM : MonoBehaviour
         Leader currentLeader = leaders[activeFaction];
 
         // Handle auto-pilots.
-        foreach (Ship ship in currentLeader.fleet)
+        // foreach (Ship ship in currentLeader.fleet)
+        foreach (Ship ship in currentLeader.GetAvailableShips())
         {
             yield return ship.AutoPilot();
         }
         
         // Let the current leader end the turn for their faction.
-        yield return currentLeader.EndTurn();
+        // yield return currentLeader.EndTurn();
+
+        // Refresh the current leader's fleet so you can click on them and preview their movement.
+        currentLeader.RefreshFleet();
+
+        // Hide movement and attacks remaining for all ships in the fleet.
+        currentLeader.HideFleetMovementAndAttacks();
 
         // Increment turn index.
         IncrementTurnIndex();
@@ -421,53 +433,6 @@ public class GM : MonoBehaviour
         Leader playerLeader = leaders[playerFaction];
 
         playerLeader.GetRandomAvailableShip(true);
-
-        // // Convert fleet to list to loop through.
-        // List<Ship> fleetList = new List<Ship>(playerLeader.fleet);
-
-        // // Initialize our starting index.
-        // int startIndex = 0;
-
-        // // Check if we can start from our last selected ship.
-        // if (lastSelectedShip != null && fleetList.Contains(lastSelectedShip))
-        // {
-        //     // Get the index of our selected ship.
-        //     startIndex = fleetList.IndexOf(lastSelectedShip);
-
-        //     // Increment to get the next one!
-        //     startIndex++;
-
-        //     // Overflow!
-        //     if (startIndex >= fleetList.Count)
-        //         startIndex = startIndex % fleetList.Count;
-        // }
-
-        // // Search for next available ship.
-        // for (int i = 0; i < fleetList.Count; i++)
-        // {
-        //     // Index into our fleet using our starting index.
-        //     int index = (startIndex + i) % fleetList.Count;
-        //     Ship ship = fleetList[index];
-            
-        //     // Skip dead ships.
-        //     if (ship == null || ship.currentHealth <= 0) continue;
-
-        //     // Skip ships on auto pilot.
-        //     if (ship.autoPilotMode != AutoPilotMode.Off) continue;
-            
-        //     // Check if ship has actions remaining.
-        //     if (ship.movementRemaining > 0 || ship.attacksRemaining > 0)
-        //     {
-        //         // Select this ship.
-        //         ship.currentTile.Select();
-                
-        //         // Move camera to center on it.
-        //         Utility.MoveCamera(ship.currentTile);
-
-        //         // Done!
-        //         return;
-        //     }
-        // }
     }
 
 

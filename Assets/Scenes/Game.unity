@@ -19403,7 +19403,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f93498f3940d28546915f8b2b31d433b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Leader
-  autoPilotMode: 0
+  autoPilotMode: 1
   myName: Thousand Flowers
   faction: 1
   x: 0
@@ -19434,6 +19434,7 @@ MonoBehaviour:
   - {fileID: 1479874037}
   - {fileID: 486794269}
   - {fileID: 23869443}
+  fleet: []
 --- !u!1 &658008530
 GameObject:
   m_ObjectHideFlags: 0
@@ -31488,11 +31489,11 @@ MonoBehaviour:
   y: 0
   currentTile: {fileID: 0}
   traits: 
-  manaCost: 5
+  manaCost: 2
   maxHealth: 10
   damage: 5
   armor: 0
-  speed: 6
+  speed: 4
   range: 1
   vision: 2
   attacks: 2
@@ -38633,7 +38634,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f93498f3940d28546915f8b2b31d433b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Leader
-  autoPilotMode: 0
+  autoPilotMode: 1
   myName: Aeradril
   faction: 3
   x: 0
@@ -38664,6 +38665,7 @@ MonoBehaviour:
   - {fileID: 238414214}
   - {fileID: 1666079435}
   - {fileID: 1136089917}
+  fleet: []
 --- !u!1 &1275063320
 GameObject:
   m_ObjectHideFlags: 0
@@ -51219,7 +51221,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f93498f3940d28546915f8b2b31d433b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Leader
-  autoPilotMode: 0
+  autoPilotMode: 1
   myName: Greybeard
   faction: 0
   x: 0
@@ -51247,6 +51249,7 @@ MonoBehaviour:
   mana: 0
   blueprints:
   - {fileID: 1944378898}
+  fleet: []
 --- !u!1 &1730924550
 GameObject:
   m_ObjectHideFlags: 0
@@ -58172,7 +58175,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f93498f3940d28546915f8b2b31d433b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Leader
-  autoPilotMode: 0
+  autoPilotMode: 1
   myName: Granga
   faction: 2
   x: 0
@@ -58203,6 +58206,7 @@ MonoBehaviour:
   - {fileID: 1646475960}
   - {fileID: 430146182}
   - {fileID: 833653602}
+  fleet: []
 --- !u!1 &2021711876
 GameObject:
   m_ObjectHideFlags: 0

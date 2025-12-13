@@ -114,9 +114,6 @@ public class SpawnManager : MonoBehaviour
             }
         }
 
-        // Clear highlighting!
-        // Tile.ClearAllHighlights();
-
 
         // - Spawn in heroes
         foreach (Leader leader in GM.I.leaders.Values)
@@ -124,9 +121,6 @@ public class SpawnManager : MonoBehaviour
             // Initialize each leader.
             // Note: Also moves them into a random position.
             leader.Init();
-
-            // // Terraform spawn position to be a planet.
-            // leader.currentTile.Terraform(TileType.Planet);
         }
 
         // --- Terraform map
@@ -281,6 +275,9 @@ public class SpawnManager : MonoBehaviour
 
         // Set new position.
         newShip.Move(x, y, false);
+
+        // Set auto pilot to full.
+        newShip.autoPilotMode = AutoPilotMode.Full;
 
         // Activate!
         newShip.gameObject.SetActive(true);
