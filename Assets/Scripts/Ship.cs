@@ -95,7 +95,7 @@ public partial class Ship : MonoBehaviour
         }
 
         // Move to our vantage point.
-        Move(bestTile);
+        yield return Move(bestTile);
 
         // Attack!
         Attack(target);
@@ -182,20 +182,20 @@ public partial class Ship : MonoBehaviour
     // - it's not our turn.
     // - the tile is too far away.
     // - there is already a ship there.
-    public bool AttemptMove(Tile destination)
+    public IEnumerator AttemptMove(Tile destination)
     {
         // Check if it's our turn.
         if (GM.I.activeFaction != faction)
         {
             Debug.Log(myName + " failed to move. Not our turn!");
-            return false;
+            yield break;
         }
 
         // Check if tile is empty.
         if (destination.ship != null)
         {
             Debug.Log(myName + " failed to move. Target tile has a ship already!");
-            return false;
+            yield break;
         }
 
         // Check if tile is too far away.
@@ -204,14 +204,11 @@ public partial class Ship : MonoBehaviour
             Debug.Log(myName + " failed to move. Not enough movement remaining!"
                 + " movement remaining: " + movementRemaining
                 + ". tile movement cost: " + destination.moveCostFromCurrentTile);
-            return false;
+            yield break;
         }
 
         // Delegate to Move!
-        Move(destination);
-
-        // Return true!
-        return true;
+        yield return Move(destination);
     }
 
     // Consume one of this ship's attacks to deal damage to a target ship.
@@ -407,7 +404,7 @@ public partial class Ship : MonoBehaviour
 
     // Move the ship to a destination tile.
     // Note: Does NOT error check!
-    public void Move(Tile destination, bool costMovement = true)
+    public IEnumerator Move(Tile destination, bool costMovement = true)
     {
         // Remove from old tile.
         if (currentTile != null)
@@ -422,7 +419,8 @@ public partial class Ship : MonoBehaviour
         currentTile.ship = this;
 
         // Move physically.
-        transform.position = destination.transform.position;
+        // transform.position = destination.transform.position;
+        
 
         // Claim for your faction!
         destination.Claim(faction);
@@ -432,7 +430,15 @@ public partial class Ship : MonoBehaviour
 
         // Spend movement.
         if (costMovement)
+        {
             SpendMovement(destination.moveCostFromCurrentTile);
+
+            // Move physically
+            yield return PhysicallyMove(destination);
+        } else {
+            // Teleport.
+            transform.position = destination.transform.position;
+        }
 
         // Update fog of war if player faction
         if (faction == GM.I.playerFaction)
@@ -440,6 +446,32 @@ public partial class Ship : MonoBehaviour
 
         // Call tile's OnEnter function.
         destination.OnEnter(this);
+    }
+
+    // Physically move this ship from its current tile to the destination tile.
+    // 
+    public IEnumerator PhysicallyMove(Tile destination)
+    {
+        // Remember our starting position.
+        Vector3 startPosition = transform.position;
+
+        // Remember the end position just so it's easier to read.
+        Vector3 endPosition = destination.transform.position;
+
+        // Animate the movement
+        float elapsed = 0f;
+        float duration = 0.3f;
+        
+        while (elapsed < duration)
+        {
+            elapsed += Time.deltaTime;
+            float t = elapsed / duration;
+            transform.position = Vector3.Lerp(startPosition, endPosition, t);
+            yield return null;
+        }
+
+        // Ensure we end exactly at the target position
+        transform.position = endPosition;
     }
 
     // Refreshes this ship's movement and attacks.
@@ -813,35 +845,6 @@ public partial class Ship : MonoBehaviour
         }
         
         return attackableEnemies;
-    }
-
-
-    // Move this ship in a random direction.
-    public void MoveShipRandomly()
-    {
-        // Skip if no movement remaining
-        if (movementRemaining <= 0) return;
-        
-        // Get all tiles this ship can move to
-        HashSet<Tile> moveableTiles = currentTile.GetTilesInMovementRange();
-        
-        // Filter out tiles with ships on them
-        List<Tile> validTiles = new List<Tile>();
-        foreach (Tile tile in moveableTiles)
-        {
-            if (tile.ship == null)
-                validTiles.Add(tile);
-        }
-        
-        // Check if we have any valid tiles
-        if (validTiles.Count == 0) return;
-        
-        // Pick a random tile
-        int randomIndex = Random.Range(0, validTiles.Count);
-        Tile randomTile = validTiles[randomIndex];
-        
-        // Move there
-        AttemptMove(randomTile);
     }
 
      // Move a ship toward a target tile.

@@ -134,7 +134,7 @@ public class Leader : Ship
             corner = GM.I.GetTile(GM.I.gridWidth - 1, 0);
 
         // Move to corner.
-        Move(corner, false);
+        StartCoroutine(Move(corner, false));
     }
 
     // Handle starting a turn for this leader's faction.

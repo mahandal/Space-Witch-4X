@@ -136,7 +136,7 @@ public class InputManager : MonoBehaviour
                     StartCoroutine(selectedShip.AttemptAttackMove(GM.I.hoveredTile.ship));
                 } else {
                     // Try to move the ship to the target tile.
-                    selectedShip.AttemptMove(GM.I.hoveredTile);
+                    StartCoroutine(selectedShip.AttemptMove(GM.I.hoveredTile));
                 }
 
                 // See if we should reselect this ship after.
