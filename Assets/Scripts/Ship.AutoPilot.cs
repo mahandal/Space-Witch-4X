@@ -214,9 +214,13 @@ public partial class Ship : MonoBehaviour
         }
     }
 
-    // Returns true if there is an enemy ship within this ship's vision and attack range.
+    // Returns true if there is an enemy ship within this ship's vision and attack range,
+    // and we have attacks remaining.
     public bool CanAttack()
     {
+        // Check if we have attacks remaining.
+        if (attacksRemaining <= 0) return false;
+        
         // Get a list of enemy ships in this ship's vision range.
         List<Ship> visibleEnemies = GetVisibleEnemies();
 
