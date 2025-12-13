@@ -6,6 +6,9 @@ using System.Collections;
 
 public class UI : MonoBehaviour
 {
+    [Header("States")]
+    public bool isHoveringUIElement;
+
     [Header("Top Bar")]
     public TMP_Text currentMana;
     public List<BuildButton> buildButtons;
@@ -155,6 +158,7 @@ public class UI : MonoBehaviour
         } else {
             // Reveal hovered ship tooltip.
             hoveredShipParent.SetActive(true);
+            hoveredTooltipParent.SetActive(true);
         }
         
         // Load faction icon.

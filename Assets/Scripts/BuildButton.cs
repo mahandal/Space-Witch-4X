@@ -38,12 +38,15 @@ public class BuildButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
 
         // Put the progenitor's stats in the hover tooltip
         UI.I.HoverShip(progenitor, true);
+
+        UI.I.isHoveringUIElement = true;
     }
 
     public void Unhover()
     {
         Debug.Log("Unhovering build button with blueprint: " + shipName);
         
+        UI.I.isHoveringUIElement = false;
     }
 
     // Called when this button is pressed.

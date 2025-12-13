@@ -42,6 +42,9 @@ public class InputManager : MonoBehaviour
     // Handle hovering over tiles.
     public void HandleHovering()
     {
+        // Ignore UI Elements.
+        if (UI.I.isHoveringUIElement) return;
+        
         // Get mouse position in world space.
         Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
         mouseWorldPos.z = 0;
