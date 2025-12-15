@@ -92,6 +92,12 @@ public class UI : MonoBehaviour
     public TMP_Text hoveredShipDamage;
     public TMP_Text hoveredShipArmor;
 
+    [Header("Hovered UI Element")]
+    public GameObject hoveredUIParent;
+    public Image hoveredUIImage;
+    public TMP_Text hoveredUIName;
+    public TMP_Text hoveredUIDescription;
+
 
     // Singleton
     public static UI I;
@@ -107,11 +113,22 @@ public class UI : MonoBehaviour
         // Disable what should not be.
         ClearSelection();
         postGameParent.SetActive(false);
+        UnhoverAutoPilotButton();
     }
 
     
 
     // - Selection & Hovering
+
+    // Clear the selection UI.
+    public void ClearSelection()
+    {
+        // Hide selection tooltips.
+        selectedTooltipParent.SetActive(false);
+
+        // Hide ship selection specifically.
+        selectedShipParent.SetActive(false);
+    }
 
     // Set up the UI for a newly hovered tile.
     public void HoverTile(Tile hoveredTile)
@@ -285,15 +302,39 @@ public class UI : MonoBehaviour
             Debug.LogError("ERROR! Ship " + ship.myName + " has unknown auto pilot mode: " + ship.autoPilotMode);
     }
 
-    // Clear the selection UI.
-    public void ClearSelection()
+    // Hover an auto pilot button, loading its description into our hover tooltip.
+    public void HoverAutoPilotButton(AutoPilotButton apb)
     {
-        // Hide selection tooltips.
-        selectedTooltipParent.SetActive(false);
+        // Load name.
+        hoveredUIName.text = "Auto Pilot - " + apb.apm.ToString();
 
-        // Hide ship selection specifically.
-        selectedShipParent.SetActive(false);
+        // Load description.
+        hoveredUIDescription.text = apb.description;
+
+        // Load image.
+        string filePath = "HUD/Auto Pilot/Auto Pilot - " + apb.apm.ToString();
+        Utility.LoadImage(hoveredUIImage, filePath);
+
+        // Disable other hover tooltips.
+        hoveredTileParent.SetActive(false);
+        hoveredShipParent.SetActive(false);
+
+        // Enable the hover tooltip parent.
+        hoveredTooltipParent.SetActive(true);
+        hoveredUIParent.SetActive(true);
     }
+
+    // Unhover an auto pilot button, hiding the UI element tooltip.
+    public void UnhoverAutoPilotButton()
+    {
+        // Disable the UI element tooltip.
+        hoveredUIParent.SetActive(false);
+
+        // Disable the hover parent.
+        hoveredTooltipParent.SetActive(false);
+    }
+
+    
 
 
     // - Turn Management

@@ -31,7 +31,8 @@ public class BuildButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
 
     public void Hover()
     {
-        Debug.Log("Hovering build button with blueprint: " + shipName);
+        // Bool.
+        UI.I.isHoveringUIElement = true;
 
         // Get the progenitor for this button's blueprint.
         Ship progenitor = SpawnManager.I.GetProgenitor(shipName);
@@ -39,13 +40,11 @@ public class BuildButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
         // Put the progenitor's stats in the hover tooltip
         UI.I.HoverShip(progenitor, true);
 
-        UI.I.isHoveringUIElement = true;
     }
 
     public void Unhover()
     {
-        Debug.Log("Unhovering build button with blueprint: " + shipName);
-        
+        // Bool.
         UI.I.isHoveringUIElement = false;
     }
 
