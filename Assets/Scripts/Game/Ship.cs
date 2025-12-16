@@ -373,9 +373,8 @@ public partial class Ship : MonoBehaviour
         // Check if we were the leader.
         if (oldLeader == this)
         {
-            // Remove from UN.
-            // GM.I.leaders.Remove(faction);
-            GM.I.leaders[oldFaction] = null;
+            // Remove from UN?
+            // GM.I.leaders[oldFaction] = null;
 
             // Our fleet abandons the fight!
             if (!wasRecruited)
@@ -391,6 +390,11 @@ public partial class Ship : MonoBehaviour
         // - Clean up.
         // (Unless we were recruited!)
         if (wasRecruited) return;
+
+        // Remove from tile.
+        currentTile.ship = null;
+
+        // TBD: Reset move cost?
             
         // Clean up object.
         // Object.Destroy(gameObject);

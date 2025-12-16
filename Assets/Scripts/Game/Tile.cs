@@ -218,6 +218,7 @@ public class Tile : MonoBehaviour
     }
 
     // Get a set of all tiles the ship on this tile can move to with its current movement.
+    // Note: Also finds the movement cost it would take to get to each tile from here.
     public HashSet<Tile> GetTilesInMovementRange()
     {
         // Make sure we have a ship!
