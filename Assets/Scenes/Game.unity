@@ -33854,15 +33854,15 @@ MonoBehaviour:
   y: 0
   currentTile: {fileID: 0}
   traits: 
-  manaCost: 3
-  maxHealth: 15
-  damage: 6
+  manaCost: 1
+  maxHealth: 10
+  damage: 5
   armor: 1
   speed: 4
   range: 1
   vision: 2
-  attacks: 3
-  currentHealth: 15
+  attacks: 2
+  currentHealth: 10
   movementRemaining: 0
   attacksRemaining: 0
   sr: {fileID: 1403195930}
