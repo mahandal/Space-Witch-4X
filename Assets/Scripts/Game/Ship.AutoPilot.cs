@@ -78,11 +78,14 @@ public partial class Ship : MonoBehaviour
         Debug.Log(myName + " is exploring and found tile (" + destination.x + ", "
             + destination.y + ") as their destination.");
 
+        // Remember the tile we start on.
+        Tile startingTile = currentTile;
+
         // Move toward our destination.
         yield return MoveToward(destination);
 
         // Check if we moved successfully.
-        bool successfullyMoved = (destination == currentTile);
+        bool successfullyMoved = (startingTile != currentTile);
 
         // Follow our ships exploring around!
         ShowVision();
@@ -91,8 +94,8 @@ public partial class Ship : MonoBehaviour
         // Keep going?
         if (successfullyMoved)
         {
-            Debug.Log(myName + " successfully reached to ("
-                + destination.x + ", " + destination.y + ").");
+            Debug.Log(myName + " explored to ("
+                + currentTile.x + ", " + currentTile.y + ").");
 
             // Should we return to full auto pilot mode?
             if (fullAuto)
@@ -102,7 +105,7 @@ public partial class Ship : MonoBehaviour
         }
         else
         {
-            Debug.Log(myName + " failed to reach ("
+            Debug.Log(myName + " failed to move toward ("
                 + destination.x + ", " + destination.y + ")"
                 + " and is going to rest with " + movementRemaining
                 + " movement remaining.");
