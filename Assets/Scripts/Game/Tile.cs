@@ -820,6 +820,9 @@ public class Tile : MonoBehaviour
         // Claim other tiles in path!
         if (claimAllTilesInPath && previousTileInPath != null)
             previousTileInPath.Claim(newFaction);
+
+        // Update leaderboard.
+        Leaderboard.I.UpdateLeaderboard();
     }
 
     

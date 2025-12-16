@@ -1,5 +1,7 @@
 using UnityEngine;
+using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 
 // Class for handling the leaderboard,
 // the ranking of each leader's current score in the top left of the game.
@@ -24,11 +26,14 @@ public class Leaderboard : MonoBehaviour
     // Update the leaderboard with the current scores of each faction.
     public void UpdateLeaderboard()
     {
-        // TBD!
+        // Sort factions.
+        List<Faction> sortedFactions = GM.I.leaders.Keys.OrderByDescending(faction => GetScore(faction)).ToList();
 
-        // 1 - Count each faction's score.
-        // 2 - Rank them accordingly.
-        // 3 - Call leaderboardEntries[x].UpdateEntry() appropriately for each faction.
+        // Call leaderboardEntries[x].UpdateEntry() appropriately for each faction.
+        for (int i = 0; i < leaderboardEntries.Count; i++)
+        {
+            leaderboardEntries[i].UpdateEntry(sortedFactions[i]);
+        }
     }
 
     // Get the score for the given faction.

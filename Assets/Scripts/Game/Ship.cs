@@ -393,7 +393,8 @@ public partial class Ship : MonoBehaviour
         if (wasRecruited) return;
             
         // Clean up object.
-        Object.Destroy(gameObject);
+        // Object.Destroy(gameObject);
+        gameObject.SetActive(false);
 
         // Reveal end turn button if our last ship just died.
         UI.I.WhichButtonInTopRight();

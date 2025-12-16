@@ -6,6 +6,8 @@ using System.Collections.Generic;
 
 public class Utility : MonoBehaviour
 {
+    // - Tiles
+
     // Safely check if the coordinates fit in the game grid,
     // and return the tile there if they do.
     // Otherwise, return null.
@@ -22,6 +24,8 @@ public class Utility : MonoBehaviour
     }
 
     // - Debugging
+
+    // Debug print the contents of a hash set.
     public static void DebugSet<T>(HashSet<T> set)
     {
         Debug.Log("PRINTING SET");
@@ -99,17 +103,9 @@ public class Utility : MonoBehaviour
         return horizontalDifference + verticalDifference;
     }
 
-    // Exit the game.
-    public static void ExitGame()
-    {
-        Application.Quit();
-    }
+    
 
-    // Reload the game scene.
-    public static void ReloadGame()
-    {
-        SceneManager.LoadScene("Game");
-    }
+    // - Image loading
 
     // Load an image located at the given location into the given image.
     public static void LoadImage(Image image, string fileName)
@@ -171,6 +167,8 @@ public class Utility : MonoBehaviour
             image.gameObject.SetActive(false);
     }
 
+    // - Camera
+
     // Move the main camera to center on the given tile.
     public static void MoveCamera(Tile tileToFocusOn)
     {
@@ -195,5 +193,20 @@ public class Utility : MonoBehaviour
 
         // Set new position.
         Camera.main.transform.position = newCameraPos;
+    }
+
+
+    // - Menus
+
+    // Exit the game.
+    public static void ExitGame()
+    {
+        Application.Quit();
+    }
+
+    // Reload the game scene.
+    public static void ReloadGame()
+    {
+        SceneManager.LoadScene("Game");
     }
 }
