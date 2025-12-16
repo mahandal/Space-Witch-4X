@@ -14965,7 +14965,7 @@ MonoBehaviour:
   y: 0
   currentTile: {fileID: 0}
   traits: 
-  manaCost: 15
+  manaCost: 30
   maxHealth: 30
   damage: 30
   armor: 0
@@ -33854,7 +33854,7 @@ MonoBehaviour:
   y: 0
   currentTile: {fileID: 0}
   traits: 
-  manaCost: 6
+  manaCost: 3
   maxHealth: 15
   damage: 6
   armor: 1
