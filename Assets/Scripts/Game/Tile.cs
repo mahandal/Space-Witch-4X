@@ -460,7 +460,6 @@ public class Tile : MonoBehaviour
     }
 
     // Get a set of ALL tiles in the grid.
-    // Shorthand so we don't have to keep writing nested for loop.
     public static HashSet<Tile> GetAllTiles()
     {
         // Remember ALL tiles.
@@ -477,6 +476,34 @@ public class Tile : MonoBehaviour
 
                 // Add to set.
                 tiles.Add(tile);
+            }
+        }
+
+        // Return.
+        return tiles;
+    }
+
+    // Get a set of all non-void tiles in the grid.
+    public static HashSet<Tile> GetTiles()
+    {
+        // Remember tiles.
+        HashSet<Tile> tiles = new HashSet<Tile>();
+
+        // Loop through horizontally.
+        for (int i = 0; i < GM.I.gridWidth; i++)
+        {
+            // Loop through vertically.
+            for (int j = 0; j < GM.I.gridHeight; j++)
+            {
+                // Get tile.
+                Tile tile = GM.I.grid[i, j];
+
+                // Check tile is not void.
+                if (tile.myType != TileType.Void)
+                {
+                    // Add to set.
+                    tiles.Add(tile);
+                }
             }
         }
 
