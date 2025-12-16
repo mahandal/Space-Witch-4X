@@ -300,6 +300,17 @@ public class InputManager : MonoBehaviour
     // TBD: Allow hotkeys to be edited.
     public void HandleHotkeys()
     {
+        // - Time Warp
+        if (Keyboard.current.tKey.isPressed)
+        {
+            Time.timeScale += 0.01f;
+        }
+
+        if (Keyboard.current.tKey.wasReleasedThisFrame)
+        {
+            Time.timeScale = 1f;
+        }
+
         // Ignore inputs during other factions' turns.
         if (GM.I.activeFaction != GM.I.playerFaction) return;
 
