@@ -328,6 +328,7 @@ public partial class Ship : MonoBehaviour
         Faction oldFaction = faction;
 
         // - Faction mechanics
+        bool wasRecruited = false;
 
         // null
         if (killer == null)
@@ -352,6 +353,9 @@ public partial class Ship : MonoBehaviour
         {
             // Make Love Not War!
             Convert(Faction.Coven);
+
+            // Remember this ship was recruited, rather than destroyed, so it should stay active.
+            wasRecruited = true;
         }
         // Syndicate
         else if (killer.faction == Faction.Syndicate)
@@ -360,25 +364,19 @@ public partial class Ship : MonoBehaviour
             GM.I.leaders[Faction.Syndicate].GainMana(manaCost);
         }
 
-        // Check if we were recruited!
-        bool wasRecruited = (killer != null && killer.faction == Faction.Coven);
-
-        // Get leader.
-        // Leader leader = GM.I.leaders[faction];
-
         // Remove from old leader's fleet.
-        if (!wasRecruited)
-            oldLeader.fleet.Remove(this);
+        // Note: Ship should already be removed from fleet if converted. But nbd.
+        oldLeader.fleet.Remove(this);
 
-        // Check if we were the leader.
+        // Check if we were the leader of our old faction.
         if (oldLeader == this)
         {
-            // Remove from UN?
-            // GM.I.leaders[oldFaction] = null;
+            // Lose all territory!
+            oldLeader.LoseAllTerritory(oldFaction);
 
             // Our fleet abandons the fight!
-            if (!wasRecruited)
-                oldLeader.AbandonFleet();
+            // (Note: Convert should already handle the fleet as well!)
+            oldLeader.AbandonFleet();
 
             // Check if the player just lost.
             GM.I.CheckDefeat();
@@ -394,10 +392,10 @@ public partial class Ship : MonoBehaviour
         // Remove from tile.
         currentTile.ship = null;
 
-        // TBD: Reset move cost?
+        // TBD: Reset move cost? So you can immediately move into a tile you just cleared?
+        // Though that's a quality of life feature, and doesn't apply to the Coven. So no rush!
             
         // Clean up object.
-        // Object.Destroy(gameObject);
         gameObject.SetActive(false);
 
         // Reveal end turn button if our last ship just died.
@@ -896,11 +894,17 @@ public partial class Ship : MonoBehaviour
             // Check if we need to move through friendly ships.
             while (destination.ship != null)
             {
-                destination = destination.nextTileInPath;
+                // Skip ahead to the next tile in the path.
+                pathIndex++;
+                destination = path[pathIndex];
 
                 // Can't make it through!
-                if (destination == null)
+                if (destination == null || pathIndex >= path.Count)
+                {
+                    Debug.Log(myName + " failed early moving toward destination (" + 
+                        targetTile.x + ", " + targetTile.y + ").");
                     yield break;
+                }
             }
 
             // Move to the next tile.

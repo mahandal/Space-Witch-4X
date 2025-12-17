@@ -290,6 +290,24 @@ public class Leader : Ship
         }
     }
 
+    // Lose all territory your faction had claimed.
+    // Territory reverts to neutral.
+    // Which means Neutral leaders don't do anything! ;)
+    // Note: Faction has to be passed in, because this leader may have changed factions!
+    public void LoseAllTerritory(Faction oldFaction)
+    {
+        // Loop through all tiles.
+        foreach (Tile tile in Tile.GetTiles())
+        {
+            // Check if it was ours.
+            if (tile.faction == oldFaction)
+            {
+                // Revert to neutral.
+                tile.faction = Faction.Neutral;
+            }
+        }
+    }
+
     // Check if our fleet has any actions remaining.
     // Returns true if any ship in our fleet has any movement or attacks remaining.
     // Returns false if we have no available ships.

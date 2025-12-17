@@ -7943,7 +7943,7 @@ MonoBehaviour:
   y: 0
   currentTile: {fileID: 0}
   traits: 01000000
-  manaCost: 15
+  manaCost: 10
   maxHealth: 15
   damage: 5
   armor: 2
@@ -46461,7 +46461,7 @@ MonoBehaviour:
   maxHealth: 20
   damage: 15
   armor: 1
-  speed: 5
+  speed: 6
   range: 1
   vision: 4
   attacks: 1
@@ -56164,7 +56164,7 @@ MonoBehaviour:
   y: 0
   currentTile: {fileID: 0}
   traits: 
-  manaCost: 10
+  manaCost: 5
   maxHealth: 10
   damage: 5
   armor: 1

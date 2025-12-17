@@ -39,9 +39,17 @@ public class Leaderboard : MonoBehaviour
     // Get the score for the given faction.
     // For now at least,
     // score is equal to the number of tiles you own.
+    // Or 0 if your leader is dead! Or converted!
     public static int GetScore(Faction faction)
     {
-        // Initialize to 0.
+        // Get leader.
+        Leader leader = GM.I.leaders[faction];
+
+        // Return 0 if leader is dead or converted.
+        if (leader.currentHealth <= 0 || leader.faction != faction)
+            return 0;
+
+        // Initialize score to 0.
         int score = 0;
 
         // Loop through each tile.
