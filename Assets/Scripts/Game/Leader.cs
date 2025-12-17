@@ -20,6 +20,15 @@ public class Leader : Ship
     // Seems like it shouldn't be necessary tbh, but other options didn't work so w/e.
     public bool hasEndedTurn;
 
+    [Header("Leader AI")]
+    // A list of how many ships this faction has, per type.
+    // (uses same order as blueprints)
+    public List<int> shipCounts;
+
+    // A list of how many ships this leader likes to build, per type.
+    // (uses same order as blueprints)
+    public List<int> preferredShipCounts;
+
     // - AI
 
     // Handle running an AI's turn.
@@ -106,6 +115,13 @@ public class Leader : Ship
         fleet = new List<Ship>();
         fleet.Add(this);
 
+        // Initialize ship counts.
+        shipCounts = new List<int>();
+        for (int i = 0; i < blueprints.Count; i++)
+        {
+            shipCounts.Add(0);
+        }
+
         // Set health bar color.
         healthBar.color = Constance.FactionColor(faction, 1f);
 
@@ -114,7 +130,6 @@ public class Leader : Ship
     }
 
     // Move this leader to its corner of the map as its starting location.
-    // TBD: Scale! Improve! Or maybe just keep it if it's fun enough!
     public void MoveToStartingLocation()
     {
         // Initialize to (0, 0) cause why not?
@@ -335,9 +350,7 @@ public class Leader : Ship
     // Returns false if we don't have a planet available, or enough mana for a ship.
     public bool CanBuild()
     {
-        // For now at least, neutrals don't build.
-        if (faction == Faction.Neutral) return false;
-
+        // Initialize bools.
         bool planetAvailable = false;
         bool enoughMana = false;
 
@@ -350,11 +363,15 @@ public class Leader : Ship
         }
 
         // Iterate through each of our blueprints.
-        foreach (Ship blueprint in blueprints)
+        for (int i = 0; i < blueprints.Count; i++)
         {
-            // Check if we have enough mana to build it!
-            if (blueprint.manaCost <= mana)
-                enoughMana = true;
+            // Check if we want more of this ship.
+            if (shipCounts[i] < preferredShipCounts[i] || preferredShipCounts[i] < 0)
+            {
+                // Check if we have enough mana to build it!
+                if (blueprints[i].manaCost <= mana)
+                    enoughMana = true;
+            }   
         }
 
         // Return!
@@ -392,10 +409,6 @@ public class Leader : Ship
     // Try to build the most expensive ship we can at each planet we can.
     public IEnumerator Build()
     {
-        // Avoid pirate's building for now.
-        // (soon will add space worm ritual!)
-        if (faction == Faction.Neutral) yield break;
-
         // Go through each of our planets.
         List<Tile> myPlanets = GetMyPlanets();
         foreach (Tile planet in myPlanets)
@@ -406,14 +419,20 @@ public class Leader : Ship
             // Show planet to player.
             planet.RevealFromFog();
 
-            // Get the name of the biggest blueprint we can afford to build.
-            string shipName = GetBiggestBlueprint();
+            // Get the index of the biggest blueprint we can afford to build.
+            int blueprintIndex = GetBiggestBlueprint();
 
             // Check we have a valid ship to build, and a valid planet to build it on.
-            if (shipName != "" && planet.ship == null)
+            if (blueprintIndex >= 0 && planet.ship == null)
             {
+                // Get the blueprint.
+                Ship blueprint = blueprints[blueprintIndex];
+
                 // Build it!
-                Ship ship = GM.I.BuildShip(shipName, planet);
+                Ship ship = GM.I.BuildShip(blueprint.myName, planet);
+
+                // Increment ship count.
+                shipCounts[blueprintIndex]++;
 
                 // Reveal ship's vision.
                 ship.ShowVision();
@@ -456,29 +475,71 @@ public class Leader : Ship
         return myPlanets;
     }
 
-    // Return the highest costing blueprint this leader can build.
-    public string GetBiggestBlueprint()
+    // Return the index of the highest costing blueprint this leader can build.
+    // Ignores blueprints of ships we already have enough of.
+    public int GetBiggestBlueprint()
     {
-        // Remember the biggest blueprint.
-        string biggestBlueprint = "";
+        // Remember the index of the biggest blueprint.
+        // Initialize to -1, which we'll return if we don't find any blueprints to build.
+        int biggestIndex = -1;
 
         // Remember the highest cost we've seen.
         int highestCostSoFar = -1;
 
         // Look through each of our blueprints.
-        foreach (Ship blueprint in blueprints)
+        for (int i = 0; i < blueprints.Count; i++)
         {
+            // Get the blueprint.
+            Ship blueprint = blueprints[i];
+
             // Check if its cost is higher than the highest we've seen so far,
             // but less than or equal to how much mana we currently have.
             if (blueprint.manaCost > highestCostSoFar && blueprint.manaCost <= mana)
             {
-                // Remember this blueprint!
-                biggestBlueprint = blueprint.myName;
-                highestCostSoFar = blueprint.manaCost;
+                // Check if we want more of this ship.
+                if (shipCounts[i] < preferredShipCounts[i] || preferredShipCounts[i] < 0)
+                {
+                    // Remember this blueprint!
+                    biggestIndex = i;
+                    highestCostSoFar = blueprint.manaCost;
+                }       
             }
         }
 
         // Return!
-        return biggestBlueprint;
+        return biggestIndex;
+    }
+
+    // Get the blueprint index for a ship.
+    // Returns -1 if the blueprint can't be found for the given ship.
+    public int GetBlueprintIndex(Ship ship)
+    {
+        // Loop through each blueprint.
+        for (int i = 0; i < blueprints.Count; i++)
+        {
+            // Check if the ship's name matches the blueprint.
+            if (ship.myName == blueprints[i].myName)
+            {
+                // Return this index.
+                return i;
+            }
+        }
+
+        // If we couldn't find it, return -1.
+        return -1;
+    }
+
+    // Remove the given ship from our fleet, and decrement our ship count accordingly.
+    public void RemoveFromFleet(Ship ship)
+    {
+        // Remove the given ship from our fleet.
+        fleet.Remove(ship);
+
+        // Find the blueprint index associated with this ship.
+        int index = GetBlueprintIndex(ship);
+
+        // Decrement ship count.
+        if (index >= 0)
+            shipCounts[index]--;
     }
 }

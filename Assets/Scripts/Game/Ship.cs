@@ -365,8 +365,7 @@ public partial class Ship : MonoBehaviour
         }
 
         // Remove from old leader's fleet.
-        // Note: Ship should already be removed from fleet if converted. But nbd.
-        oldLeader.fleet.Remove(this);
+        oldLeader.RemoveFromFleet(this);
 
         // Check if we were the leader of our old faction.
         if (oldLeader == this)
@@ -659,12 +658,6 @@ public partial class Ship : MonoBehaviour
                 if (ship != this)
                     ship.Convert(newFaction);
             }
-        } else {
-            // Get leader of old faction.
-            Leader oldLeader = GM.I.leaders[faction];
-
-            // Remove from old faction leader's fleet.
-            oldLeader.fleet.Remove(this);
         }
 
         // Set new faction.
