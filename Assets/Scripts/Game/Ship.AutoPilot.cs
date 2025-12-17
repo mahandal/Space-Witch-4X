@@ -133,7 +133,7 @@ public partial class Ship : MonoBehaviour
         // Look for an enemy.
         List<Ship> visibleEnemies = GetVisibleEnemies();
 
-        // Check if we there are any enemies in sight.
+        // Check if there are any enemies in sight.
         if (visibleEnemies.Count > 0 && attacksRemaining > 0)
         {
             // Remember our movement and attacks remaining to see if we use any.
