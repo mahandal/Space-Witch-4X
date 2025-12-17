@@ -23,9 +23,18 @@ public class LeaderboardEntry : MonoBehaviour
         leaderName.text = leader.myName;
         leaderName.color = Constance.FactionColor(faction);
 
+        // Get score.
+        int _score = Leaderboard.GetScore(faction);
+
         // Set score.
-        score.text = Leaderboard.GetScore(faction).ToString();
+        score.text = _score.ToString();
         score.color = Constance.FactionColor(faction);
+
+        // Cross out name if score is 0.
+        if (_score == 0)
+        {
+            leaderName.text = "<s>" + leader.myName + "</s>";
+        }
     }
 
     
