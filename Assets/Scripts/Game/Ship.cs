@@ -154,21 +154,21 @@ public partial class Ship : MonoBehaviour
             if (potentialTile.ship != null)
                 continue;
 
-            // Calculate distance from this ship.
-            // TBD: Improve?
-            int travelDistance = Utility.Distance(currentTile, potentialTile);
-
             // Calculate distance to our target.
             int attackDistance = Utility.Distance(potentialTile, targetTile);
 
-            // Check if it's a new best.
-            if (travelDistance < shortestTravelDistance)
+            // Check if it's in range of our target.
+            if (attackDistance <= range)
             {
-                // Remember this as our new best tile.
-                bestTile = potentialTile;
+                // Check if it's a new best.
+                if (tile.moveCostFromCurrentTile < shortestTravelDistance)
+                {
+                    // Remember this as our new best tile.
+                    bestTile = potentialTile;
 
-                // Remember this as our new shortest distance.
-                shortestTravelDistance = travelDistance;
+                    // Remember this as our new shortest distance.
+                    shortestTravelDistance = travelDistance;
+                }
             }
         }
 
