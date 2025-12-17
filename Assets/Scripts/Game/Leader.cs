@@ -26,12 +26,12 @@ public class Leader : Ship
     public IEnumerator AITurn()
     {
         // Center camera on leader.
-        ShowVision();
+        // ShowVision();
 
-        Debug.Log(myName + " is thinking...");
+        // Debug.Log(myName + " is thinking...");
 
-        // Wait a bit, to think.
-        yield return new WaitForSeconds(0.5f);
+        // // Wait a bit, to think.
+        // yield return new WaitForSeconds(0.5f);
 
         Debug.Log(myName + " is going now!");
 
