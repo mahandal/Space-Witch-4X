@@ -479,7 +479,7 @@ public class GM : MonoBehaviour
         foreach (Leader leader in leaders.Values)
         {
             // Can't claim victory until all other leaders are gone or on our side.
-            if (leader != null && leader.faction != playerFaction)
+            if (leader.currentHealth > 0 && leader.faction != playerFaction)
                 weJustWon = false;
         }
 
