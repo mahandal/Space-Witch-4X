@@ -280,8 +280,8 @@ public class SpawnManager : MonoBehaviour
         // Set new position.
         StartCoroutine(newShip.Move(tile, false));
 
-        // Set auto pilot to full.
-        newShip.autoPilotMode = AutoPilotMode.Full;
+        // TBD: Add setting for default auto pilot mode.
+        // newShip.autoPilotMode = AutoPilotMode.Full;
 
         // Activate!
         newShip.gameObject.SetActive(true);

@@ -1776,7 +1776,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de4ab1d67c32f1f4d9a8ed5cc035b185, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Ship
-  autoPilotMode: 5
+  autoPilotMode: 4
   myName: Shark
   faction: 1
   x: 0
@@ -14958,7 +14958,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de4ab1d67c32f1f4d9a8ed5cc035b185, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Ship
-  autoPilotMode: 5
+  autoPilotMode: 4
   myName: Fire Spirit
   faction: 1
   x: 0
@@ -20162,7 +20162,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f93498f3940d28546915f8b2b31d433b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Leader
-  autoPilotMode: 5
+  autoPilotMode: 4
   myName: Thousand Flowers
   faction: 1
   x: 0
@@ -20195,6 +20195,8 @@ MonoBehaviour:
   - {fileID: 23869443}
   fleet: []
   hasEndedTurn: 0
+  shipCounts: 
+  preferredShipCounts: 020000000200000002000000ffffffff
 --- !u!1 &658008530
 GameObject:
   m_ObjectHideFlags: 0
@@ -40427,7 +40429,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f93498f3940d28546915f8b2b31d433b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Leader
-  autoPilotMode: 5
+  autoPilotMode: 4
   myName: Aeradril
   faction: 3
   x: 0
@@ -40460,6 +40462,8 @@ MonoBehaviour:
   - {fileID: 1136089917}
   fleet: []
   hasEndedTurn: 0
+  shipCounts: 
+  preferredShipCounts: 020000000200000002000000ffffffff
 --- !u!1 &1274143555
 GameObject:
   m_ObjectHideFlags: 0
@@ -44888,7 +44892,7 @@ MonoBehaviour:
   gameState: -1
   aiTurnTime: 0.1
   activeFaction: 1
-  playerFaction: 3
+  playerFaction: 0
   round: 1
   turnOrder: 01000000020000000300000000000000
   packLeader: {fileID: 653616652}
@@ -46450,7 +46454,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de4ab1d67c32f1f4d9a8ed5cc035b185, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Ship
-  autoPilotMode: 5
+  autoPilotMode: 4
   myName: Tarodactyl
   faction: 1
   x: 0
@@ -51041,7 +51045,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de4ab1d67c32f1f4d9a8ed5cc035b185, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Ship
-  autoPilotMode: 5
+  autoPilotMode: 4
   myName: Soldier
   faction: 3
   x: 0
@@ -53714,7 +53718,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f93498f3940d28546915f8b2b31d433b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Leader
-  autoPilotMode: 5
+  autoPilotMode: 4
   myName: Greybeard
   faction: 0
   x: 0
@@ -53744,6 +53748,8 @@ MonoBehaviour:
   - {fileID: 1944378898}
   fleet: []
   hasEndedTurn: 0
+  shipCounts: 
+  preferredShipCounts: 02000000000000000000000000000000
 --- !u!1 &1730924550
 GameObject:
   m_ObjectHideFlags: 0
@@ -58871,7 +58877,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de4ab1d67c32f1f4d9a8ed5cc035b185, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Ship
-  autoPilotMode: 5
+  autoPilotMode: 4
   myName: Sky Pirate
   faction: 0
   x: 0
@@ -61043,6 +61049,8 @@ MonoBehaviour:
   - {fileID: 833653602}
   fleet: []
   hasEndedTurn: 0
+  shipCounts: 
+  preferredShipCounts: 020000000200000002000000ffffffff
 --- !u!1 &2021711876
 GameObject:
   m_ObjectHideFlags: 0
