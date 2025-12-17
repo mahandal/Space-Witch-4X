@@ -161,13 +161,13 @@ public partial class Ship : MonoBehaviour
             if (attackDistance <= range)
             {
                 // Check if it's a new best.
-                if (tile.moveCostFromCurrentTile < shortestTravelDistance)
+                if (potentialTile.moveCostFromCurrentTile < shortestTravelDistance)
                 {
                     // Remember this as our new best tile.
                     bestTile = potentialTile;
 
                     // Remember this as our new shortest distance.
-                    shortestTravelDistance = travelDistance;
+                    shortestTravelDistance = potentialTile.moveCostFromCurrentTile;
                 }
             }
         }
