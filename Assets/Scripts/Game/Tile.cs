@@ -806,9 +806,6 @@ public class Tile : MonoBehaviour
     // Set this tile's faction.
     public void Claim(Faction newFaction, bool claimAllTilesInPath = true)
     {
-        // Neutrals don't claim tiles.
-        if (newFaction == Faction.Neutral) return;
-
         // Void tiles can't be claimed.
         if (myType == TileType.Void) return;
         

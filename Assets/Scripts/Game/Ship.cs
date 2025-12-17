@@ -423,7 +423,9 @@ public partial class Ship : MonoBehaviour
         currentTile.ship = this;
 
         // Claim for your faction!
-        destination.Claim(faction);
+        // (except for neutrals!)
+        if (faction != Faction.Neutral)
+            destination.Claim(faction);
 
         // Hide path preview.
         destination.ClearPathPreview();
