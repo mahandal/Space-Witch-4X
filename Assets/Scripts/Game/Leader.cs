@@ -303,7 +303,7 @@ public class Leader : Ship
             if (tile.faction == oldFaction)
             {
                 // Revert to neutral.
-                tile.faction = Faction.Neutral;
+                tile.Claim(Faction.Neutral, false);
             }
         }
     }

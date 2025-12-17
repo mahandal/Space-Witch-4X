@@ -44888,7 +44888,7 @@ MonoBehaviour:
   gameState: -1
   aiTurnTime: 0.1
   activeFaction: 1
-  playerFaction: 1
+  playerFaction: 3
   round: 1
   turnOrder: 01000000020000000300000000000000
   packLeader: {fileID: 653616652}
