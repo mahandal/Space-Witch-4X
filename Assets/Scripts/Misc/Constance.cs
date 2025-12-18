@@ -89,5 +89,6 @@ public enum Trait
     Aquatic,
     Fiery,
     Miner,
-    Pilot
+    Pilot,
+    Flammable
 }

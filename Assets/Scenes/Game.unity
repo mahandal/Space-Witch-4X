@@ -27206,7 +27206,7 @@ MonoBehaviour:
   x: 0
   y: 0
   currentTile: {fileID: 0}
-  traits: 0000000003000000
+  traits: 000000000300000004000000
   manaCost: 50
   maxHealth: 100
   damage: 50

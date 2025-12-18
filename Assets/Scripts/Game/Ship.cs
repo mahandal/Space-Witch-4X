@@ -277,9 +277,15 @@ public partial class Ship : MonoBehaviour
 
         // <Traits>
 
-        // Fiery converts incoming fire damage to healing.
+        // - Fiery
+        // Converts incoming fire damage to healing.
         if (traits.Contains(Trait.Fiery) && damageType == DamageType.Fire)
             incomingDamage = -(Mathf.Abs(incomingDamage));
+
+        // - Flammable
+        // Doubles incoming fire damage.
+        if (traits.Contains(Trait.Flammable) && damageType == DamageType.Fire)
+            incomingDamage *= 2;
 
         // </Traits>
 
