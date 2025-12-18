@@ -198,7 +198,7 @@ public class GM : MonoBehaviour
         leader.GainMana(manaReturned);
 
         // Clean up ship.
-        ship.Death();
+        ship.Death(ship);
     }
 
     // Get the mana cost of a ship from its name.
