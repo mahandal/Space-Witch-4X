@@ -144,17 +144,15 @@ public partial class Ship : MonoBehaviour
 
             // Check if gained any experience.
             // Any movement or attack should gain some xp,
-            // so if we haven't gained any that means we are stuck,
-            // unable to move or attack.
+            // so if we haven't gained any that means we are unable to move or attack any more.
             if (priorExperience == xp)
             {
                 // Couldn't move or attack.
 
                 // Rest?
-                // AttemptRest();
+                AttemptRest();
 
-                // Recycle?
-                GM.I.RecycleShip(this);
+                yield break;
             }
         }
         else
@@ -336,15 +334,23 @@ public partial class Ship : MonoBehaviour
         // Get a set of tiles this ship can see.
         HashSet<Tile> visibleTiles = currentTile.GetTilesInVisionRange();
 
-        // Go through every tile.
-        foreach (Tile tile in Tile.GetAllTiles())
+        // Check if this ship died.
+        if (visibleTiles == null)
         {
-            // Check if tile should be visible.
-            if (visibleTiles.Contains(tile))
+            currentTile.RevealFromFog();
+        }
+        else
+        {   
+            // Go through every tile.
+            foreach (Tile tile in Tile.GetAllTiles())
             {
-                tile.RevealFromFog();
-            } else {
-                tile.HideInFog();
+                // Check if tile should be visible.
+                if (visibleTiles.Contains(tile))
+                {
+                    tile.RevealFromFog();
+                } else {
+                    tile.HideInFog();
+                }
             }
         }
 

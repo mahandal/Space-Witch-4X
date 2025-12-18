@@ -197,6 +197,9 @@ public class GM : MonoBehaviour
         // Gain mana.
         leader.GainMana(manaReturned);
 
+        // Set ship's health to 0;
+        ship.currentHealth = 0;
+
         // Clean up ship.
         ship.Death(ship);
     }
