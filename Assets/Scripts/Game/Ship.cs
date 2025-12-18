@@ -1091,4 +1091,14 @@ public partial class Ship : MonoBehaviour
         // Return!
         return manaReturned;
     }
+
+    // Gain mana for our faction.
+    public void GainManaForFaction(int manaGained)
+    {
+        // Get leader.
+        Leader leader = GM.I.leaders[faction];
+
+        // Gain mana!
+        leader.GainMana(manaGained);
+    }
 }

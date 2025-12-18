@@ -167,6 +167,19 @@ public class Utility : MonoBehaviour
             image.gameObject.SetActive(false);
     }
 
+    // Set the opacity of a given sprite.
+    public static void SetOpacity(SpriteRenderer sr, float a)
+    {
+        // Get old color.
+        Color c = sr.color;
+
+        // Set opacity.
+        c.a = a;
+
+        // Set new color.
+        sr.color = c;
+    }
+
     // - Camera
 
     // Move the main camera to center on the given tile.

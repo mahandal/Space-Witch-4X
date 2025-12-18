@@ -51,6 +51,9 @@ public class Tile : MonoBehaviour
         // Fire
         if (myType == TileType.Fire)
             incomingShip.ReceiveDamage(damageOnEnter, DamageType.Fire);
+
+        // - Traits
+        incomingShip.OnEnter(this);
     }
 
     // Clear our selection so no tiles are highlighted.
@@ -985,10 +988,13 @@ public class Tile : MonoBehaviour
         string fileName = "Tiles/Tile - " + myType.ToString();
         Utility.LoadImage(typeImage, fileName);
 
-        // Set color.
-        // (cause Void tiles have no opacity!)
-        typeImage.color = p.typeImage.color;
-        factionBG.color = p.factionBG.color;
-        bg.color = p.bg.color;
+        // Set opacity.
+        // (cause Void tiles are clear!)
+        Utility.SetOpacity(typeImage, p.typeImage.color.a);
+        Utility.SetOpacity(factionBG, p.factionBG.color.a);
+        Utility.SetOpacity(bg, p.bg.color.a);
+        // typeImage.color = p.typeImage.color;
+        // factionBG.color = p.factionBG.color;
+        // bg.color = p.bg.color;
     }
 }

@@ -8,4 +8,18 @@ public partial class Ship : MonoBehaviour
     {
 
     }
+
+    // Called whenever this ship enters a tile.
+    public void OnEnter(Tile newTile)
+    {
+        // Miner
+        if (traits.Contains(Trait.Miner) && newTile.myType == TileType.Asteroids)
+        {
+            // Terraform to air.
+            newTile.Terraform(TileType.Air);
+
+            // Gain mana.
+            GainManaForFaction(10);
+        }
+    }
 }
