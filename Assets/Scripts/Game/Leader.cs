@@ -297,11 +297,7 @@ public class Leader : Ship
         // Destroy all ships in the fleet.
         foreach (Ship ship in fleetCopy)
         {
-            // Remove from fleet
-            fleet.Remove(ship);
-            
-            // Clean up object
-            Object.Destroy(ship.gameObject);
+            ship.Death(ship);
         }
     }
 

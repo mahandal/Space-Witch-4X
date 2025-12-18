@@ -681,6 +681,12 @@ public partial class Ship : MonoBehaviour
             }
         }
 
+        // Get old leader
+        Leader oldLeader = GM.I.leaders[faction];
+
+        // Remove from old leader's fleet
+        oldLeader.RemoveFromFleet(this);
+
         // Set new faction.
         faction = newFaction;
 
@@ -889,6 +895,9 @@ public partial class Ship : MonoBehaviour
      // Move a ship toward a target tile.
     public IEnumerator MoveToward(Tile targetTile)
     {
+        // Null check.
+        if (targetTile == null) yield break;
+
         Debug.Log(myName + " is attempting to move toward destination (" + 
             targetTile.x + ", " + targetTile.y + ").");
 
