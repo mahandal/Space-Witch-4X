@@ -87,6 +87,7 @@ public enum DamageType
 public enum Trait
 {
     Aquatic,
+    Fiery,
     Miner,
     Pilot
 }

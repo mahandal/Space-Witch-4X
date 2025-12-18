@@ -14970,7 +14970,7 @@ MonoBehaviour:
   x: 0
   y: 0
   currentTile: {fileID: 0}
-  traits: 
+  traits: 01000000
   manaCost: 30
   maxHealth: 30
   damage: 30
@@ -44912,7 +44912,7 @@ MonoBehaviour:
   gameState: -1
   aiTurnTime: 0.1
   activeFaction: 1
-  playerFaction: 0
+  playerFaction: 1
   round: 1
   turnOrder: 01000000020000000300000000000000
   packLeader: {fileID: 653616652}
@@ -44982,7 +44982,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c5bbd2ebaf93ae4ea9e36bbea137214, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Settings
-  aiPlaysForPlayer: 1
+  aiPlaysForPlayer: 0
 --- !u!114 &1422601905
 MonoBehaviour:
   m_ObjectHideFlags: 0

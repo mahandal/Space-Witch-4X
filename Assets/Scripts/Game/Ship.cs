@@ -275,7 +275,15 @@ public partial class Ship : MonoBehaviour
         // Ignore 0 damage.
         if (incomingDamage == 0) return;
 
-        // Lose health
+        // <Traits>
+
+        // Fiery converts incoming fire damage to healing.
+        if (traits.Contains(Trait.Fiery) && damageType == DamageType.Fire)
+            incomingDamage = -(Mathf.Abs(incomingDamage));
+
+        // </Traits>
+
+        // Take damage.
         currentHealth -= incomingDamage;
 
         // Check death?
