@@ -309,13 +309,26 @@ public partial class Ship : MonoBehaviour
         return closestEnemyTile;
     }
 
-    // Full auto pilot:
+    // The auto pilot fully controls this ship.
+    // Default full auto pilot:
     // - Prioritizes fighting an enemy if we can see one.
     // - Otherwise, explore!
+    // (Special priorities also handled here)
     public IEnumerator FullAutoPilot()
     {
         // Full auto pilot takes a moment to think?
         yield return new WaitForSeconds(0.1f);
+
+        // - Traits
+
+        // Miner
+        if (traits.Contains(Trait.Miner))
+        {
+            yield return NavigateToNearestAsteroid();
+        }
+
+
+        // - Default
 
         // Find all visible enemies.
         List<Ship> visibleEnemies = GetVisibleEnemies();
@@ -359,5 +372,50 @@ public partial class Ship : MonoBehaviour
 
         // Select the current tile.
         currentTile.Select();
+    }
+
+    // Find the nearest asteroid to this ship, and move toward it.
+    public IEnumerator NavigateToNearestAsteroid()
+    {
+        // Find the nearest asteroid.
+        Tile destination = NearestTile(TileType.Asteroids);
+
+        // Move to our destination.
+        yield return MoveToward(destination);
+    }
+
+    // Find the nearest tile of the given type.
+    // Returns null if no tiles of that type are found.
+    public Tile NearestTile(TileType tileType)
+    {
+        // Get a set of all tiles we can reach
+        HashSet<Tile> reachableTiles = currentTile.GetAllConnectedTiles();
+
+        // Track the best tile we've seen so far
+        Tile bestTile = null;
+        int closestDistance = int.MaxValue;
+
+        // Loop through each tile
+        foreach (Tile tile in reachableTiles)
+        {
+            // Check if this is the type we're looking for
+            if (tile.myType != tileType)
+                continue;
+
+            // Ignore tiles with ships already on them.
+            if (tile.ship != null)
+                continue;
+
+            // Compare distance
+            if (tile.moveCostFromCurrentTile < closestDistance)
+            {
+                // Remember new best tile
+                bestTile = tile;
+                closestDistance = tile.moveCostFromCurrentTile;
+            }
+        }
+
+        // Return the best tile we found (or null if none found)
+        return bestTile;
     }
 }
