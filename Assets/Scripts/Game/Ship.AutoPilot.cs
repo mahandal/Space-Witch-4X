@@ -136,21 +136,25 @@ public partial class Ship : MonoBehaviour
         // Check if there are any enemies in sight.
         if (visibleEnemies.Count > 0 && attacksRemaining > 0)
         {
-            // Remember our movement and attacks remaining to see if we use any.
-            int priorMovementRemaining = movementRemaining;
-            int priorAttacksRemaining = attacksRemaining;
+            // Remember our xp to see if we gained any, or if we are stuck.
+            int priorExperience = xp;
 
             // If there is an enemy in sight, attack move toward them!
             yield return AttackNearestEnemy();
 
-            // Check if we used any movement or attacks.
-            if (priorMovementRemaining == movementRemaining &&
-                priorAttacksRemaining == attacksRemaining)
+            // Check if gained any experience.
+            // Any movement or attack should gain some xp,
+            // so if we haven't gained any that means we are stuck,
+            // unable to move or attack.
+            if (priorExperience == xp)
             {
-                // Didn't move or attack.
+                // Couldn't move or attack.
 
                 // Rest?
-                AttemptRest();
+                // AttemptRest();
+
+                // Recycle?
+                GM.I.RecycleShip(this);
             }
         }
         else

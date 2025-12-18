@@ -21,18 +21,19 @@ public partial class Ship : MonoBehaviour
     public int manaCost = 0;
     public int maxHealth;
     public int damage;
+    public int attacks = 1;
     public int armor;
     public int speed;
     public int range;
     public int vision;
 
-    [Header("Secret / Special")]
-    public int attacks = 1;
-
     [Header("Live")]
     public float currentHealth;
     public int movementRemaining;
     public int attacksRemaining;
+
+    [Header("Experience & Levels")]
+    public int xp = 0;
 
     [Header("Manual Machinery")]
     // This ship's sprite renderer.
@@ -219,20 +220,25 @@ public partial class Ship : MonoBehaviour
         // - Find total damage dealt.
 
         // Start with the attacker's damage.
-        float totalDamage = damage;
+        float floatDamage = damage;
 
         // Add 10% per adjacent friendly tile.
-        totalDamage *= 1 + (0.1f * CountFriendlyAdjacentTiles());
+        floatDamage *= 1 + (0.1f * CountFriendlyAdjacentTiles());
 
         int totalArmor = target.armor + target.currentTile.GetArmorBonus();
-        totalDamage -= totalArmor;
+        floatDamage -= totalArmor;
 
         // Do a minimum of 1 damage.
-        if (totalDamage < 1)
-            totalDamage = 1;
+        if (floatDamage < 1)
+            floatDamage = 1;
+
+        int totalDamage = (int)floatDamage;
 
         // Deal damage.
-        target.ReceiveDamage((int)totalDamage, this);
+        target.ReceiveDamage(totalDamage, this);
+
+        // Gain xp!
+        xp += totalDamage;
     }
 
     // Count how many tiles next to us we own.
@@ -432,7 +438,11 @@ public partial class Ship : MonoBehaviour
         // Spend movement.
         if (costMovement)
         {
+            // Spend movement.
             SpendMovement(destination.moveCostFromCurrentTile);
+
+            // Gain xp.
+            xp += destination.moveCostFromCurrentTile;
 
             // Move physically
             yield return PhysicallyMove(destination);
