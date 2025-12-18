@@ -65,7 +65,7 @@ public class Leader : Ship
             // Check if we have a ship available.
             // If we do, let it auto pilot.
             if (ship != null)
-                yield return ship.AutoPilot();
+                yield return ship.StartCoroutine(ship.AutoPilot());
                 
             // Check if we can build.
             if (CanBuild())
@@ -75,7 +75,7 @@ public class Leader : Ship
         Debug.Log(myName + " while loop completed!");
 
         // End turn!
-        yield return GM.I.EndTurn();
+        yield return GM.I.StartCoroutine(GM.I.EndTurn());
     }
 
 

@@ -280,7 +280,7 @@ public class GM : MonoBehaviour
         // Handle auto-pilots.
         foreach (Ship ship in currentLeader.GetAvailableShips())
         {
-            yield return ship.AutoPilot();
+            yield return ship.StartCoroutine(ship.AutoPilot());
         }
 
         // Refresh the current leader's fleet so you can click on them and preview their movement.
@@ -345,7 +345,8 @@ public class GM : MonoBehaviour
         Leader leader = leaders[faction];
 
         // Let the leader start their faction's turn.
-        yield return leader.StartTurn();
+        yield return leader.StartCoroutine(leader.StartTurn());
+
 
         // Set up UI.
         UI.I.NewTurn(faction);
@@ -355,7 +356,7 @@ public class GM : MonoBehaviour
 
         // AI?
         if (activeFaction != playerFaction || Settings.I.aiPlaysForPlayer)
-            yield return leader.AITurn();
+            yield return leader.StartCoroutine(leader.AITurn());
     }
 
     // Return the tile in our grid located at position (x, y)
