@@ -7945,14 +7945,14 @@ MonoBehaviour:
   currentTile: {fileID: 0}
   traits: 01000000
   manaCost: 10
-  maxHealth: 15
+  maxHealth: 35
   damage: 5
   attacks: 1
   armor: 2
   speed: 3
   range: 1
   vision: 2
-  currentHealth: 15
+  currentHealth: 35
   movementRemaining: 0
   attacksRemaining: 0
   xp: 0
@@ -35445,11 +35445,11 @@ MonoBehaviour:
   traits: 
   manaCost: 50
   maxHealth: 50
-  damage: 15
+  damage: 25
   attacks: 1
   armor: 1
   speed: 2
-  range: 1
+  range: 3
   vision: 4
   currentHealth: 50
   movementRemaining: 0
