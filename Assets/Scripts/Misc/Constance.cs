@@ -77,5 +77,6 @@ public enum TileType
 public enum Trait
 {
     Aquatic,
-    Miner
+    Miner,
+    Pilot
 }

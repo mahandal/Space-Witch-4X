@@ -602,7 +602,14 @@ public class Tile : MonoBehaviour
         // - Traits
             
         // Aquatic
-        if (myType == TileType.Water && incomingShip.traits.Contains(Trait.Aquatic))
+        if (incomingShip.traits.Contains(Trait.Aquatic) && myType == TileType.Water)
+        {
+            totalMoveCost = 1;
+        }
+
+        // Pilot
+        if (incomingShip.traits.Contains(Trait.Aquatic) && 
+            (myType == TileType.Asteroids || myType == TileType.Planet))
         {
             totalMoveCost = 1;
         }

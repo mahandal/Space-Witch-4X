@@ -27201,7 +27201,7 @@ MonoBehaviour:
   x: 0
   y: 0
   currentTile: {fileID: 0}
-  traits: 
+  traits: 0000000002000000
   manaCost: 50
   maxHealth: 100
   damage: 50
@@ -46471,7 +46471,7 @@ MonoBehaviour:
   x: 0
   y: 0
   currentTile: {fileID: 0}
-  traits: 
+  traits: 02000000
   manaCost: 9
   maxHealth: 20
   damage: 15
@@ -53738,7 +53738,7 @@ MonoBehaviour:
   x: 0
   y: 0
   currentTile: {fileID: 0}
-  traits: 00000000
+  traits: 0000000002000000
   manaCost: 100
   maxHealth: 60
   damage: 7
@@ -58899,7 +58899,7 @@ MonoBehaviour:
   x: 0
   y: 0
   currentTile: {fileID: 0}
-  traits: 00000000
+  traits: 0000000002000000
   manaCost: 15
   maxHealth: 25
   damage: 8
