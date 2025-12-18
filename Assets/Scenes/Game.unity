@@ -20178,7 +20178,7 @@ MonoBehaviour:
   currentTile: {fileID: 0}
   traits: 
   manaCost: 100
-  maxHealth: 50
+  maxHealth: 100
   damage: 10
   damageType: 0
   attacks: 2
@@ -20186,7 +20186,7 @@ MonoBehaviour:
   speed: 4
   range: 1
   vision: 4
-  currentHealth: 50
+  currentHealth: 100
   movementRemaining: 0
   attacksRemaining: 0
   xp: 0
@@ -40455,7 +40455,7 @@ MonoBehaviour:
   currentTile: {fileID: 0}
   traits: 
   manaCost: 100
-  maxHealth: 30
+  maxHealth: 60
   damage: 15
   damageType: 0
   attacks: 1
@@ -40463,7 +40463,7 @@ MonoBehaviour:
   speed: 2
   range: 3
   vision: 3
-  currentHealth: 30
+  currentHealth: 60
   movementRemaining: 0
   attacksRemaining: 0
   xp: 0
@@ -53751,9 +53751,9 @@ MonoBehaviour:
   x: 0
   y: 0
   currentTile: {fileID: 0}
-  traits: 0000000002000000
+  traits: 0000000003000000
   manaCost: 100
-  maxHealth: 60
+  maxHealth: 120
   damage: 7
   damageType: 0
   attacks: 3
@@ -53761,7 +53761,7 @@ MonoBehaviour:
   speed: 2
   range: 1
   vision: 5
-  currentHealth: 60
+  currentHealth: 120
   movementRemaining: 0
   attacksRemaining: 0
   xp: 0
@@ -61057,15 +61057,15 @@ MonoBehaviour:
   currentTile: {fileID: 0}
   traits: 
   manaCost: 100
-  maxHealth: 40
-  damage: 13
+  maxHealth: 80
+  damage: 21
   damageType: 0
   attacks: 1
   armor: 1
   speed: 3
   range: 2
   vision: 5
-  currentHealth: 40
+  currentHealth: 80
   movementRemaining: 0
   attacksRemaining: 0
   xp: 0
