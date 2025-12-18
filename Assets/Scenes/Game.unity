@@ -1786,6 +1786,7 @@ MonoBehaviour:
   manaCost: 40
   maxHealth: 40
   damage: 40
+  damageType: 0
   attacks: 1
   armor: 4
   speed: 8
@@ -7947,6 +7948,7 @@ MonoBehaviour:
   manaCost: 10
   maxHealth: 35
   damage: 5
+  damageType: 0
   attacks: 1
   armor: 2
   speed: 3
@@ -13355,6 +13357,7 @@ MonoBehaviour:
   manaCost: 21
   maxHealth: 21
   damage: 21
+  damageType: 0
   attacks: 1
   armor: 0
   speed: 7
@@ -14971,6 +14974,7 @@ MonoBehaviour:
   manaCost: 30
   maxHealth: 30
   damage: 30
+  damageType: 2
   attacks: 1
   armor: 0
   speed: 5
@@ -20176,6 +20180,7 @@ MonoBehaviour:
   manaCost: 100
   maxHealth: 50
   damage: 10
+  damageType: 0
   attacks: 2
   armor: 2
   speed: 4
@@ -27205,6 +27210,7 @@ MonoBehaviour:
   manaCost: 50
   maxHealth: 100
   damage: 50
+  damageType: 0
   attacks: 1
   armor: 5
   speed: 2
@@ -32849,6 +32855,7 @@ MonoBehaviour:
   manaCost: 2
   maxHealth: 10
   damage: 5
+  damageType: 0
   attacks: 2
   armor: 0
   speed: 4
@@ -33866,6 +33873,7 @@ MonoBehaviour:
   manaCost: 1
   maxHealth: 10
   damage: 5
+  damageType: 0
   attacks: 2
   armor: 1
   speed: 4
@@ -35446,6 +35454,7 @@ MonoBehaviour:
   manaCost: 50
   maxHealth: 50
   damage: 25
+  damageType: 0
   attacks: 1
   armor: 1
   speed: 2
@@ -40448,6 +40457,7 @@ MonoBehaviour:
   manaCost: 100
   maxHealth: 30
   damage: 15
+  damageType: 0
   attacks: 1
   armor: 0
   speed: 2
@@ -40763,8 +40773,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 150, y: 150}
+  m_AnchoredPosition: {x: 15, y: -15}
+  m_SizeDelta: {x: 120, y: 120}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1275693730
 MonoBehaviour:
@@ -46475,6 +46485,7 @@ MonoBehaviour:
   manaCost: 9
   maxHealth: 20
   damage: 15
+  damageType: 0
   attacks: 1
   armor: 1
   speed: 6
@@ -50186,6 +50197,7 @@ MonoBehaviour:
   manaCost: 13
   maxHealth: 13
   damage: 13
+  damageType: 0
   attacks: 1
   armor: 0
   speed: 3
@@ -51068,6 +51080,7 @@ MonoBehaviour:
   manaCost: 20
   maxHealth: 25
   damage: 10
+  damageType: 0
   attacks: 2
   armor: 1
   speed: 3
@@ -53742,6 +53755,7 @@ MonoBehaviour:
   manaCost: 100
   maxHealth: 60
   damage: 7
+  damageType: 0
   attacks: 3
   armor: 5
   speed: 2
@@ -56188,6 +56202,7 @@ MonoBehaviour:
   manaCost: 5
   maxHealth: 10
   damage: 5
+  damageType: 0
   attacks: 1
   armor: 1
   speed: 5
@@ -58903,6 +58918,7 @@ MonoBehaviour:
   manaCost: 15
   maxHealth: 25
   damage: 8
+  damageType: 0
   attacks: 2
   armor: 1
   speed: 4
@@ -61043,6 +61059,7 @@ MonoBehaviour:
   manaCost: 100
   maxHealth: 40
   damage: 13
+  damageType: 0
   attacks: 1
   armor: 1
   speed: 3
@@ -65883,6 +65900,6 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 1422601898}
-  - {fileID: 1601793761}
   - {fileID: 677551028}
+  - {fileID: 1601793761}
   - {fileID: 350671818}

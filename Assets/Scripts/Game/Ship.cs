@@ -21,6 +21,7 @@ public partial class Ship : MonoBehaviour
     public int manaCost = 0;
     public int maxHealth;
     public int damage;
+    public DamageType damageType = DamageType.Earth;
     public int attacks = 1;
     public int armor;
     public int speed;
@@ -235,7 +236,7 @@ public partial class Ship : MonoBehaviour
         int totalDamage = (int)floatDamage;
 
         // Deal damage.
-        target.ReceiveDamage(totalDamage, this);
+        target.ReceiveDamage(totalDamage, damageType, this);
 
         // Gain xp!
         xp += totalDamage;
@@ -267,7 +268,9 @@ public partial class Ship : MonoBehaviour
     }
 
     // Receive damage.
-    public void ReceiveDamage(int incomingDamage, Ship attacker = null)
+    public void ReceiveDamage(int incomingDamage,
+        DamageType damageType = DamageType.Earth,
+        Ship attacker = null)
     {
         // Ignore 0 damage.
         if (incomingDamage == 0) return;
@@ -714,8 +717,9 @@ public partial class Ship : MonoBehaviour
     // Should be called once at the beginning of each turn, by this ship's leader.
     public void Upkeep()
     {
-        // Tile damage!
-        ReceiveDamage(currentTile.damageOnUpkeep);
+        // Fire burns!
+        if (currentTile.myType == TileType.Fire)
+            ReceiveDamage(currentTile.damageOnUpkeep, DamageType.Fire);
 
         // Reveal movement and attacks remaining.
         RevealMovementAndAttacks();

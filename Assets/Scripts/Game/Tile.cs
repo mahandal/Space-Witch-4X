@@ -46,8 +46,11 @@ public class Tile : MonoBehaviour
     // Called when a ship enters this tile.
     public void OnEnter(Ship incomingShip)
     {
-        // Damage
-        incomingShip.ReceiveDamage(damageOnEnter);
+        // - Damage
+
+        // Fire
+        if (myType == TileType.Fire)
+            incomingShip.ReceiveDamage(damageOnEnter, DamageType.Fire);
     }
 
     // Clear our selection so no tiles are highlighted.

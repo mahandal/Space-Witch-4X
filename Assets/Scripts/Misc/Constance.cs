@@ -62,7 +62,7 @@ public enum Faction
     Syndicate
 }
 
-// Tiles.
+// Tile types.
 public enum TileType
 {
     Void,
@@ -73,7 +73,17 @@ public enum TileType
     Planet
 }
 
-// Traits
+// Damage types.
+public enum DamageType
+{
+    Earth,
+    Air,
+    Fire,
+    Water,
+    Void
+}
+
+// Traits.
 public enum Trait
 {
     Aquatic,
