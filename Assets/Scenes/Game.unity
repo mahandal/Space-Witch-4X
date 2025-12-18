@@ -1786,14 +1786,15 @@ MonoBehaviour:
   manaCost: 40
   maxHealth: 40
   damage: 40
+  attacks: 1
   armor: 4
   speed: 8
   range: 1
   vision: 6
-  attacks: 1
   currentHealth: 40
   movementRemaining: 8
   attacksRemaining: 1
+  xp: 0
   sr: {fileID: 373829352}
   healthBar: {fileID: 389215064}
   movementRemainingText: {fileID: 1671115468}
@@ -7946,14 +7947,15 @@ MonoBehaviour:
   manaCost: 10
   maxHealth: 15
   damage: 5
+  attacks: 1
   armor: 2
   speed: 3
   range: 1
   vision: 2
-  attacks: 1
   currentHealth: 15
   movementRemaining: 0
   attacksRemaining: 0
+  xp: 0
   sr: {fileID: 1136127045}
   healthBar: {fileID: 39453996}
   movementRemainingText: {fileID: 1843602918}
@@ -13353,14 +13355,15 @@ MonoBehaviour:
   manaCost: 21
   maxHealth: 21
   damage: 21
+  attacks: 1
   armor: 0
   speed: 7
   range: 2
   vision: 7
-  attacks: 1
   currentHealth: 21
   movementRemaining: 21
   attacksRemaining: 0
+  xp: 0
   sr: {fileID: 12366012}
   healthBar: {fileID: 644265202}
   movementRemainingText: {fileID: 1213329053}
@@ -14968,14 +14971,15 @@ MonoBehaviour:
   manaCost: 30
   maxHealth: 30
   damage: 30
+  attacks: 1
   armor: 0
   speed: 5
   range: 3
   vision: 3
-  attacks: 1
   currentHealth: 30
   movementRemaining: 5
   attacksRemaining: 1
+  xp: 0
   sr: {fileID: 1477031877}
   healthBar: {fileID: 1874283763}
   movementRemainingText: {fileID: 805713810}
@@ -20172,14 +20176,15 @@ MonoBehaviour:
   manaCost: 100
   maxHealth: 50
   damage: 10
+  attacks: 2
   armor: 2
   speed: 4
   range: 1
   vision: 4
-  attacks: 2
   currentHealth: 50
   movementRemaining: 0
   attacksRemaining: 0
+  xp: 0
   sr: {fileID: 1129484692}
   healthBar: {fileID: 1204778209}
   movementRemainingText: {fileID: 1266031744}
@@ -27200,14 +27205,15 @@ MonoBehaviour:
   manaCost: 50
   maxHealth: 100
   damage: 50
+  attacks: 1
   armor: 5
   speed: 2
   range: 1
   vision: 1
-  attacks: 1
   currentHealth: 50
   movementRemaining: 0
   attacksRemaining: 0
+  xp: 0
   sr: {fileID: 1194880051}
   healthBar: {fileID: 1285951282}
   movementRemainingText: {fileID: 821721541}
@@ -32843,14 +32849,15 @@ MonoBehaviour:
   manaCost: 2
   maxHealth: 10
   damage: 5
+  attacks: 2
   armor: 0
   speed: 4
   range: 1
   vision: 2
-  attacks: 2
   currentHealth: 10
   movementRemaining: 0
   attacksRemaining: 0
+  xp: 0
   sr: {fileID: 2004435107}
   healthBar: {fileID: 2142935781}
   movementRemainingText: {fileID: 233685507}
@@ -33859,14 +33866,15 @@ MonoBehaviour:
   manaCost: 1
   maxHealth: 10
   damage: 5
+  attacks: 2
   armor: 1
   speed: 4
   range: 1
   vision: 2
-  attacks: 2
   currentHealth: 10
   movementRemaining: 0
   attacksRemaining: 0
+  xp: 0
   sr: {fileID: 1403195930}
   healthBar: {fileID: 580126532}
   movementRemainingText: {fileID: 2115882590}
@@ -35438,14 +35446,15 @@ MonoBehaviour:
   manaCost: 50
   maxHealth: 50
   damage: 15
+  attacks: 1
   armor: 1
   speed: 2
   range: 1
   vision: 4
-  attacks: 1
   currentHealth: 50
   movementRemaining: 0
   attacksRemaining: 0
+  xp: 0
   sr: {fileID: 1153250915}
   healthBar: {fileID: 1624299401}
   movementRemainingText: {fileID: 663644881}
@@ -40439,14 +40448,15 @@ MonoBehaviour:
   manaCost: 100
   maxHealth: 30
   damage: 15
+  attacks: 1
   armor: 0
   speed: 2
   range: 3
   vision: 3
-  attacks: 1
   currentHealth: 30
   movementRemaining: 0
   attacksRemaining: 0
+  xp: 0
   sr: {fileID: 922722137}
   healthBar: {fileID: 729532211}
   movementRemainingText: {fileID: 372867707}
@@ -44962,6 +44972,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c5bbd2ebaf93ae4ea9e36bbea137214, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Settings
+  aiPlaysForPlayer: 1
 --- !u!114 &1422601905
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -46464,14 +46475,15 @@ MonoBehaviour:
   manaCost: 9
   maxHealth: 20
   damage: 15
+  attacks: 1
   armor: 1
   speed: 6
   range: 1
   vision: 4
-  attacks: 1
   currentHealth: 20
   movementRemaining: 0
   attacksRemaining: 0
+  xp: 0
   sr: {fileID: 862720499}
   healthBar: {fileID: 1777358929}
   movementRemainingText: {fileID: 964139582}
@@ -50174,14 +50186,15 @@ MonoBehaviour:
   manaCost: 13
   maxHealth: 13
   damage: 13
+  attacks: 1
   armor: 0
   speed: 3
   range: 2
   vision: 4
-  attacks: 1
   currentHealth: 13
   movementRemaining: 0
   attacksRemaining: 0
+  xp: 0
   sr: {fileID: 1626173557}
   healthBar: {fileID: 1377438404}
   movementRemainingText: {fileID: 1250894781}
@@ -51055,14 +51068,15 @@ MonoBehaviour:
   manaCost: 20
   maxHealth: 25
   damage: 10
+  attacks: 2
   armor: 1
   speed: 3
   range: 2
   vision: 3
-  attacks: 2
   currentHealth: 25
   movementRemaining: 0
   attacksRemaining: 0
+  xp: 0
   sr: {fileID: 755641371}
   healthBar: {fileID: 830376194}
   movementRemainingText: {fileID: 1032206683}
@@ -53728,14 +53742,15 @@ MonoBehaviour:
   manaCost: 100
   maxHealth: 60
   damage: 7
+  attacks: 3
   armor: 5
   speed: 2
   range: 1
   vision: 5
-  attacks: 3
   currentHealth: 60
   movementRemaining: 0
   attacksRemaining: 0
+  xp: 0
   sr: {fileID: 1506185449}
   healthBar: {fileID: 229271641}
   movementRemainingText: {fileID: 110200964}
@@ -56173,14 +56188,15 @@ MonoBehaviour:
   manaCost: 5
   maxHealth: 10
   damage: 5
+  attacks: 1
   armor: 1
   speed: 5
   range: 1
   vision: 5
-  attacks: 1
   currentHealth: 10
   movementRemaining: 0
   attacksRemaining: 0
+  xp: 0
   sr: {fileID: 61606889}
   healthBar: {fileID: 884697448}
   movementRemainingText: {fileID: 1920658221}
@@ -58887,14 +58903,15 @@ MonoBehaviour:
   manaCost: 15
   maxHealth: 25
   damage: 8
+  attacks: 2
   armor: 1
   speed: 4
   range: 1
   vision: 2
-  attacks: 2
   currentHealth: 25
   movementRemaining: 0
   attacksRemaining: 0
+  xp: 0
   sr: {fileID: 313270844}
   healthBar: {fileID: 430251151}
   movementRemainingText: {fileID: 1747296298}
@@ -61026,14 +61043,15 @@ MonoBehaviour:
   manaCost: 100
   maxHealth: 40
   damage: 13
+  attacks: 1
   armor: 1
   speed: 3
   range: 2
   vision: 5
-  attacks: 1
   currentHealth: 40
   movementRemaining: 0
   attacksRemaining: 0
+  xp: 0
   sr: {fileID: 1227976946}
   healthBar: {fileID: 820917528}
   movementRemainingText: {fileID: 1684638061}

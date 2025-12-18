@@ -261,17 +261,6 @@ public class GM : MonoBehaviour
         BuildButton.ClearAllBuildHighlights();
     }
 
-    // End the current turn and go to the next one.
-    // Delegates to a coroutine so we can let AI have some time to think.
-    // public void EndTurn()
-    // {
-    //     // Stop once the game is over.
-    //     if (gameState > 1) return;
-
-    //     // Start the coroutine!
-    //     StartCoroutine(EndTurnCoroutine());
-    // }
-
     // Handle ending the player's turn.
 
     // Handle ending a turn.
@@ -289,14 +278,10 @@ public class GM : MonoBehaviour
         currentLeader.hasEndedTurn = true;
 
         // Handle auto-pilots.
-        // foreach (Ship ship in currentLeader.fleet)
         foreach (Ship ship in currentLeader.GetAvailableShips())
         {
             yield return ship.AutoPilot();
         }
-        
-        // Let the current leader end the turn for their faction.
-        // yield return currentLeader.EndTurn();
 
         // Refresh the current leader's fleet so you can click on them and preview their movement.
         currentLeader.RefreshFleet();
@@ -369,7 +354,7 @@ public class GM : MonoBehaviour
         UpdateFogOfWar();
 
         // AI?
-        if (activeFaction != playerFaction)
+        if (activeFaction != playerFaction || Settings.I.aiPlaysForPlayer)
             yield return leader.AITurn();
     }
 

@@ -4,10 +4,20 @@ public class Settings : MonoBehaviour
 {
     [Header("Settings")]
     public static bool edgePanningEnabled = true;
+    public bool aiPlaysForPlayer = false;
+
+    // singleton
+    public static Settings I;
 
     // Awaken!
     void Awake()
     {
+        // Enforce singleton pattern.
+        if (I == null)
+            I = this;
+        else
+            Destroy(this);
+
         // Load edge panning preference (default to true if not set)
         edgePanningEnabled = PlayerPrefs.GetInt("EdgePanning", 1) == 1;
     }
