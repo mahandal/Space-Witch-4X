@@ -46,7 +46,7 @@ public class SpawnManager : MonoBehaviour
     public Ship p_Banker;
 
     [Header("Progenitors - Neutral Ships")]
-    public Ship p_SkyPirate;
+    public Ship p_Pirate;
 
     public static SpawnManager I;
 
@@ -90,7 +90,7 @@ public class SpawnManager : MonoBehaviour
 
 
         // Neutral
-        p_SkyPirate.gameObject.SetActive(false);
+        p_Pirate.gameObject.SetActive(false);
     }
 
     // Procedurally generate a new map.
@@ -324,8 +324,8 @@ public class SpawnManager : MonoBehaviour
             return p_Banker;
 
         // Neutral
-        else if (shipName == "Sky Pirate")
-            return p_SkyPirate;
+        else if (shipName == "Pirate")
+            return p_Pirate;
         
         // Unknown
         else

@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 51b51b83d93107e4ea1f9e37e05d6e3d
+guid: c476593c0f16dd548aac29e26ea718cf
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 9133139930893444991
-    second: Ship - Sky Pirate_0
+      213: 3712003117255664128
+    second: Ship - Pirate_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Ship - Sky Pirate_0
+      name: Ship - Pirate_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 1024
-        height: 1024
+        width: 4096
+        height: 4096
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: f77e6d0b06e6fbe70800000000000000
-      internalID: 9133139930893444991
+      spriteID: 002aa290b2fa38330800000000000000
+      internalID: 3712003117255664128
       vertices: []
       indices: 
       edges: []
@@ -135,7 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Ship - Sky Pirate_0: 9133139930893444991
+      Ship - Pirate_0: 3712003117255664128
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
