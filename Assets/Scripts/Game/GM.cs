@@ -113,6 +113,9 @@ public class GM : MonoBehaviour
 
         // - Begin game!
 
+        // Make sure time is ticking!
+        Time.timeScale = 1f;
+
         // Begin the game by starting a new turn for the pack!
         StartCoroutine(NewTurn(Faction.Pack));
     }
