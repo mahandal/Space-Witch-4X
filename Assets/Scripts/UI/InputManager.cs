@@ -274,6 +274,16 @@ public class InputManager : MonoBehaviour
     // TBD: Allow hotkeys to be edited.
     public void HandleHotkeys()
     {
+        // - Settings
+        if (Keyboard.current.escapeKey.wasReleasedThisFrame)
+        {
+            if (MenuManager.I.settingsMenu.activeSelf)
+                MenuManager.I.Button_CloseSettings();
+            else
+                MenuManager.I.Button_OpenSettings();
+        }
+
+
         // - Time Warp
         if (Keyboard.current.tKey.isPressed)
         {
@@ -285,8 +295,9 @@ public class InputManager : MonoBehaviour
             Time.timeScale = 1f;
         }
 
-        // Ignore inputs during other factions' turns.
+        // Ignore some inputs during other factions' turns.
         if (GM.I.activeFaction != GM.I.playerFaction) return;
+
 
         // - Next ship
         // (and End Turn)

@@ -8,9 +8,18 @@ public class MenuManager : MonoBehaviour
     public GameObject settingsMenu;
     public GameObject ggg;
 
+    // Singleton.
+    public static MenuManager I;
+
     // Awaken!
     void Awake()
     {
+        // Enforce singleton pattern.
+        if (I != null && I != this)
+            Destroy(this);
+        else
+            I = this;
+
         // Disable what should not be.
         settingsMenu.SetActive(false);
 
