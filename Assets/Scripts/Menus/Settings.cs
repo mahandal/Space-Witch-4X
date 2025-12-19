@@ -37,6 +37,16 @@ public class Settings : MonoBehaviour
 
         // Enable take control button.
         takeControlButton.SetActive(true);
+
+        // If it is the player's turn, start the AI playing for them.
+        if (GM.I.activeFaction == GM.I.playerFaction)
+        {
+            // Get the player's leader.
+            Leader leader = GM.I.leaders[GM.I.playerFaction];
+
+            // Let the leader start their turn.
+            leader.StartCoroutine(leader.AITurn());
+        }
     }
 
     // Exit spectator mode!
@@ -50,6 +60,16 @@ public class Settings : MonoBehaviour
 
         // Disable take control button.
         takeControlButton.SetActive(false);
+
+        // If it is the player's turn, stop the AI playing for them.
+        if (GM.I.activeFaction == GM.I.playerFaction)
+        {
+            // Get the player's leader.
+            Leader leader = GM.I.leaders[GM.I.playerFaction];
+
+            // Stop all coroutines to interrupt the AI.
+            leader.StopAllCoroutines();
+        }
     }
 
     // Turn on God Mode!
