@@ -409,12 +409,6 @@ public class Leader : Ship
         List<Tile> myPlanets = GetMyPlanets();
         foreach (Tile planet in myPlanets)
         {
-             // Center camera on planet.
-            Utility.MoveCamera(planet);
-
-            // Show planet to player.
-            planet.RevealFromFog();
-
             // Get the index of the biggest blueprint we can afford to build.
             int blueprintIndex = GetBiggestBlueprint();
 
@@ -433,13 +427,11 @@ public class Leader : Ship
                 // Reveal ship's vision.
                 ship.ShowVision();
 
+                // Center camera on planet.
+                Utility.MoveCamera(planet);
+
                 yield return new WaitForSeconds(0.5f);
             }
-
-            yield return new WaitForSeconds(0.2f);
-
-            // Hide planet to player.
-            planet.HideInFog();
         }
     }
 
