@@ -2,6 +2,10 @@ using UnityEngine;
 
 public class Settings : MonoBehaviour
 {
+    [Header("HUD")]
+    public GameObject spectatorModeButton;
+    public GameObject takeControlButton;
+
     [Header("Settings")]
     public static bool edgePanningEnabled = true;
     public bool aiPlaysForPlayer = false;
@@ -20,6 +24,32 @@ public class Settings : MonoBehaviour
 
         // Load edge panning preference (default to true if not set)
         edgePanningEnabled = PlayerPrefs.GetInt("EdgePanning", 1) == 1;
+    }
+
+    // Enter spectator mode!
+    public void Button_SpectatorMode()
+    {
+        // Enable the AI playing for the player.
+        aiPlaysForPlayer = true;
+
+        // Disable spectator mode button.
+        spectatorModeButton.SetActive(false);
+
+        // Enable take control button.
+        takeControlButton.SetActive(true);
+    }
+
+    // Exit spectator mode!
+    public void Button_TakeControl()
+    {
+        // Disable the AI playing for the player.
+        aiPlaysForPlayer = false;
+
+        // Enable spectator mode button.
+        spectatorModeButton.SetActive(true);
+
+        // Disable take control button.
+        takeControlButton.SetActive(false);
     }
 
     // Turn on God Mode!
