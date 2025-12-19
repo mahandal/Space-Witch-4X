@@ -50786,16 +50786,16 @@ MonoBehaviour:
   y: 0
   currentTile: {fileID: 0}
   traits: 0000000003000000
-  manaCost: 15
-  maxHealth: 25
-  damage: 8
+  manaCost: 10
+  maxHealth: 20
+  damage: 5
   damageType: 0
   attacks: 2
   armor: 1
-  speed: 4
+  speed: 3
   range: 1
   vision: 2
-  currentHealth: 25
+  currentHealth: 20
   movementRemaining: 0
   attacksRemaining: 0
   xp: 0
