@@ -40,6 +40,9 @@ public class MenuManager : MonoBehaviour
     // Open the settings menu.
     public void Button_OpenSettings()
     {
+        // Disable time.
+        Time.timeScale = 0f;
+        
         // Enable the options menu.
         settingsMenu.SetActive(true);
     }
@@ -47,6 +50,9 @@ public class MenuManager : MonoBehaviour
     // Close the settings menu.
     public void Button_CloseSettings()
     {
+        // Enable time.
+        Time.timeScale = 1f;
+
         // Disable the options menu.
         settingsMenu.SetActive(false);
     }
