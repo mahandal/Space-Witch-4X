@@ -358,7 +358,7 @@ public class GM : MonoBehaviour
         UpdateFogOfWar();
 
         // AI?
-        if (activeFaction != playerFaction || Settings.I.aiPlaysForPlayer)
+        if (activeFaction != playerFaction || Settings.spectatorMode)
             yield return leader.StartCoroutine(leader.AITurn());
     }
 

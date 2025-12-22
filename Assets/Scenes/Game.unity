@@ -3206,10 +3206,10 @@ RectTransform:
   - {fileID: 510082525}
   - {fileID: 718495482}
   - {fileID: 363419907}
-  - {fileID: 758411243}
+  - {fileID: 1681354030}
   - {fileID: 2041301014}
   - {fileID: 324509336}
-  - {fileID: 1681354030}
+  - {fileID: 758411243}
   m_Father: {fileID: 677551028}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -24082,8 +24082,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1422601903}
-        m_TargetAssemblyTypeName: MenuManager, Assembly-CSharp
+      - m_Target: {fileID: 1422601904}
+        m_TargetAssemblyTypeName: Settings, Assembly-CSharp
         m_MethodName: Button_ToggleEdgePanning
         m_Mode: 1
         m_Arguments:
@@ -41706,11 +41706,11 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 59441674}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 400, y: 250}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_SizeDelta: {x: 150, y: 100}
+  m_Pivot: {x: 0, y: 1}
 --- !u!114 &1299034758
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -44971,7 +44971,7 @@ MonoBehaviour:
   gameState: -1
   aiTurnTime: 0.1
   activeFaction: 1
-  playerFaction: 3
+  playerFaction: 2
   round: 1
   turnOrder: 01000000020000000300000000000000
   packLeader: {fileID: 653616652}
@@ -45043,7 +45043,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Settings
   spectatorModeButton: {fileID: 324509335}
   takeControlButton: {fileID: 2041301013}
-  aiPlaysForPlayer: 0
 --- !u!114 &1422601905
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -51867,7 +51866,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1422601904}
         m_TargetAssemblyTypeName: Settings, Assembly-CSharp
-        m_MethodName: GodMode
+        m_MethodName: Button_GodMode
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

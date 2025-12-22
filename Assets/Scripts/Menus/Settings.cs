@@ -3,12 +3,13 @@ using UnityEngine;
 public class Settings : MonoBehaviour
 {
     [Header("HUD")]
+    // Spectator mode
     public GameObject spectatorModeButton;
     public GameObject takeControlButton;
 
     [Header("Settings")]
     public static bool edgePanningEnabled = true;
-    public bool aiPlaysForPlayer = false;
+    public static bool spectatorMode = false;
 
     // singleton
     public static Settings I;
@@ -22,15 +23,28 @@ public class Settings : MonoBehaviour
         else
             Destroy(this);
 
-        // Load edge panning preference (default to true if not set)
+        // - Load player prefs.
+
+        // Edge panning (default to true).
         edgePanningEnabled = PlayerPrefs.GetInt("EdgePanning", 1) == 1;
+
+        // Spectator mode (default to false).
+        spectatorMode = PlayerPrefs.GetInt("SpectatorMode", 0) == 1;
+
+        // - Activate appropriate buttons.
+
+        // TBD: Edge panning
+
+        // Spectator mode
+        spectatorModeButton.SetActive(!spectatorMode);
+        takeControlButton.SetActive(spectatorMode);
     }
 
     // Enter spectator mode!
     public void Button_SpectatorMode()
     {
         // Enable the AI playing for the player.
-        aiPlaysForPlayer = true;
+        spectatorMode = true;
 
         // Disable spectator mode button.
         spectatorModeButton.SetActive(false);
@@ -47,13 +61,17 @@ public class Settings : MonoBehaviour
             // Let the leader start their turn.
             leader.StartCoroutine(leader.AITurn());
         }
+
+        // Save to PlayerPrefs (1 for true, 0 for false)
+        PlayerPrefs.SetInt("SpectatorMode", Settings.spectatorMode ? 1 : 0);
+        PlayerPrefs.Save();
     }
 
     // Exit spectator mode!
     public void Button_TakeControl()
     {
         // Disable the AI playing for the player.
-        aiPlaysForPlayer = false;
+        spectatorMode = false;
 
         // Enable spectator mode button.
         spectatorModeButton.SetActive(true);
@@ -70,10 +88,15 @@ public class Settings : MonoBehaviour
             // Stop all coroutines to interrupt the AI.
             leader.StopAllCoroutines();
         }
+
+        // Save to PlayerPrefs (1 for true, 0 for false)
+        PlayerPrefs.SetInt("SpectatorMode", Settings.spectatorMode ? 1 : 0);
+        PlayerPrefs.Save();
     }
 
-    // Turn on God Mode!
-    public void GodMode()
+    // Button pressed to enter god mode.
+    // Should maybe make a toggle? but not a priority.
+    public void Button_GodMode()
     {
         // Get leader.
         Leader leader = GM.I.leaders[GM.I.playerFaction];
@@ -92,7 +115,34 @@ public class Settings : MonoBehaviour
         GM.I.UpdateFogOfWar();
     }
 
+    // Toggle edge panning on/off
+    public void Button_ToggleEdgePanning()
+    {
+        // If it's off, turn it on.
+        if (!edgePanningEnabled)
+        {
+            // Set bool.
+            edgePanningEnabled = true;
+
+            // Load image.
+            // TBD!
+            // Utility.LoadImage(UI.I.toggleEdgePanning, "Toggle - On");
+        } else {
+            // Set bool.
+            edgePanningEnabled = false;
+
+            // Load image.
+            // TBD!
+            // Utility.LoadImage(UI.I.toggleEdgePanning, "Toggle - Off");
+        }
+
+        // Save to PlayerPrefs (1 for true, 0 for false)
+        PlayerPrefs.SetInt("EdgePanning", Settings.edgePanningEnabled ? 1 : 0);
+        PlayerPrefs.Save();
+    }
+
     // Choose your faction.
+    // TBD: Remember in player prefs!
     public void Button_SelectFaction(string factionName)
     {
         // Get the faction from its name.

@@ -56,28 +56,4 @@ public class MenuManager : MonoBehaviour
         // Disable the options menu.
         settingsMenu.SetActive(false);
     }
-
-    // Toggle edge panning on/off
-    public void Button_ToggleEdgePanning()
-    {
-        // If it's off, turn it on.
-        if (!Settings.edgePanningEnabled)
-        {
-            // Set bool.
-            Settings.edgePanningEnabled = true;
-
-            // Load image.
-            // Utility.LoadImage(UI.I.toggleEdgePanning, "Toggle - On");
-        } else {
-            // Set bool.
-            Settings.edgePanningEnabled = false;
-
-            // Load image.
-            // Utility.LoadImage(UI.I.toggleEdgePanning, "Toggle - Off");
-        }
-
-        // Save to PlayerPrefs (1 for true, 0 for false)
-        PlayerPrefs.SetInt("EdgePanning", Settings.edgePanningEnabled ? 1 : 0);
-        PlayerPrefs.Save();
-    }
 }
